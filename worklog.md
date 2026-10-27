@@ -78,3 +78,21 @@ Work Log:
 Stage Summary:
 - Homepage photography is now 100% real firm imagery: 3 hero slides + director-section polaroid. Generated practice-area imagery (hero-litigation.png etc.) remains in use on practice pages/mega menu only.
 - Practice indicators / LPC-sensitive placeholders unchanged; no data-model changes.
+
+---
+Task ID: 5
+Agent: Main agent (Z.ai)
+Task: Add a premium onboarding interactive component ("Client Pathfinder") placed immediately before the practice-areas section, routing users to the right areas of the website.
+
+Work Log:
+- New src/components/site/client-pathfinder.tsx (~560 lines) — "Client pathfinder" guided-intake wizard on a dark navy full-bleed section: split layout with storytelling copy + vertical 4-step rail (left) and a white interactive console card with navy header band + animated gold progress hairline (right).
+- 3-question flow with auto-advance (consistent with the three-questions dialog): Q1 profile (6 icon cards — company/lender/developer/public/individual/practitioner), Q2 need (6 cards mapped to practices), Q3 timeline (urgent/weeks/planning). AnimatePresence mode="wait" slide transitions, staggered option-card entrances, clickable answer chips to revise, Back/Start-over footer, ghost serif numeral crossfading 01→04 in the backdrop.
+- Result = "boarding-pass" route itinerary: practice banner in the practice's accent colour → #/practice/[slug]; "Along the way" stops 02–04 with dashed connector + numbered navy/gold nodes, tailored per profile (WAYPOINTS map: case-roll / fees / client-matrix / journey / testimonials scroll targets, or #/about · #/people · #/joining · #/group routes); "Your next move" CTA panel driven by timeline (urgent → tel: link, weeks → booking dialog, planning → contact page) + "Browse the six practices" scroll; LPC-safe guidance footnote + confidentiality microcopy.
+- Anchor IDs added for scroll routing: #client-matrix (sector-matrix), #testimonials (testimonials), #fees + #journey (home sections), scroll-mt-24 applied to all five targets incl. #case-roll and #practice-areas so floating nav never covers headings.
+- Wired <ClientPathfinder /> into home.tsx between the positioning/counters section and #practice-areas (rhythm: white → navy gateway → ivory grid).
+- Verification (agent-browser, 1440 + 390): full flows for company/lender/individual/practitioner profiles — correct practice per need (dispute→01 Litigation, property→06 Conveyancing), per-profile waypoints, waypoint scrolls land at 96px (scroll-mt respected), booking dialog opens from result CTA, route waypoint navigates to #/joining, urgent flow shows tel: CTA, rail step revision returns to Q1 with state preserved; mobile: option grid/chips/CTAs fit, scrollWidth == innerWidth (no overflow); no page errors; console clean apart from pre-existing hero-parallax warning; ESLint clean. Fixed during verification: banner eyebrow "Stop 01 · 01 · …" duplication → "Stop 01 · Recommended practice".
+
+Stage Summary:
+- Homepage flow is now: Hero → Deal Desk ticker → trust strip → positioning/counters → CLIENT PATHFINDER (interactive onboarding router) → practice grid → dark trust architecture → Client matrix → Case roll → testimonials → director → journey → fees → 3-questions CTA → insights → FAQ.
+- The Pathfinder routes across the whole site (6 practice pages, 5 in-page sections, 4 sub-pages, booking dialog, tel:) — distinct from the compact three-questions dialog, which remains for nav/CTA entry points.
+- No data-model changes; PRACTICE_AREAS/getPractice reused for routing; all waypoint targets exist on the homepage.

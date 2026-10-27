@@ -22,6 +22,7 @@ import { JourneyStepper } from "@/components/site/journey";
 import { FaqAccordion } from "@/components/site/faq";
 import { SectorMatrix } from "@/components/site/sector-matrix";
 import { CaseRoll } from "@/components/site/case-roll";
+import { ClientPathfinder } from "@/components/site/client-pathfinder";
 import { Testimonials } from "@/components/site/testimonials";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
@@ -119,8 +120,11 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ——— Client pathfinder (interactive onboarding router) ——— */}
+      <ClientPathfinder />
+
       {/* ——— Practice areas ——— */}
-      <section id="practice-areas" className="bg-ivory py-24 sm:py-28">
+      <section id="practice-areas" className="scroll-mt-24 bg-ivory py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <SectionHeading
@@ -308,7 +312,7 @@ export function HomePage() {
       </section>
 
       {/* ——— Engagement journey ——— */}
-      <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
+      <section id="journey" className="relative scroll-mt-24 overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0 opacity-60" />
         <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
         <div className="relative mx-auto max-w-7xl px-6">
@@ -330,7 +334,7 @@ export function HomePage() {
       </section>
 
       {/* ——— Fee models ——— */}
-      <section className="bg-white py-24 sm:py-28">
+      <section id="fees" className="scroll-mt-24 bg-white py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
             eyebrow="Fee transparency"

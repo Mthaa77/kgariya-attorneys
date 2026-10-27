@@ -56,7 +56,7 @@ export function CaseRoll() {
     <section
       id="case-roll"
       aria-label="Representative matters — anonymised case roll"
-      className="relative overflow-hidden bg-ivory py-24 sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden bg-ivory py-24 sm:py-28"
     >
       <div className="texture-dots pointer-events-none absolute inset-0 opacity-30" />
 

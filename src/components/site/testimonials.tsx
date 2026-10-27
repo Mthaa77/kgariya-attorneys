@@ -31,8 +31,9 @@ export function Testimonials() {
 
   return (
     <section
+      id="testimonials"
       aria-label="Client voices"
-      className="bg-white py-24 sm:py-28"
+      className="scroll-mt-24 bg-white py-24 sm:py-28"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

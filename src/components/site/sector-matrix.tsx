@@ -40,8 +40,9 @@ export function SectorMatrix() {
 
   return (
     <section
+      id="client-matrix"
       aria-label="Client matrix — sectors we serve"
-      className="relative overflow-hidden bg-white py-24 sm:py-28"
+      className="relative scroll-mt-24 overflow-hidden bg-white py-24 sm:py-28"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
