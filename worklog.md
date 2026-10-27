@@ -62,3 +62,19 @@ Stage Summary:
 - Homepage now: Hero → Deal Desk ticker → trust strip → positioning/counters → practice grid → dark trust architecture → INTERACTIVE sector explorer (Client matrix) → INTERACTIVE case roll (Representative matters) → testimonials → director → journey → fees → 3-questions CTA → insights → FAQ.
 - Data model additions are additive: MatterCard/MatterDeck and About-page sector usage unaffected; practice pages still render matters with the enriched metadata available for future reuse.
 - All LPC sensitivities preserved: anonymised sectors/files, disclaimer footnotes in both sections.
+
+---
+Task ID: 4
+Agent: Main agent (Z.ai)
+Task: Replace generated hero imagery with the firm's real office-building photos (4 uploaded) and distribute the remaining images across the homepage.
+
+Work Log:
+- Copied the 4 uploaded photos to public/images with clean names: office-sunset.jpg (1080x695 golden-hour facade + plaza), office-architecture.jpg (980x653 B&W upward HDR with pergola), office-night.jpg (886x590 night shot, LED-lit building "4"), office-plaza.jpg (630x945 portrait, two-storey building + planters).
+- hero-slider.tsx: all 3 slide backgrounds swapped to the real photos (sunset → Litigation slide, B&W architecture → Development slide, night → Finance slide); added a glass "Photographed — our Pretoria offices" MapPin chip next to the "Evidence over slogans" chip in the bottom control deck.
+- globals.css: hero-vignette now layers a 100deg left-side navy scrim over the existing vertical gradient to protect headline contrast against the brighter real daylight photos.
+- home.tsx (director section): portrait office photo added as a polaroid-style overlapping card (border-4 white, rotate-2, ImageReveal entrance, hover levels + zooms) with a MapPin "Our Pretoria offices / Where mandates meet" footer; first placement collided with the director caption/credentials line — resized to 168px and moved to bottom-14 right-4 so role + credentials text stays fully readable.
+- Verification (agent-browser, 1440 + 390): all three hero slides render with correct copy + ken burns + parallax; location chip visible; hover-pause confirmed (pause orb switches to play); director collage layered correctly, caption legible; mobile hero contrast + controls clean; scrollWidth == innerWidth (no overflow); no page errors; ESLint clean.
+
+Stage Summary:
+- Homepage photography is now 100% real firm imagery: 3 hero slides + director-section polaroid. Generated practice-area imagery (hero-litigation.png etc.) remains in use on practice pages/mega menu only.
+- Practice indicators / LPC-sensitive placeholders unchanged; no data-model changes.

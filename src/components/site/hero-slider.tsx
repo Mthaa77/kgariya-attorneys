@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
+  MapPin,
   Pause,
   Play,
 } from "lucide-react";
@@ -27,7 +28,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SLIDES = [
   {
-    image: "/images/hero-litigation.png",
+    image: "/images/office-sunset.jpg",
     eyebrow: "Commercial Litigation & Arbitration",
     title: "High-stakes disputes,",
     titleAccent: "fought with strategy.",
@@ -36,7 +37,7 @@ const SLIDES = [
     secondary: { label: "Our practice areas", route: "#practice" },
   },
   {
-    image: "/images/hero-development.png",
+    image: "/images/office-architecture.jpg",
     eyebrow: "Real Estate Development Packaging",
     title: "From bare land",
     titleAccent: "to capital close.",
@@ -48,7 +49,7 @@ const SLIDES = [
     },
   },
   {
-    image: "/images/hero-finance.png",
+    image: "/images/office-night.jpg",
     eyebrow: "Banking & Development Finance",
     title: "Facilities and security,",
     titleAccent: "documented to hold.",
@@ -270,10 +271,14 @@ export function HeroSlider() {
       <div className="absolute inset-x-0 bottom-0 z-20">
         {/* Slide progress deck */}
         <div className="mx-auto flex max-w-7xl items-end justify-between px-6 pb-8">
-          {/* Left: positioning chip */}
+          {/* Left: positioning + location chip */}
           <div className="hidden items-center gap-3 lg:flex">
             <span className="rounded-full border border-white/20 bg-navy-950/40 px-4 py-2 font-display text-[13px] italic text-gold-200 backdrop-blur-md">
               Evidence over slogans.
+            </span>
+            <span className="flex items-center gap-2 rounded-full border border-white/15 bg-navy-950/40 px-4 py-2 text-[11.5px] font-semibold tracking-wide text-white/75 backdrop-blur-md">
+              <MapPin className="h-3.5 w-3.5 text-gold-300" />
+              Photographed — our Pretoria offices
             </span>
           </div>
 

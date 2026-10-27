@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowUpRight, BadgeCheck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, MapPin } from "lucide-react";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import {
@@ -241,6 +241,26 @@ export function HomePage() {
                   <p className="text-[10.5px] text-muted-foreground">
                     Trust account audited
                   </p>
+                </div>
+              </div>
+              {/* Real office polaroid — overlapping card */}
+              <div className="group absolute bottom-14 right-4 hidden w-[168px] rotate-2 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-luxe-lg transition-all duration-500 hover:-translate-y-1.5 hover:rotate-0 md:block">
+                <div className="relative h-[185px] overflow-hidden">
+                  <ImageReveal
+                    src="/images/office-plaza.jpg"
+                    alt="The Kgariya Attorneys office building, Pretoria"
+                    className="h-full w-full"
+                    imgClassName="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-2.5">
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-gold-600" />
+                  <div className="leading-tight">
+                    <p className="text-[10.5px] font-bold text-navy-900">Our Pretoria offices</p>
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                      Where mandates meet
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

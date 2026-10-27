@@ -207,6 +207,7 @@
 
 .hero-vignette {
   background:
+    linear-gradient(100deg, rgba(6, 15, 31, 0.55) 0%, rgba(6, 15, 31, 0.22) 42%, rgba(6, 15, 31, 0) 68%),
     linear-gradient(180deg, rgba(6, 15, 31, 0.62) 0%, rgba(6, 15, 31, 0.35) 40%, rgba(6, 15, 31, 0.82) 100%);
 }
 
