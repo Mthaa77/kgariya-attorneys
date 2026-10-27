@@ -118,3 +118,19 @@ Stage Summary:
 - Section height of "Representative matters" reduced ~2/3 by default with zero loss of content: all 18 matters remain reachable through the disclosure bar and filters, drawers and filters unchanged.
 - Performance: every route except home removed from the initial bundle (536K monolith → 219K max chunk); route changes fetch only their own chunk; font files down 42%; reduced-motion support added; list rendering memoised.
 - Visual output unchanged everywhere except the intended CaseRoll shortening.
+
+---
+Task ID: 7
+Agent: main (Z.ai)
+Task: Create a new GitHub repo and push the project
+
+Work Log:
+- Verified active PAT for account Mthaa77 via GitHub API
+- Created private repo Mthaa77/kgariya-attorneys via API
+- Untracked .env (local-only config) before pushing; confirmed 404 on remote
+- Pushed main branch (204 files) with token-auth remote
+- Untracked db/custom.db (local dev SQLite) and added /db to .gitignore; pushed cleanup commit
+
+Stage Summary:
+- Repo live at https://github.com/Mthaa77/kgariya-attorneys (private), main branch tracking origin
+- No secrets/env/db files on remote; local files untouched
