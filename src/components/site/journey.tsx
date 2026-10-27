@@ -1,17 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { JOURNEY } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
-/** Interactive 4-step engagement journey with animated progress rail. */
+const AUTO_MS = 6000;
+
+/** Interactive 4-step engagement journey — auto-advancing with animated progress rail. */
 export function JourneyStepper({ dark = false }: { dark?: boolean }) {
   const [active, setActive] = useState(0);
+  const [hovered, setHovered] = useState(false);
+
+  // Auto-advance the journey unless the visitor is interacting
+  useEffect(() => {
+    if (hovered) return;
+    const t = setInterval(() => setActive((a) => (a + 1) % JOURNEY.length), AUTO_MS);
+    return () => clearInterval(t);
+  }, [hovered]);
 
   return (
-    <div className={cn("grid gap-10 lg:grid-cols-[380px_1fr]", dark && "text-white")}>
+    <div
+      className={cn("grid gap-10 lg:grid-cols-[380px_1fr]", dark && "text-white")}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       {/* Steps rail */}
       <div className="relative">
         <div

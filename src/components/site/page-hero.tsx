@@ -38,7 +38,7 @@ export function PageHero({
         <div className="texture-grid-dark absolute inset-0 opacity-40" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-14 sm:pb-24 sm:pt-16">
+      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-36 sm:pb-24 sm:pt-40">
         <motion.nav
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

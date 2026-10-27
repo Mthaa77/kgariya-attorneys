@@ -807,3 +807,58 @@ export const BADGES = [
   { label: "PAIA Manual", sub: "Section 51 published" },
   { label: "Trust Account Audited", sub: "LPC standard" },
 ];
+
+/* ——————————— Live ticker — "the deal desk" ——————————— */
+
+export type TickerItem = {
+  kind: "Transaction" | "Litigation" | "Registration" | "Mandate" | "Advisory";
+  title: string;
+  value: string;
+  direction: "up" | "down";
+};
+
+export const TICKER_ITEMS: TickerItem[] = [
+  { kind: "Transaction", title: "Township development finance package", value: "R 480m facility documented", direction: "up" },
+  { kind: "Litigation", title: "Commercial arbitration award", value: "Award upheld, with costs", direction: "up" },
+  { kind: "Registration", title: "Sectional title register opened", value: "Deeds office — registered", direction: "up" },
+  { kind: "Mandate", title: "Panel appointment, listed borrower", value: "Security package review", direction: "up" },
+  { kind: "Advisory", title: "NHBRC enrolment strategy", value: "Cleared for phase submission", direction: "up" },
+  { kind: "Litigation", title: "Urgent interdict, construction site", value: "Resolved without costs order", direction: "down" },
+  { kind: "Transaction", title: "SHRA social housing agreements", value: "Project agreements signed", direction: "up" },
+  { kind: "Registration", title: "Bond registrations this quarter", value: "1,000+ milestone", direction: "up" },
+  { kind: "Mandate", title: "Municipal PPP advisory", value: "Feasibility legal opinion issued", direction: "up" },
+  { kind: "Transaction", title: "Multi-tiered security package", value: "Credit committee approved", direction: "up" },
+];
+
+/* ——————————— Client voices (anonymised per LPC rules) ——————————— */
+
+export const TESTIMONIALS = [
+  {
+    quote:
+      "They report like investment professionals — every stage of the dispute documented, every strategic option costed. Our board knew exactly where the matter stood at all times.",
+    name: "General Counsel",
+    org: "JSE-listed property group",
+    practice: "Commercial Litigation & Arbitration",
+  },
+  {
+    quote:
+      "The development packaging was underwriting-grade from day one. Our credit committee had every question answered before it was asked — that is rare.",
+    name: "Head of Development Finance",
+    org: "National banking institution",
+    practice: "Real Estate Development Packaging",
+  },
+  {
+    quote:
+      "Precise, discreet and relentless on the deadlines that mattered. The security package held up under exactly the pressure it was designed for.",
+    name: "Chief Risk Officer",
+    org: "Development finance institution",
+    practice: "Banking & Development Finance",
+  },
+  {
+    quote:
+      "A firm that retired forty services to be excellent at six — you feel the depth in the first meeting. No generalist guesswork, only specialist conviction.",
+    name: "Managing Director",
+    org: "Private development company",
+    practice: "Full-mandate engagement",
+  },
+];

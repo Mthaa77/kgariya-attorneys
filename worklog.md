@@ -22,3 +22,24 @@ Stage Summary:
 - Deliverable: complete premium multipage website (12+ routes via hash router) at src/app/page.tsx, content-driven from src/lib/site-data.ts and src/lib/insights.ts.
 - Key decisions: hash router to satisfy single-route constraint; navy+gold palette from the firm's crest; "Evidence over slogans" philosophy embedded across trust sections; LPC-sensitive content marked for firm confirmation (director name, registration numbers, counters).
 - Placeholders for the firm to confirm before go-live: director's full name/initials, LPC practice numbers, final matter values, B-BBEE certificate details.
+
+---
+Task ID: 2
+Agent: Main agent (Z.ai)
+Task: Upgrade homepage premium experience per user request — enhanced hero, live ticker under hero, floating navbar, more interactive homepage sections with scroll animations.
+
+Work Log:
+- Added TICKER_ITEMS (10 anonymised "deal desk" items) and TESTIMONIALS (4 LPC-safe client voices) to src/lib/site-data.ts.
+- New src/components/site/interactions.tsx: Magnetic (cursor-pull wrapper), TiltCard, SpotlightCard (mouse-tracked gold glow, overlay z-20 above opaque cards), Parallax, ScrollProgress, BackToTop, WordReveal (per-word masked rise), ImageReveal (clip-path wipe).
+- globals.css: marquee-slow + pause-on-hover, live-pulse, gold-pulse, light-sweep, scroll-cue, aurora, btn-sheen, gradient-ring (conic hover ring via @property), gold-text-shine.
+- New src/components/site/live-ticker.tsx: Bloomberg-style "DEAL DESK — LIVE" strip under hero: red pulse dot, kind tags, direction arrows, gold diamond separators, edge fades, pause control, hover-pause marquee, items click into three-questions flow, LPC disclaimer in-loop.
+- header.tsx rewritten as floating capsule navbar: fixed overlay (pointer-events managed), TopBar collapses on scroll, dark-glass rounded-full capsule shrinks 74→62px and tightens max-w when scrolled, sliding layoutId nav pill, blur/scale mega menu with staggered items, page scroll progress hairline inside capsule, Magnetic + btn-sheen CTA, gold mobile menu orb; removed in-flow spacer (broken expression) and PageHero pt raised 14→36/40 to clear fixed nav (all pages use dark heroes).
+- hero-slider.tsx upgraded: 100svh, scroll parallax (bg y+scale, copy lift+fade, stat-stack drift), WordReveal headlines with gold-text-shine accent, cinematic light sweep per slide, floating glass stat cards (3 COUNTERS w/ Counter + floaty + staggered entrance + inline SVG glyphs), progress-fill slide dots, scroll cue, magnetic CTAs, prev/next/pause deck.
+- home.tsx upgraded: LiveTicker after hero; SpotlightCard+gradient-ring on counters, trust pillars, sectors, fee cards; practice cards wrapped in gradient-ring; Magnetic CTAs; director portrait via ImageReveal + floating LPC credential chip; CTA panel aurora blobs; NEW Testimonials carousel (auto-advance 6.5s, hover-pause, progress dots, prev/next, anonymised); insights redesigned to featured navy panel + stacked cards; BackToTop added.
+- journey.tsx: auto-advances every 6s, pauses on hover. matter-card.tsx: wrapped in SpotlightCard (all pages benefit).
+- Verification (agent-browser, 1440px + 390px): hero, ticker marquee, practice grid, mega menu hover, testimonials, matters, featured insights, about + practice page hero clearance, booking dialog, mobile hero + sheet menu — all render; ESLint clean; fresh-session console clean (earlier error lines were stale HMR artifacts).
+
+Stage Summary:
+- Homepage is now: Hero (parallax + word reveal + proof stack) → Deal Desk live ticker → trust strip → positioning + spotlight counters → practice grid → dark trust architecture → sectors → matters → client voices carousel → director → auto journey → fees → 3-questions CTA → featured insights → FAQ, with floating navbar + BackToTop persistent.
+- New reusable interaction primitives live in src/components/site/interactions.tsx for future page-level polish.
+- No backend/data-model changes; all forms/dialogs from Task 1 still functional.

@@ -10,6 +10,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { SpotlightCard } from "./interactions";
 import { cn } from "@/lib/utils";
 
 /** Anonymised representative matter card with outcome label. */
@@ -21,7 +22,8 @@ export function MatterCard({ matter, index }: { matter: Matter; index: number })
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.65, delay: index * 0.09, ease: [0.22, 1, 0.36, 1] }}
     >
-      <Card className="card-lift group h-full overflow-hidden rounded-2xl border-navy-100/80">
+      <SpotlightCard className="h-full rounded-2xl">
+        <Card className="card-lift group h-full overflow-hidden rounded-2xl border-navy-100/80">
         <CardHeader className="pb-0">
           <div className="flex items-center justify-between">
             <span className="rounded-full bg-ivory px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.14em] text-navy-700">
@@ -47,7 +49,8 @@ export function MatterCard({ matter, index }: { matter: Matter; index: number })
             or confidential details are published, in line with LPC marketing rules.
           </p>
         </CardFooter>
-      </Card>
+        </Card>
+      </SpotlightCard>
     </motion.div>
   );
 }
