@@ -504,3 +504,27 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ————————————————— Reduced motion —————————————————
+   Respect users who opt out of non-essential motion: pause all decorative
+   infinite loops and jump animations to their end state. Interaction-driven
+   transitions (hover, layout pills) keep working, just without flourish. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-aurora,
+  .animate-live-pulse,
+  .animate-gold-pulse,
+  .animate-floaty,
+  .animate-marquee,
+  .animate-marquee-slow,
+  .animate-light-sweep,
+  .animate-scroll-cue {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}

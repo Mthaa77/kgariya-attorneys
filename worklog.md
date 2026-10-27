@@ -96,3 +96,25 @@ Stage Summary:
 - Homepage flow is now: Hero → Deal Desk ticker → trust strip → positioning/counters → CLIENT PATHFINDER (interactive onboarding router) → practice grid → dark trust architecture → Client matrix → Case roll → testimonials → director → journey → fees → 3-questions CTA → insights → FAQ.
 - The Pathfinder routes across the whole site (6 practice pages, 5 in-page sections, 4 sub-pages, booking dialog, tel:) — distinct from the compact three-questions dialog, which remains for nav/CTA entry points.
 - No data-model changes; PRACTICE_AREAS/getPractice reused for routing; all waypoint targets exist on the homepage.
+
+---
+Task ID: 6
+Agent: Main agent (Z.ai)
+Task: Optimise overall performance and speed; shorten the "Representative matters" section while keeping it informative and interactive; clean up and refactor for speed without changing the site.
+
+Work Log:
+- Baseline prod build measured: 1.5MB static JS with one monolithic 536K chunk containing ALL 12 hash-routes — every visitor downloaded and parsed every page regardless of destination.
+- Route-level code splitting (src/app/page.tsx): HomePage kept eager (primary landing); all 11 other routes (practice-area, people, about, group, insights, article, joining, careers, contact, legal, notfound) converted to next/dynamic lazy chunks with a shared RouteFallback (min-h-[72vh]) so the footer doesn't jump mid-transition. Next requires inline object literals for dynamic() options — fixed the initial shared-options-variable implementation after a 500.
+- CaseRoll rework (src/components/site/case-roll.tsx): ledger now opens with a 6-file selection (~2/3 shorter section); new full-width progressive-disclosure bar ("Reveal all 18 files" ↔ "Show the selected six files" with visible/total counter) expands the complete ledger inline; filters reset to the compact view; rows tightened py-5→py-4. Extracted memo(RollRow) so dossier toggles/filters only re-render affected rows. Heading/lead copy updated to reflect the selection-then-expand model; "Showing X of Y" meta now reads "X of Y files · 18 on the full roll".
+- Memoisation: PracticeCard and MatterCard wrapped in React.memo (pure props) — used in grids across home and multiple pages.
+- Font payload trimmed in layout.tsx: Playfair Display 6×2 → 4×2 weights (dropped 800/900, unused), Manrope 6 → 4 weights (dropped 300/800, unused) — verified no font-black/font-extrabold/font-light usage anywhere; no explicit font-weight in globals.css. Build font files 24 → 14 woff2.
+- globals.css: added prefers-reduced-motion guard disabling all decorative infinite animations (kenburns, aurora, live-pulse, gold-pulse, floaty, marquee×2, light-sweep, scroll-cue) with correct class names verified against the stylesheet.
+- Small cleanups: home.tsx removed needless array spread ([...ARTICLES].slice → ARTICLES.slice).
+- Image audit: hero already priority+sizes via next/image; all pages use next/image (optimizer handles resizing/WebP); dialogs confirmed mount-nothing-when-closed (Radix); header scroll listener already passive — no changes needed.
+- Post-change prod build: monolith eliminated — largest chunk 219K (framework), home loads 14 chunks ≈1080K raw ≈330K gzip; each sub-route now a small dedicated chunk (25–67K) fetched only on navigation; fonts 24→14 files.
+- Verification (agent-browser, 1440 + 390): home visual parity; case roll 6 rows + reveal bar → expand 18 → collapse 6; conveyancing filter → 3 rows, bar hidden; dossier drawer opens (Case notes · 06·01); lazy routes load on nav AND on direct deep link (#/practice/commercial-litigation first paint); contact/insights/about render; mobile overflow scrollWidth == innerWidth; compact rows render cleanly at 390; no page errors; ESLint clean.
+
+Stage Summary:
+- Section height of "Representative matters" reduced ~2/3 by default with zero loss of content: all 18 matters remain reachable through the disclosure bar and filters, drawers and filters unchanged.
+- Performance: every route except home removed from the initial bundle (536K monolith → 219K max chunk); route changes fetch only their own chunk; font files down 42%; reduced-motion support added; list rendering memoised.
+- Visual output unchanged everywhere except the intended CaseRoll shortening.

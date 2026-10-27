@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, BadgeCheck } from "lucide-react";
 import { navigate } from "@/lib/router";
@@ -14,7 +15,13 @@ import { SpotlightCard } from "./interactions";
 import { cn } from "@/lib/utils";
 
 /** Anonymised representative matter card with outcome label. */
-export function MatterCard({ matter, index }: { matter: Matter; index: number }) {
+export const MatterCard = memo(function MatterCard({
+  matter,
+  index,
+}: {
+  matter: Matter;
+  index: number;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 26 }}
@@ -53,7 +60,7 @@ export function MatterCard({ matter, index }: { matter: Matter; index: number })
       </SpotlightCard>
     </motion.div>
   );
-}
+});
 
 export function MatterDeck({
   matters,

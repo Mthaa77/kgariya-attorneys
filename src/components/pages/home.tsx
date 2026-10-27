@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function HomePage() {
-  const latest = [...ARTICLES].slice(0, 3);
+  const latest = ARTICLES.slice(0, 3);
   const featured = latest[0];
   const rest = latest.slice(1);
 

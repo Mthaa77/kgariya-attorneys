@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { parseRoute, useRoute } from "@/lib/router";
 import { Header } from "@/components/site/header";
@@ -11,16 +12,62 @@ import { SearchDialog } from "@/components/site/search-dialog";
 import { ThreeQuestions } from "@/components/site/three-questions";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { HomePage } from "@/components/pages/home";
-import { PracticeAreaPage } from "@/components/pages/practice-area";
-import { Notfound } from "@/components/pages/notfound";
-import { PeoplePage } from "@/components/pages/people";
-import { AboutPage } from "@/components/pages/about";
-import { GroupPage } from "@/components/pages/group";
-import { InsightsPage, ArticlePage } from "@/components/pages/insights";
-import { JoiningPage } from "@/components/pages/joining";
-import { CareersPage } from "@/components/pages/careers";
-import { ContactPage } from "@/components/pages/contact";
-import { LegalPage } from "@/components/pages/legal";
+
+/*
+ * Route-level code splitting: only the home page ships in the initial bundle.
+ * Every other route is a lazy chunk, fetched on first navigation — the landing
+ * page paints and hydrates faster, and each route pays only for itself.
+ * (Next requires each dynamic() options argument to be an inline object literal,
+ * so the fallback is repeated — the shared RouteFallback keeps it readable.)
+ */
+const RouteFallback = () => (
+  <div className="min-h-[72vh] bg-white" aria-busy="true" />
+);
+
+const PracticeAreaPage = dynamic(
+  () => import("@/components/pages/practice-area").then((m) => ({ default: m.PracticeAreaPage })),
+  { loading: () => <RouteFallback /> }
+);
+const Notfound = dynamic(
+  () => import("@/components/pages/notfound").then((m) => ({ default: m.Notfound })),
+  { loading: () => <RouteFallback /> }
+);
+const PeoplePage = dynamic(
+  () => import("@/components/pages/people").then((m) => ({ default: m.PeoplePage })),
+  { loading: () => <RouteFallback /> }
+);
+const AboutPage = dynamic(
+  () => import("@/components/pages/about").then((m) => ({ default: m.AboutPage })),
+  { loading: () => <RouteFallback /> }
+);
+const GroupPage = dynamic(
+  () => import("@/components/pages/group").then((m) => ({ default: m.GroupPage })),
+  { loading: () => <RouteFallback /> }
+);
+const InsightsPage = dynamic(
+  () => import("@/components/pages/insights").then((m) => ({ default: m.InsightsPage })),
+  { loading: () => <RouteFallback /> }
+);
+const ArticlePage = dynamic(
+  () => import("@/components/pages/insights").then((m) => ({ default: m.ArticlePage })),
+  { loading: () => <RouteFallback /> }
+);
+const JoiningPage = dynamic(
+  () => import("@/components/pages/joining").then((m) => ({ default: m.JoiningPage })),
+  { loading: () => <RouteFallback /> }
+);
+const CareersPage = dynamic(
+  () => import("@/components/pages/careers").then((m) => ({ default: m.CareersPage })),
+  { loading: () => <RouteFallback /> }
+);
+const ContactPage = dynamic(
+  () => import("@/components/pages/contact").then((m) => ({ default: m.ContactPage })),
+  { loading: () => <RouteFallback /> }
+);
+const LegalPage = dynamic(
+  () => import("@/components/pages/legal").then((m) => ({ default: m.LegalPage })),
+  { loading: () => <RouteFallback /> }
+);
 
 function PageContent({ route }: { route: string }) {
   const parts = parseRoute(route);

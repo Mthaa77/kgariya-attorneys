@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
@@ -9,7 +10,7 @@ import { Icon } from "./icon";
 import { cn } from "@/lib/utils";
 
 /** Numbered, colour-coded practice area card. */
-export function PracticeCard({
+export const PracticeCard = memo(function PracticeCard({
   area,
   index,
   variant = "full",
@@ -101,4 +102,4 @@ export function PracticeCard({
       />
     </motion.button>
   );
-}
+});

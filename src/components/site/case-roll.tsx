@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
@@ -18,6 +18,9 @@ import { Magnetic } from "@/components/site/interactions";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/** Files visible before the ledger is expanded — keeps the section scannable. */
+const COLLAPSED_COUNT = 6;
+
 type RollFile = Matter & {
   practice: PracticeArea;
   fileNo: string;
@@ -33,24 +36,176 @@ const ROLL: RollFile[] = PRACTICE_AREAS.flatMap((p) =>
 );
 
 /**
+ * One ledger row — memoised so toggling a dossier or filter only re-renders
+ * the affected rows, not the whole roll.
+ */
+const RollRow = memo(function RollRow({
+  file,
+  open,
+  onToggle,
+}: {
+  file: RollFile;
+  open: boolean;
+  onToggle: (fileNo: string) => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className={cn(
+        "group relative transition-colors duration-300",
+        open ? "bg-ivory/70" : "hover:bg-ivory/50"
+      )}
+    >
+      {/* gold rule on hover / open */}
+      <span
+        className={cn(
+          "absolute left-0 top-0 h-full w-[3px] origin-top bg-gradient-to-b from-gold-500 to-gold-300 transition-transform duration-400",
+          open ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
+        )}
+      />
+      <button
+        onClick={() => onToggle(file.fileNo)}
+        aria-expanded={open}
+        className="grid w-full grid-cols-[1fr_36px] items-center gap-x-4 gap-y-2.5 px-6 py-4 text-left sm:px-7 lg:grid-cols-[92px_1.5fr_1fr_200px_44px] lg:gap-y-0"
+      >
+        {/* file no */}
+        <span className="order-1 font-display text-[13.5px] font-semibold tabular-nums text-gold-700">
+          {file.fileNo}
+        </span>
+
+        {/* chevron */}
+        <span
+          className={cn(
+            "order-2 flex h-9 w-9 items-center justify-center justify-self-end rounded-full border transition-all duration-300 lg:order-5",
+            open
+              ? "rotate-180 border-gold-500 bg-gold-500 text-navy-950"
+              : "border-navy-100 text-navy-600/60 group-hover:border-gold-500/60 group-hover:text-gold-700"
+          )}
+        >
+          <ChevronDown className="h-4 w-4" />
+        </span>
+
+        {/* title + sector */}
+        <span className="order-3 col-span-2 lg:order-2 lg:col-span-1">
+          <span className="font-display text-[16px] font-semibold leading-snug tracking-tight text-navy-900 transition-colors duration-300 group-hover:text-navy-700">
+            {file.title}
+          </span>
+          <span className="mt-1 flex items-center gap-2 lg:hidden">
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: file.practice.accent }}
+            />
+            <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+              {file.sector} · {file.practice.shortName}
+            </span>
+          </span>
+        </span>
+
+        {/* forum & scale */}
+        <span className="order-4 col-span-2 lg:order-3 lg:col-span-1">
+          <span className="flex items-center gap-1.5 text-[11px] font-semibold text-navy-700">
+            <Gavel className="h-3 w-3 shrink-0 text-gold-600" />
+            {file.forum}
+          </span>
+          <span className="mt-1 flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground lg:mt-1.5">
+            <Layers className="h-3 w-3 shrink-0 text-gold-600/70" />
+            {file.scale}
+          </span>
+        </span>
+
+        {/* outcome */}
+        <span className="order-5 lg:order-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/90 px-3 py-1.5 text-[10.5px] font-bold text-emerald-300">
+            <BadgeCheck className="h-3 w-3 shrink-0" />
+            <span className="lg:hidden xl:inline">{file.outcome}</span>
+            <span className="hidden lg:inline xl:hidden">Resolved</span>
+          </span>
+        </span>
+      </button>
+
+      {/* dossier drawer */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="dossier"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: EASE }}
+            className="overflow-hidden"
+          >
+            <div className="px-6 pb-6 pt-1 sm:px-7 lg:pl-[124px]">
+              <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm sm:p-7">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-gold-700">
+                    <FileText className="h-3.5 w-3.5" />
+                    Case notes · {file.fileNo}
+                  </p>
+                  <span className="rounded-full bg-ivory px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.14em] text-navy-700">
+                    {file.sector}
+                  </span>
+                </div>
+                <p className="mt-4 text-[14px] leading-relaxed text-navy-800/90">
+                  {file.detail}
+                </p>
+                <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-navy-100/70 pt-4">
+                  <button
+                    onClick={() => navigate(`#/practice/${file.practice.slug}`)}
+                    className="group/link flex items-center gap-2 text-[12.5px] font-bold text-gold-700 link-underline"
+                  >
+                    Handled by {file.practice.shortName}
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />
+                  </button>
+                  <p className="text-[10.5px] leading-relaxed text-muted-foreground/70">
+                    Anonymised profile — no client names, case numbers or
+                    confidential details (LPC marketing rules).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+});
+
+/**
  * "Representative matters" — an interactive case roll.
- * A court-docket style ledger: filter by practice, then open any file to
- * expand its dossier (strategy, forum, scale, outcome). Rows stagger in on
- * scroll; expansion animates smoothly. Fully anonymised per LPC rules.
+ * A court-docket style ledger: filter by practice, open any file to expand its
+ * dossier (strategy, forum, scale, outcome). The roll opens with a six-file
+ * selection and expands to the full ledger on demand, so the section stays
+ * compact while every matter remains one click away. Fully anonymised per
+ * LPC rules.
  */
 export function CaseRoll() {
   const [filter, setFilter] = useState<string>("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   const files = useMemo(
     () => (filter === "all" ? ROLL : ROLL.filter((f) => f.practice.slug === filter)),
     [filter]
   );
 
+  const visible = useMemo(
+    () => (expanded ? files : files.slice(0, COLLAPSED_COUNT)),
+    [files, expanded]
+  );
+
+  const hiddenCount = files.length - visible.length;
+
   const pickFilter = (slug: string) => {
     setFilter(slug);
     setOpenId(null);
+    setExpanded(false);
   };
+
+  const toggle = (fileNo: string) =>
+    setOpenId((current) => (current === fileNo ? null : fileNo));
 
   return (
     <section
@@ -71,7 +226,7 @@ export function CaseRoll() {
                 <span className="gold-text italic">matters</span>.
               </>
             }
-            lead="The firm's case roll — filter it by practice, then open any file to read the strategy, forum and outcome. Anonymised throughout: no client names, no case numbers, published subject to LPC marketing rules."
+            lead="A selection from the firm's case roll — filter it by practice, open any file to read the strategy, forum and outcome, or expand the full ledger. Anonymised throughout: no client names, no case numbers."
           />
           <Reveal delay={0.15} className="shrink-0">
             <div className="flex items-center gap-4 rounded-full border border-navy-100 bg-white px-5 py-2.5 shadow-sm">
@@ -175,134 +330,55 @@ export function CaseRoll() {
             </div>
 
             <div className="divide-y divide-navy-100/70">
-              {files.map((f, i) => {
-                const open = openId === f.fileNo;
-                return (
-                  <motion.div
-                    key={f.fileNo}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-30px" }}
-                    transition={{ duration: 0.55, delay: Math.min(i * 0.05, 0.3), ease: EASE }}
+              {visible.map((f) => (
+                <RollRow
+                  key={f.fileNo}
+                  file={f}
+                  open={openId === f.fileNo}
+                  onToggle={toggle}
+                />
+              ))}
+            </div>
+
+            {/* Progressive disclosure bar */}
+            {files.length > COLLAPSED_COUNT && (
+              <button
+                onClick={() => {
+                  setExpanded((v) => !v);
+                  setOpenId(null);
+                }}
+                aria-expanded={expanded}
+                className="group flex w-full items-center justify-between gap-4 border-t border-navy-100 bg-white px-7 py-4.5 text-left transition-colors duration-300 hover:bg-ivory/60"
+              >
+                <span className="flex min-w-0 items-center gap-3">
+                  <span
                     className={cn(
-                      "group relative transition-colors duration-300",
-                      open ? "bg-ivory/70" : "hover:bg-ivory/50"
+                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
+                      expanded
+                        ? "rotate-180 border-gold-500 bg-gold-500 text-navy-950"
+                        : "border-navy-200 text-gold-700 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-navy-950"
                     )}
                   >
-                    {/* gold rule on hover / open */}
-                    <span
-                      className={cn(
-                        "absolute left-0 top-0 h-full w-[3px] origin-top bg-gradient-to-b from-gold-500 to-gold-300 transition-transform duration-400",
-                        open ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
-                      )}
-                    />
-                    <button
-                      onClick={() => setOpenId(open ? null : f.fileNo)}
-                      aria-expanded={open}
-                      className="grid w-full grid-cols-[1fr_36px] items-center gap-x-4 gap-y-3 px-6 py-5 text-left sm:px-7 lg:grid-cols-[92px_1.5fr_1fr_200px_44px] lg:gap-y-0"
-                    >
-                      {/* file no */}
-                      <span className="order-1 font-display text-[13.5px] font-semibold tabular-nums text-gold-700">
-                        {f.fileNo}
-                      </span>
-
-                      {/* chevron */}
-                      <span
-                        className={cn(
-                          "order-2 flex h-9 w-9 items-center justify-center justify-self-end rounded-full border transition-all duration-300 lg:order-5",
-                          open
-                            ? "rotate-180 border-gold-500 bg-gold-500 text-navy-950"
-                            : "border-navy-100 text-navy-600/60 group-hover:border-gold-500/60 group-hover:text-gold-700"
-                        )}
-                      >
-                        <ChevronDown className="h-4 w-4" />
-                      </span>
-
-                      {/* title + sector */}
-                      <span className="order-3 col-span-2 lg:order-2 lg:col-span-1">
-                        <span className="font-display text-[16px] font-semibold leading-snug tracking-tight text-navy-900 transition-colors duration-300 group-hover:text-navy-700">
-                          {f.title}
-                        </span>
-                        <span className="mt-1.5 flex items-center gap-2 lg:hidden">
-                          <span
-                            className="h-1.5 w-1.5 rounded-full"
-                            style={{ backgroundColor: f.practice.accent }}
-                          />
-                          <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                            {f.sector} · {f.practice.shortName}
-                          </span>
-                        </span>
-                      </span>
-
-                      {/* forum & scale */}
-                      <span className="order-4 col-span-2 lg:order-3 lg:col-span-1">
-                        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-navy-700">
-                          <Gavel className="h-3 w-3 shrink-0 text-gold-600" />
-                          {f.forum}
-                        </span>
-                        <span className="mt-1 flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground lg:mt-1.5">
-                          <Layers className="h-3 w-3 shrink-0 text-gold-600/70" />
-                          {f.scale}
-                        </span>
-                      </span>
-
-                      {/* outcome */}
-                      <span className="order-5 lg:order-4">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/90 px-3 py-1.5 text-[10.5px] font-bold text-emerald-300">
-                          <BadgeCheck className="h-3 w-3 shrink-0" />
-                          <span className="lg:hidden xl:inline">{f.outcome}</span>
-                          <span className="hidden lg:inline xl:hidden">Resolved</span>
-                        </span>
-                      </span>
-                    </button>
-
-                    {/* dossier drawer */}
-                    <AnimatePresence initial={false}>
-                      {open && (
-                        <motion.div
-                          key="dossier"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.45, ease: EASE }}
-                          className="overflow-hidden"
-                        >
-                          <div className="px-6 pb-7 pt-1 sm:px-7 lg:pl-[124px]">
-                            <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm sm:p-7">
-                              <div className="flex flex-wrap items-center justify-between gap-3">
-                                <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-gold-700">
-                                  <FileText className="h-3.5 w-3.5" />
-                                  Case notes · {f.fileNo}
-                                </p>
-                                <span className="rounded-full bg-ivory px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.14em] text-navy-700">
-                                  {f.sector}
-                                </span>
-                              </div>
-                              <p className="mt-4 text-[14px] leading-relaxed text-navy-800/90">
-                                {f.detail}
-                              </p>
-                              <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-navy-100/70 pt-4">
-                                <button
-                                  onClick={() => navigate(`#/practice/${f.practice.slug}`)}
-                                  className="group/link flex items-center gap-2 text-[12.5px] font-bold text-gold-700 link-underline"
-                                >
-                                  Handled by {f.practice.shortName}
-                                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-1" />
-                                </button>
-                                <p className="text-[10.5px] leading-relaxed text-muted-foreground/70">
-                                  Anonymised profile — no client names, case numbers or
-                                  confidential details (LPC marketing rules).
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    <ChevronDown className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-[13.5px] font-bold text-navy-900">
+                      {expanded
+                        ? "Show the selected six files"
+                        : `Reveal all ${files.length} files`}
+                    </span>
+                    <span className="block text-[11px] font-semibold text-muted-foreground">
+                      {expanded
+                        ? "The full ledger stays open until you collapse it."
+                        : `The complete anonymised ledger — ${hiddenCount} more file${hiddenCount === 1 ? "" : "s"} behind this bar.`}
+                    </span>
+                  </span>
+                </span>
+                <span className="shrink-0 rounded-full border border-navy-100 bg-ivory px-3.5 py-1.5 text-[10.5px] font-bold tabular-nums tracking-[0.14em] text-navy-700">
+                  {visible.length} / {files.length}
+                </span>
+              </button>
+            )}
           </div>
         </Reveal>
 
@@ -312,9 +388,9 @@ export function CaseRoll() {
             <p className="text-[12px] font-semibold text-muted-foreground">
               Showing{" "}
               <span className="font-bold text-navy-900">
-                {files.length} of {ROLL.length}
+                {visible.length} of {files.length}
               </span>{" "}
-              anonymised files
+              files
               {filter !== "all" && (
                 <>
                   {" "}
@@ -323,7 +399,8 @@ export function CaseRoll() {
                     {PRACTICE_AREAS.find((p) => p.slug === filter)?.shortName}
                   </span>
                 </>
-              )}
+              )}{" "}
+              · {ROLL.length} on the full roll
             </p>
             <Magnetic strength={0.15}>
               <button
