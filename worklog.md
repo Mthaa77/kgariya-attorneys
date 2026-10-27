@@ -43,3 +43,22 @@ Stage Summary:
 - Homepage is now: Hero (parallax + word reveal + proof stack) → Deal Desk live ticker → trust strip → positioning + spotlight counters → practice grid → dark trust architecture → sectors → matters → client voices carousel → director → auto journey → fees → 3-questions CTA → featured insights → FAQ, with floating navbar + BackToTop persistent.
 - New reusable interaction primitives live in src/components/site/interactions.tsx for future page-level polish.
 - No backend/data-model changes; all forms/dialogs from Task 1 still functional.
+
+---
+Task ID: 3
+Agent: Main agent (Z.ai)
+Task: Upgrade the homepage "Client matrix" and "Representative matters" sections into premium, modern, interactive and informative components.
+
+Work Log:
+- site-data.ts: extended Matter type with optional `forum` (execution venue) and `scale` (anonymised deal scale); populated both for all 18 matters across the 6 practices (derived from existing records — no invented facts). Converted SECTORS into a typed Sector[] with new `tagline`, `practices` (practice slugs) and `fileRef` ([practiceSlug, matterIndex]) fields.
+- New src/components/site/sector-matrix.tsx — "Client matrix" master–detail explorer: desktop ledger-style sector index rail (08 rows, layoutId sliding navy pill, gold auto-advance progress hairline) + dark dossier panel (ghost numeral, gold icon orb, tagline, "Mandate challenge vs Kgariya response" split columns, practice deep-link chips → practice pages, "From the matter file" teaser with outcome/forum/scale chips, magnetic CTA → three-questions dialog). Auto-cycles every 6.8s, pauses on hover/focus. Mobile: horizontal snap-scroll chip rail + stacked panel. "Open the case roll" teaser scrolls smoothly to the matters section.
+- New src/components/site/case-roll.tsx — "Representative matters" court-docket ledger: all 18 matters docket-numbered (01·01…06·03); practice filter chips (All files + 6 practices, layoutId pill, counts); ledger rows with File Nº / matter / forum & scale / outcome badge / chevron; row click expands an animated dossier drawer (case notes, sector chip, "Handled by {practice}" deep link, LPC anonymisation note); gold left rule on hover/open; staggered whileInView entrances; "Showing X of Y" counter; magnetic CTA → contact.
+- home.tsx: replaced the static SECTORS grid and 3-card MatterDeck with <SectorMatrix /> and <CaseRoll />; removed dead imports/vars (kept ArrowUpRight used by insights).
+- globals.css: added .scrollbar-hide utility for chip scrollers.
+- Bug fixes during verification: grid blowout on mobile (chip scroller intrinsic width expanding the grid track — fixed with min-w-0 on grid children); non-existent palette shades navy-300/navy-500 replaced (navy-600/30, navy-600/60); wrong pulse class → animate-live-pulse; duplicated sector/outcome keys in agri matter removed; restructured case-roll row so mobile stacks file Nº → title → forum/scale → outcome cleanly.
+- Verification (agent-browser): desktop 1440 — rail pill + progress, auto-cycle advance, dossier content correct per sector, practice chips, teaser deep-link scrolls to #case-roll (rect top ≈ 0), filter → 3 files, drawer expands with case notes; mobile 390 — chip scroller, panel fits, zero horizontal overflow (scrollWidth == innerWidth), roll row layout clean; page errors none; ESLint clean.
+
+Stage Summary:
+- Homepage now: Hero → Deal Desk ticker → trust strip → positioning/counters → practice grid → dark trust architecture → INTERACTIVE sector explorer (Client matrix) → INTERACTIVE case roll (Representative matters) → testimonials → director → journey → fees → 3-questions CTA → insights → FAQ.
+- Data model additions are additive: MatterCard/MatterDeck and About-page sector usage unaffected; practice pages still render matters with the enriched metadata available for future reuse.
+- All LPC sensitivities preserved: anonymised sectors/files, disclaimer footnotes in both sections.

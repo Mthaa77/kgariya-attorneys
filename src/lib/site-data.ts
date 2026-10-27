@@ -44,6 +44,10 @@ export type Matter = {
   sector: string;
   outcome: string;
   detail: string;
+  /** Execution forum / venue — derived from the matter record, kept anonymised. */
+  forum?: string;
+  /** Indicative deal scale — anonymised, no client-identifying values. */
+  scale?: string;
 };
 
 export type PracticeArea = {
@@ -117,6 +121,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Facility enforcement for a commercial lender",
         sector: "Banking & Finance",
         outcome: "Settled on favourable terms",
+        forum: "High Court — Gauteng Division",
+        scale: "R180m defaulted facility",
         detail:
           "Acted for a commercial lender in High Court enforcement proceedings arising from a defaulted R180 million facility. Negotiated a structured settlement securing full capital recovery with costs.",
       },
@@ -124,6 +130,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Construction dispute referred to AFSA",
         sector: "Construction & Engineering",
         outcome: "Award granted",
+        forum: "AFSA arbitration tribunal",
+        scale: "Multi-day arbitral hearing",
         detail:
           "Represented a contractor in a multi-day AFSA arbitration against a developer over variation claims and final account disputes. Award granted substantially in the client's favour.",
       },
@@ -131,6 +139,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Urgent interdict for a national franchisor",
         sector: "Franchising",
         outcome: "Interdict granted",
+        forum: "Urgent High Court roll",
+        scale: "National brand network",
         detail:
           "Obtained urgent interim relief protecting a franchisor's brand and supply network against a former franchisee, followed by negotiated final relief.",
       },
@@ -185,6 +195,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "1,200-unit township development packaging",
         sector: "Residential Development",
         outcome: "Finance approved & registered",
+        forum: "Municipal · NHBRC · Lender credit",
+        scale: "1,200 residential units",
         detail:
           "Packaged the complete legal file for a large residential township — land assembly, rezoning, services agreements, NHBRC enrolment and development finance application. Bond registrations completed on programme.",
       },
@@ -192,6 +204,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "SHRA social housing scheme",
         sector: "Social Housing",
         outcome: "Scheme packaged",
+        forum: "SHRA · Provincial regulatory",
+        scale: "Accredited housing institution",
         detail:
           "Structured the legal package for an accredited social housing institution — land use rights, SHRA compliance, funding applications and construction contract frameworks.",
       },
@@ -199,6 +213,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Mixed-use JV restructuring",
         sector: "Mixed-Use Development",
         outcome: "JV concluded",
+        forum: "Negotiated transaction",
+        scale: "Landowner–developer JV",
         detail:
           "Negotiated and documented a joint venture between a landowner and a developer for a mixed-use scheme, including profit-share waterfalls and township obligations.",
       },
@@ -249,6 +265,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Surface rights access for a mining-adjacent operation",
         sector: "Mining Services",
         outcome: "Agreement concluded",
+        forum: "Landowner & community negotiation",
+        scale: "Multi-year access rights",
         detail:
           "Negotiated a multi-year surface access and land-use agreement with landowners and a community trust, enabling an expansion programme without disruption.",
       },
@@ -256,6 +274,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "SLP legal framework",
         sector: "Mining Compliance",
         outcome: "Framework adopted",
+        forum: "Mining right regulatory interface",
+        scale: "Social & Labour Plan commitments",
         detail:
           "Drafted the legal framework for community commitments under a Social and Labour Plan, aligned with the client's mining right obligations.",
       },
@@ -263,6 +283,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Mineral rights conveyancing",
         sector: "Resources Transactions",
         outcome: "Transfer registered",
+        forum: "Deeds Registry · Notarial",
+        scale: "Mining-adjacent disposal",
         detail:
           "Executed the transfer and registration of mineral rights incidental to a disposal of a mining-adjacent business, including notarial execution.",
       },
@@ -313,6 +335,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Land Bank panel bond registrations",
         sector: "State Lending",
         outcome: "Bonds registered",
+        forum: "Deeds Registries — national",
+        scale: "Commercial farming holdings",
         detail:
           "Executed mortgage bond registrations over commercial farming holdings as panel attorney, on programme and within lender SLAs.",
       },
@@ -320,6 +344,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Movable asset security package",
         sector: "Agri-Lending",
         outcome: "Security perfected",
+        forum: "Notarial bond registration",
+        scale: "Equipment & biological assets",
         detail:
           "Drafted and registered notarial bonds over farm equipment and biological assets, perfecting a lender's security position ahead of facility drawdown.",
       },
@@ -327,6 +353,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Farming enterprise debt restructuring",
         sector: "Agri-Workouts",
         outcome: "Facilities restructured",
+        forum: "Two-lender negotiation",
+        scale: "Multi-lender farm exposure",
         detail:
           "Restructured the debt of a commercial farming enterprise across two lenders, preserving the operating business and securing a resumption of repayments.",
       },
@@ -378,6 +406,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Group debt restructuring",
         sector: "Corporate Borrower",
         outcome: "Facilities restructured",
+        forum: "Negotiated restructuring",
+        scale: "± R95m across three facilities",
         detail:
           "Restructured exposure of approximately R95 million across three facilities for a borrower group, balancing lender security with operational continuity.",
       },
@@ -385,6 +415,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Development finance security packaging",
         sector: "Property Lending",
         outcome: "Facility drawn",
+        forum: "Security perfection & registration",
+        scale: "Multi-tiered security package",
         detail:
           "Documented a multi-tiered security package for a development facility — mortgage bonds, notarial bonds and cession frameworks — enabling drawdown.",
       },
@@ -392,6 +424,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Workout management for a lender",
         sector: "Commercial Lending",
         outcome: "Value recovered",
+        forum: "Enforcement & negotiated disposal",
+        scale: "Distressed commercial exposure",
         detail:
           "Managed the workout of a distressed commercial exposure, combining enforcement leverage with a negotiated asset disposal.",
       },
@@ -442,6 +476,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "National bank panel registrations",
         sector: "Banking Panel",
         outcome: "1,000+ bonds registered",
+        forum: "Deeds Registries — national",
+        scale: "1,000+ registered bonds",
         detail:
           "Sustained high-volume bond registration work for a major bank's panel, across residential and commercial securities.",
       },
@@ -449,6 +485,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Institutional portfolio transfers",
         sector: "Institutional Property",
         outcome: "Portfolio transferred",
+        forum: "Staged deeds office lodgements",
+        scale: "Commercial property portfolio",
         detail:
           "Executed the transfer of a commercial property portfolio for an institutional owner, staged across multiple deeds office lodgements.",
       },
@@ -456,6 +494,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
         title: "Sectional title establishment",
         sector: "Developments",
         outcome: "Registers opened",
+        forum: "Deeds Registry",
+        scale: "Residential scheme",
         detail:
           "Opened sectional title registers for a residential scheme, coordinating with the developer, body corporate and lender panels.",
       },
@@ -503,54 +543,91 @@ export const TRUST_PILLARS = [
 
 /* ——————————— Sectors ——————————— */
 
-export const SECTORS = [
+export type Sector = {
+  name: string;
+  icon: string;
+  /** Punchy one-liner shown in the explorer panel. */
+  tagline: string;
+  need: string;
+  response: string;
+  /** Related practice slugs, offered as deep links in the explorer. */
+  practices: string[];
+  /** Reference matter: [practiceSlug, matterIndex] for the file teaser. */
+  fileRef: [string, number];
+};
+
+export const SECTORS: Sector[] = [
   {
     name: "Blue-Chip Companies",
     icon: "briefcase",
+    tagline: "Boardroom stakes, courtroom discipline.",
     need: "High-court commercial litigation, complex breach-of-contract disputes, AFSA arbitrations and corporate workouts.",
     response: "Specialised litigation practice, structured dispute strategy and dedicated High Court advocacy.",
+    practices: ["commercial-litigation", "banking-finance"],
+    fileRef: ["commercial-litigation", 0],
   },
   {
     name: "SOEs & Panel Assessors",
     icon: "landmark",
+    tagline: "Panel-ready by design.",
     need: "Statutory compliance, transparent governance, large-scale public dispute resolution and strict panel adherence.",
     response: "Verified LPC compliance, institutional trust architecture and robust governance reporting.",
+    practices: ["commercial-litigation", "agricultural-finance"],
+    fileRef: ["agricultural-finance", 0],
   },
   {
     name: "Government Departments",
     icon: "building",
+    tagline: "Public mandate, private-practice rigour.",
     need: "Public sector advisory, regulatory compliance, procurement legal oversight and risk mitigation.",
     response: "Structured administrative law capability, PAIA/POPIA compliance and formal governance alignment.",
+    practices: ["commercial-litigation", "real-estate-development"],
+    fileRef: ["real-estate-development", 1],
   },
   {
     name: "Municipalities",
     icon: "map",
+    tagline: "Land, services and delivery — made lawful.",
     need: "Land-use approvals, township establishment oversight, infrastructure packaging and regulatory disputes.",
     response: "Land assembly legal packaging, municipal regulatory navigation and PPP structuring.",
+    practices: ["real-estate-development", "conveyancing-property"],
+    fileRef: ["real-estate-development", 0],
   },
   {
     name: "Educational Institutions",
     icon: "graduation-cap",
+    tagline: "Portfolios managed like endowments.",
     need: "Commercial property portfolio management, high-value transfer packaging and institutional dispute resolution.",
     response: "Dedicated conveyancing infrastructure, portfolio management and commercial contract advisory.",
+    practices: ["conveyancing-property", "commercial-litigation"],
+    fileRef: ["conveyancing-property", 1],
   },
   {
     name: "Banks & DFIs",
     icon: "landmark",
+    tagline: "Security packages that survive enforcement.",
     need: "Complex loan and security documentation, mortgage bond registrations and workout management.",
     response: "Specialised banking and development finance practice with complete panel-readiness.",
+    practices: ["banking-finance", "conveyancing-property"],
+    fileRef: ["banking-finance", 1],
   },
   {
     name: "Property Developers",
     icon: "crane",
+    tagline: "From bare land to capital close.",
     need: "Land assembly, feasibility modelling, rezoning, NHBRC enrolment, SHRA packaging and joint ventures.",
     response: "End-to-end development legal packaging, capital close support and end-user finance structuring.",
+    practices: ["real-estate-development", "banking-finance"],
+    fileRef: ["real-estate-development", 2],
   },
   {
     name: "Retiring Practitioners",
     icon: "handshake",
+    tagline: "Succession without disruption.",
     need: "Confidential practice succession, seamless client handovers, staff retention and firm continuity.",
     response: "The structured “Joining the Firm” succession model with discreet, multi-phase transitions.",
+    practices: ["conveyancing-property", "commercial-litigation"],
+    fileRef: ["conveyancing-property", 2],
   },
 ];
 

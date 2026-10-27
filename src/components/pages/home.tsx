@@ -8,7 +8,6 @@ import {
   DIRECTOR,
   FEE_MODELS,
   PRACTICE_AREAS,
-  SECTORS,
   TRUST_PILLARS,
 } from "@/lib/site-data";
 import { ARTICLES } from "@/lib/insights";
@@ -21,7 +20,8 @@ import { PracticeCard } from "@/components/site/practice-card";
 import { Icon } from "@/components/site/icon";
 import { JourneyStepper } from "@/components/site/journey";
 import { FaqAccordion } from "@/components/site/faq";
-import { MatterDeck } from "@/components/site/matter-card";
+import { SectorMatrix } from "@/components/site/sector-matrix";
+import { CaseRoll } from "@/components/site/case-roll";
 import { Testimonials } from "@/components/site/testimonials";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
@@ -29,7 +29,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export function HomePage() {
-  const featuredMatters = PRACTICE_AREAS.flatMap((p) => p.matters.slice(0, 1)).slice(0, 3);
   const latest = [...ARTICLES].slice(0, 3);
   const featured = latest[0];
   const rest = latest.slice(1);
@@ -201,67 +200,11 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ——— Sectors ——— */}
-      <section className="bg-white py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="Client matrix"
-            title={
-              <>
-                Sectors we serve — and the{" "}
-                <span className="gold-text italic">strategy</span> we bring.
-              </>
-            }
-            lead="An institutional ecosystem across the South African economy, from blue-chip boards to mining communities."
-          />
-          <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {SECTORS.map((s) => (
-              <StaggerItem key={s.name}>
-                <SpotlightCard className="card-lift h-full rounded-3xl border border-navy-100 bg-ivory">
-                  <div className="p-6">
-                    <div className="flex items-start justify-between">
-                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-950 text-gold-400 transition-colors duration-500 group-hover:bg-gold-500 group-hover:text-navy-950">
-                        <Icon name={s.icon} className="h-5 w-5" />
-                      </span>
-                      <ArrowUpRight className="h-4.5 w-4.5 text-gold-600/0 transition-all duration-500 group-hover:text-gold-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                    <h3 className="mt-4 font-display text-[16px] font-semibold text-navy-900">
-                      {s.name}
-                    </h3>
-                    <p className="mt-3 text-[12.5px] leading-relaxed text-muted-foreground">
-                      <span className="font-bold text-navy-800">They need: </span>
-                      {s.need}
-                    </p>
-                    <p className="mt-2 text-[12.5px] leading-relaxed text-muted-foreground">
-                      <span className="font-bold text-gold-700">We bring: </span>
-                      {s.response}
-                    </p>
-                  </div>
-                </SpotlightCard>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+      {/* ——— Client matrix (interactive sector explorer) ——— */}
+      <SectorMatrix />
 
-      {/* ——— Representative matters ——— */}
-      <section className="bg-ivory py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="Representative matters"
-            title={
-              <>
-                Capability, shown through{" "}
-                <span className="gold-text italic">matters</span>.
-              </>
-            }
-            lead="Anonymised matter profiles with outcome labels — no client names, no case numbers, no confidential details. Published subject to LPC marketing rules."
-          />
-          <div className="mt-14">
-            <MatterDeck matters={featuredMatters} />
-          </div>
-        </div>
-      </section>
+      {/* ——— Representative matters (interactive case roll) ——— */}
+      <CaseRoll />
 
       {/* ——— Client voices carousel ——— */}
       <Testimonials />
