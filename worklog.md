@@ -134,3 +134,24 @@ Work Log:
 Stage Summary:
 - Repo live at https://github.com/Mthaa77/kgariya-attorneys (private), main branch tracking origin
 - No secrets/env/db files on remote; local files untouched
+
+---
+Task ID: 8
+Agent: Main agent (Z.ai)
+Task: Add premium law icons and South African law trust signals across the website
+
+Work Log:
+- site-data.ts: added SA_REGULATION (6 regulation/admission signals — LPC, High Court admission, Deeds Registries Act, Master of the High Court, POPIA/PAIA, Attorneys Fidelity Fund), COURTS_FORUMS (10 courts/tribunals/registries), SA_ACTS (8 statutes with act numbers), CREDENTIALS (6 director standing chips), PRACTICE_FORUMS (per-practice courts & regulators map for all 6 practices)
+- icon.tsx: extended icon MAP with law-specific lucide icons — gavel, scroll-text, stamp, book-open-check, award, fingerprint, file-badge, medal
+- New sa-legal.tsx: SAFlag (geometric SA flag SVG) + SAFlagChip, CourtsMarquee (infinite marquee, marquee-pause, dark/light, edge fades), RegulationBoard (dark/light premium grid), ActsStrip (statute chip wall), CredentialWall (standing chips), PracticeForums (per-practice forums card, accent-tinted)
+- home.tsx trust architecture: added courts marquee band ("Admitted before the courts of South Africa"), Regulation & standing board (Regulated. Admitted. Audited.), statutory framework strip; director section gained "Admissions & standing" CredentialWall
+- practice-area.tsx: right column gained per-practice "Courts, forums & regulators" card under Typical clients
+- about.tsx: location card gained SAFlagChip + nationwide line; credentials column gained Admissions & professional standing wall; new "The South African legal system" section (light courts marquee + RegulationBoard + ActsStrip)
+- footer.tsx (site-wide): compliance badges now use distinct premium icons (Landmark/Award/Shield/FileCheck/Scale); added SA-flag "Practising under the statutes of the Republic" label + full ActsStrip row; removed dead Icon/Crest imports
+- Fixed PRE-EXISTING mobile overflow on all 6 practice pages (scrollWidth 449 @ 390): mini PracticeCard truncate spans lacked min-w-0 (nowrap tagline inflated intrinsic width) and buttons shrink-to-fit — added min-w-0 to truncate chains, w-full to mini button, min-w-0 to enquiry grid columns; desktop rendering unchanged
+- Verification: desktop 1440 screenshots (marquee, regulation board, acts strip, credential wall, footer, practice forums, about section) all premium and on-design; mobile 390 sweep across 15 routes → zero horizontal overflow; console shows only pre-existing hero-parallax warning; ESLint clean
+
+Stage Summary:
+- Site now carries authentic SA legal trust signals: LPC/High Court/Deeds Office/Master/Fidelity Fund regulation board, courts & forums marquee, 8-statute framework, director admissions wall, per-practice forums cards, SA flag jurisdiction accents — all verifiable claims only (LPC marketing compliant)
+- Icon system upgraded with premium law iconography (gavel, scroll, stamp, book-lock etc.) used across all new components
+- Bonus: fixed long-standing mobile horizontal overflow on practice pages (pre-existing bug, desktop visuals unchanged)

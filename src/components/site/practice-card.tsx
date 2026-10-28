@@ -23,7 +23,7 @@ export const PracticeCard = memo(function PracticeCard({
     return (
       <button
         onClick={() => navigate(`#/practice/${area.slug}`)}
-        className="group flex items-center gap-4 rounded-2xl border border-navy-100 bg-white p-4 text-left shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-400/50 hover:shadow-luxe"
+        className="group flex w-full items-center gap-4 rounded-2xl border border-navy-100 bg-white p-4 text-left shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-400/50 hover:shadow-luxe"
       >
         <span
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white shadow-sm"
