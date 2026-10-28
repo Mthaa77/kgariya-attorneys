@@ -35,6 +35,7 @@ import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/si
 import { ConflictNotice } from "@/components/site/conflict-notice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { SectionDivider } from "@/components/site/section-divider";
 import Image from "next/image";
 
 /** Chambers gallery — the firm at work (SA counsel, consultation, library). */
@@ -69,6 +70,7 @@ export function HomePage() {
       <LiveTicker />
 
       <TrustStrip />
+      <SectionDivider />
 
       {/* ——— Positioning + counters ——— */}
       <section className="relative overflow-hidden bg-white py-24 sm:py-28">
@@ -194,6 +196,7 @@ export function HomePage() {
 
       {/* ——— Client pathfinder (interactive onboarding router) ——— */}
       <ClientPathfinder />
+      <SectionDivider />
 
       {/* ——— Practice areas ——— */}
       <section id="practice-areas" className="scroll-mt-24 bg-ivory py-24 sm:py-28">
@@ -230,6 +233,7 @@ export function HomePage() {
       </section>
 
       {/* ——— Trust architecture (dark) ——— */}
+      <SectionDivider dark />
       <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0" />
         <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
@@ -367,6 +371,7 @@ export function HomePage() {
       </section>
 
       {/* ——— Client matrix (interactive sector explorer) ——— */}
+      <SectionDivider />
       <SectorMatrix />
 
       {/* ——— Representative matters (interactive case roll) ——— */}
@@ -376,6 +381,7 @@ export function HomePage() {
       <Testimonials />
 
       {/* ——— Director's welcome ——— */}
+      <SectionDivider />
       <section className="bg-white py-24 sm:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal>
