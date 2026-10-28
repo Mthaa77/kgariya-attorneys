@@ -77,6 +77,7 @@ function PageContent({ route }: { route: string }) {
 
   switch (root) {
     case "":
+    case "home":
       return <HomePage />;
     case "practice":
       return <PracticeAreaPage slug={parts[1] ?? ""} />;
@@ -106,8 +107,9 @@ export default function Site() {
 
   // Ensure we always have a hash route set
   useEffect(() => {
-    if (!window.location.hash) {
-      window.history.replaceState(null, "", "#/");
+    if (!window.location.hash || window.location.hash === "#/") {
+      // Keep the root hash CSS-selector-safe for the preview runtime.
+      window.history.replaceState(null, "", "#home");
     }
   }, []);
 

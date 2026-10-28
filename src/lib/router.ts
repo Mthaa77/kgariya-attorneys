@@ -8,11 +8,11 @@ import { useCallback, useEffect, useState } from "react";
 
 export function useRoute() {
   const [hash, setHash] = useState<string>(
-    typeof window !== "undefined" ? window.location.hash || "#/" : "#/"
+    typeof window !== "undefined" ? window.location.hash || "#home" : "#home"
   );
 
   useEffect(() => {
-    const onChange = () => setHash(window.location.hash || "#/");
+    const onChange = () => setHash(window.location.hash || "#home");
     window.addEventListener("hashchange", onChange);
     return () => window.removeEventListener("hashchange", onChange);
   }, []);
