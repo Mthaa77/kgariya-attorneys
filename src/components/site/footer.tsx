@@ -1,13 +1,26 @@
 "use client";
 
-import { ArrowUpRight, Lock, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
+import {
+  ArrowUpRight,
+  Award,
+  FileCheck,
+  Landmark,
+  Lock,
+  Mail,
+  MapPin,
+  Phone,
+  Scale,
+  ShieldCheck,
+} from "lucide-react";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { BADGES, FIRM, PRACTICE_AREAS } from "@/lib/site-data";
 import { Logo } from "./logo";
-import { Icon } from "./icon";
 import { Button } from "@/components/ui/button";
-import { Crest } from "./logo";
+import { ActsStrip, SAFlag } from "@/components/site/sa-legal";
+
+/** Distinct premium icon per compliance badge — mirrors the TrustStrip. */
+const BADGE_ICONS = [Landmark, Award, ShieldCheck, FileCheck, Scale];
 
 const FIRM_LINKS = [
   { label: "Our People", route: "#/people" },
@@ -187,18 +200,35 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Compliance strip */}
+      {/* Compliance strip — SA regulation, statute & jurisdiction */}
       <div className="relative border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-6 py-6">
-          {BADGES.map((b) => (
-            <div key={b.label} className="flex items-center gap-2.5">
-              <Crest dark className="h-6 w-6 opacity-80" />
-              <div className="leading-tight">
-                <p className="text-[11.5px] font-bold text-white/85">{b.label}</p>
-                <p className="text-[10px] text-white/45">{b.sub}</p>
-              </div>
+        <div className="mx-auto max-w-7xl px-6 py-8">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {BADGES.map((b, i) => {
+              const I = BADGE_ICONS[i % BADGE_ICONS.length];
+              return (
+                <div key={b.label} className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-gold-500/30 bg-gold-500/10">
+                    <I className="h-3.5 w-3.5 text-gold-400" strokeWidth={1.75} />
+                  </span>
+                  <div className="leading-tight">
+                    <p className="text-[11.5px] font-bold text-white/85">{b.label}</p>
+                    <p className="text-[10px] text-white/45">{b.sub}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-7 flex flex-col items-center gap-4 border-t border-white/10 pt-7">
+            <p className="flex items-center gap-2.5 text-[10.5px] font-bold uppercase tracking-[0.22em] text-gold-300">
+              <SAFlag className="h-2.5 w-[21px] rounded-[2px]" />
+              Practising under the statutes of the Republic
+              <SAFlag className="h-2.5 w-[21px] rounded-[2px]" />
+            </p>
+            <div className="flex justify-center">
+              <ActsStrip dark />
             </div>
-          ))}
+          </div>
         </div>
       </div>
 

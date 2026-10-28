@@ -19,6 +19,7 @@ import { Icon } from "@/components/site/icon";
 import { MatterDeck } from "@/components/site/matter-card";
 import { EnquiryForm } from "@/components/site/enquiry-form";
 import { PracticeCard } from "@/components/site/practice-card";
+import { PracticeForums } from "@/components/site/sa-legal";
 import { Button } from "@/components/ui/button";
 import { Notfound } from "./notfound";
 export function PracticeAreaPage({ slug }: { slug: string }) {
@@ -164,6 +165,12 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
                 </div>
               </div>
             </Reveal>
+
+            <PracticeForums
+              slug={area.slug}
+              accent={area.accent}
+              fallbackName={area.name}
+            />
           </div>
         </div>
       </section>
@@ -239,7 +246,7 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
       {/* Enquiry */}
       <section id="enquire" className="scroll-mt-28 bg-ivory py-20 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
-          <div>
+          <div className="min-w-0">
             <SectionHeading
               eyebrow="Practice-routed enquiry"
               title={
@@ -258,7 +265,7 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
                 ))}
             </div>
           </div>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} className="min-w-0">
             <div className="rounded-3xl border border-navy-100 bg-white p-7 shadow-luxe sm:p-9">
               <EnquiryForm defaultPractice={area.name} lockPractice />
             </div>

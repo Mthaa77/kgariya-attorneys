@@ -885,6 +885,133 @@ export const BADGES = [
   { label: "Trust Account Audited", sub: "LPC standard" },
 ];
 
+/* ——————————— SA legal ecosystem — regulation, courts, statute ——————————— */
+
+/** Regulation, admission & standing — verifiable South African trust signals. */
+export const SA_REGULATION = [
+  {
+    icon: "landmark",
+    label: "Legal Practice Council",
+    sub: "Registered practice",
+    detail:
+      "Attorneys, notaries and conveyancers admitted and enrolled with the Legal Practice Council — the national statutory regulator of the legal profession.",
+  },
+  {
+    icon: "gavel",
+    label: "High Court of South Africa",
+    sub: "Admitted · right of appearance",
+    detail:
+      "Admission and right of appearance before the High Court of South Africa, acting before the Gauteng Division (Pretoria) and the Gauteng Local Division (Johannesburg).",
+  },
+  {
+    icon: "stamp",
+    label: "Deeds Registries Act 47 of 1937",
+    sub: "Conveyancer practice",
+    detail:
+      "Practising conveyancers executing transfers, bonds and sectional title registers daily at the Pretoria Deeds Registry.",
+  },
+  {
+    icon: "scroll-text",
+    label: "Master of the High Court",
+    sub: "Estates & notarial practice",
+    detail:
+      "Notarial and estate practice filing with the Master — deceased estates, trusts and notarial bonds under the Administration of Estates Act 66 of 1965.",
+  },
+  {
+    icon: "shield",
+    label: "POPIA & PAIA governance",
+    sub: "Act 4 of 2013 · s51 manual",
+    detail:
+      "Information governance aligned to the Protection of Personal Information Act, with our Section 51 PAIA Information Manual published in the legal repository.",
+  },
+  {
+    icon: "file-badge",
+    label: "Attorneys Fidelity Fund",
+    sub: "Trust account, audited",
+    detail:
+      "Client funds held in an LPC-compliant trust account covered by the Attorneys Fidelity Fund and independently audited annually.",
+  },
+] as const;
+
+/** Courts, tribunals & registries where the practice acts. */
+export const COURTS_FORUMS = [
+  { name: "Constitutional Court", note: "Johannesburg" },
+  { name: "Supreme Court of Appeal", note: "Bloemfontein" },
+  { name: "Gauteng Division, Pretoria", note: "High Court" },
+  { name: "Gauteng Local Division", note: "High Court · Johannesburg" },
+  { name: "Land Claims Court", note: "Randburg" },
+  { name: "AFSA", note: "Arbitration" },
+  { name: "Competition Tribunal", note: "Merger control" },
+  { name: "Magistrates' Courts", note: "Nationwide" },
+  { name: "Pretoria Deeds Registry", note: "Registrations" },
+  { name: "Master of the High Court", note: "Pretoria" },
+] as const;
+
+/** Statutory framework — the statutes the practice works under daily. */
+export const SA_ACTS = [
+  { short: "The Constitution", citation: "Republic of South Africa, 1996" },
+  { short: "Companies Act", citation: "Act 71 of 2008" },
+  { short: "National Credit Act", citation: "Act 34 of 2005" },
+  { short: "POPIA", citation: "Act 4 of 2013" },
+  { short: "Consumer Protection Act", citation: "Act 68 of 2008" },
+  { short: "Deeds Registries Act", citation: "Act 47 of 1937" },
+  { short: "Labour Relations Act", citation: "Act 66 of 1995" },
+  { short: "Property Practitioners Act", citation: "Act 22 of 2019" },
+] as const;
+
+/** Director-level admissions & professional standing. */
+export const CREDENTIALS = [
+  { icon: "gavel", label: "Admitted Attorney", sub: "High Court of South Africa" },
+  { icon: "landmark", label: "Right of Appearance", sub: "Superior Courts of South Africa" },
+  { icon: "stamp", label: "Conveyancer", sub: "Pretoria Deeds Registry" },
+  { icon: "scroll-text", label: "Notary Public", sub: "Deeds Registries Act" },
+  { icon: "graduation-cap", label: "LLB · MBA (Finance)", sub: "Legal & financial disciplines" },
+  { icon: "award", label: "15+ years", sub: "Commercial & property practice" },
+] as const;
+
+/** Courts, forums & regulators per practice (practice pages). */
+export const PRACTICE_FORUMS: Record<string, { name: string; note: string }[]> = {
+  "commercial-litigation": [
+    { name: "Gauteng Division, Pretoria", note: "High Court" },
+    { name: "Gauteng Local Division, Johannesburg", note: "High Court" },
+    { name: "Supreme Court of Appeal", note: "Bloemfontein" },
+    { name: "AFSA", note: "Arbitration" },
+    { name: "Magistrates' Courts", note: "Nationwide" },
+  ],
+  "real-estate-development": [
+    { name: "Municipal councils", note: "Approvals & rezoning" },
+    { name: "Gauteng planning tribunals", note: "Land use" },
+    { name: "NHBRC", note: "Enrolment" },
+    { name: "SHRA", note: "Social housing" },
+    { name: "Pretoria Deeds Registry", note: "Registrations" },
+  ],
+  "mining-resources": [
+    { name: "DMRE", note: "Mineral rights & rights conversions" },
+    { name: "Mining Titles Office", note: "Title deeds & cession" },
+    { name: "High Court", note: "Judicial review" },
+    { name: "Land Claims Court", note: "Restitution" },
+  ],
+  "agricultural-finance": [
+    { name: "Land & Agricultural Development Bank", note: "DFI finance" },
+    { name: "National Credit Regulator", note: "Credit compliance" },
+    { name: "High Court", note: "Security enforcement" },
+    { name: "AFSA", note: "Arbitration" },
+  ],
+  "banking-finance": [
+    { name: "South African Reserve Bank", note: "Prudential framework" },
+    { name: "FSCA", note: "Market conduct" },
+    { name: "National Credit Regulator", note: "Credit registration" },
+    { name: "CIPC", note: "Company & security filings" },
+  ],
+  "conveyancing-property": [
+    { name: "Pretoria Deeds Registry", note: "Transfers & bonds" },
+    { name: "Master of the High Court", note: "Estates & endorsements" },
+    { name: "PPRA", note: "Property practitioners" },
+    { name: "SARS", note: "Transfer duty & clearance" },
+    { name: "Municipalities", note: "Rates clearance" },
+  ],
+};
+
 /* ——————————— Live ticker — "the deal desk" ——————————— */
 
 export type TickerItem = {

@@ -24,6 +24,14 @@ import {
   BookOpen,
   TrendingUp,
   BarChart3,
+  Gavel,
+  ScrollText,
+  Stamp,
+  BookOpenCheck,
+  Award,
+  Fingerprint,
+  FileBadge,
+  Medal,
   type LucideIcon,
 } from "lucide-react";
 
@@ -51,6 +59,15 @@ const MAP: Record<string, LucideIcon> = {
   book: BookOpen,
   "trending-up": TrendingUp,
   chart: BarChart3,
+  /* — SA legal ecosystem — */
+  gavel: Gavel,
+  "scroll-text": ScrollText,
+  stamp: Stamp,
+  "book-open-check": BookOpenCheck,
+  award: Award,
+  fingerprint: Fingerprint,
+  "file-badge": FileBadge,
+  medal: Medal,
 };
 
 export function Icon({

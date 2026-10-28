@@ -32,9 +32,9 @@ export const PracticeCard = memo(function PracticeCard({
           <Icon name={area.icon} className="h-5 w-5" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-gold-600">{area.number}</span>
-            <span className="truncate text-[14px] font-bold text-navy-900">
+          <span className="flex min-w-0 items-center gap-2">
+            <span className="shrink-0 text-[10px] font-bold text-gold-600">{area.number}</span>
+            <span className="min-w-0 truncate text-[14px] font-bold text-navy-900">
               {area.shortName}
             </span>
           </span>

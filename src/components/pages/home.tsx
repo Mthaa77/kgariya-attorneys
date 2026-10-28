@@ -24,6 +24,12 @@ import { SectorMatrix } from "@/components/site/sector-matrix";
 import { CaseRoll } from "@/components/site/case-roll";
 import { ClientPathfinder } from "@/components/site/client-pathfinder";
 import { Testimonials } from "@/components/site/testimonials";
+import {
+  CourtsMarquee,
+  RegulationBoard,
+  ActsStrip,
+  CredentialWall,
+} from "@/components/site/sa-legal";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
 import { Button } from "@/components/ui/button";
@@ -193,7 +199,53 @@ export function HomePage() {
               </StaggerItem>
             ))}
           </Stagger>
-          <Reveal delay={0.2} className="mt-10 text-center">
+
+          {/* — Courts & forums of South Africa — */}
+          <Reveal delay={0.15} className="mt-14">
+            <p className="flex items-center justify-center gap-4 text-center text-[11px] font-bold uppercase tracking-[0.28em] text-gold-300">
+              <span className="hidden h-px w-10 bg-gold-500/60 sm:block" />
+              Admitted before the courts of South Africa
+              <span className="hidden h-px w-10 bg-gold-500/60 sm:block" />
+            </p>
+            <div className="-mx-6 mt-6">
+              <CourtsMarquee dark />
+            </div>
+          </Reveal>
+
+          {/* — Regulation, admission & standing — */}
+          <div className="mt-16">
+            <Reveal>
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-300">
+                    Regulation &amp; standing
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-semibold text-white sm:text-3xl">
+                    Regulated. Admitted. <span className="gold-text italic">Audited.</span>
+                  </h3>
+                </div>
+                <p className="max-w-sm text-[13px] leading-relaxed text-white/55">
+                  Every standing claim below is verifiable — certificates,
+                  enrolments and audit letters are produced on request.
+                </p>
+              </div>
+            </Reveal>
+            <div className="mt-9">
+              <RegulationBoard dark />
+            </div>
+          </div>
+
+          {/* — Statutory framework — */}
+          <Reveal delay={0.1} className="mt-14">
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-300">
+              Statutory framework
+            </p>
+            <div className="mt-5">
+              <ActsStrip dark />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.2} className="mt-12 text-center">
             <button
               onClick={() => navigate("#/legal")}
               className="link-underline text-[13.5px] font-bold text-gold-300"
@@ -295,6 +347,14 @@ export function HomePage() {
                   </li>
                 ))}
               </ul>
+              <Reveal delay={0.12}>
+                <div className="mt-8">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-gold-700">
+                    Admissions &amp; standing
+                  </p>
+                  <CredentialWall className="mt-5" />
+                </div>
+              </Reveal>
               <Magnetic strength={0.15}>
                 <Button
                   size="lg"

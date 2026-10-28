@@ -11,6 +11,13 @@ import { Icon } from "@/components/site/icon";
 import { Counter } from "@/components/site/counter";
 import { Button } from "@/components/ui/button";
 import { COUNTERS } from "@/lib/site-data";
+import {
+  CredentialWall,
+  CourtsMarquee,
+  ActsStrip,
+  RegulationBoard,
+  SAFlagChip,
+} from "@/components/site/sa-legal";
 
 const TIMELINE = [
   {
@@ -267,6 +274,13 @@ export function AboutPage() {
                     </p>
                   </div>
                 </div>
+                <div className="mt-6 border-t border-navy-100 pt-6">
+                  <SAFlagChip />
+                  <p className="mt-3 text-[12px] text-muted-foreground">
+                    Serving clients across Gauteng and nationwide — consultations
+                    by video, telephone or in person.
+                  </p>
+                </div>
               </div>
             </Reveal>
           </div>
@@ -310,7 +324,63 @@ export function AboutPage() {
                 .
               </p>
             </Reveal>
+            <Reveal delay={0.24}>
+              <div className="mt-8">
+                <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-gold-700">
+                  Admissions &amp; professional standing
+                </p>
+                <CredentialWall className="mt-5" />
+              </div>
+            </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ——— SA legal ecosystem — courts, regulation & statute ——— */}
+      <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeading
+            eyebrow="The South African legal system"
+            title={
+              <>
+                Courts, regulators &amp; statute —{" "}
+                <span className="gold-text italic">our daily workplace</span>.
+              </>
+            }
+            lead="South African law is practised in specific rooms before specific bodies. This is where our mandates live — the superior courts, specialist tribunals, registries and the statutes that govern them."
+          />
+          <div className="-mx-6 mt-10">
+            <CourtsMarquee />
+          </div>
+          <div className="mt-14">
+            <Reveal>
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-700">
+                    Regulation &amp; standing
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">
+                    Regulated. Admitted. <span className="gold-text italic">Audited.</span>
+                  </h3>
+                </div>
+                <p className="max-w-sm text-[13px] leading-relaxed text-muted-foreground">
+                  Every standing claim is verifiable — certificates, enrolments
+                  and audit letters are produced on request.
+                </p>
+              </div>
+            </Reveal>
+            <div className="mt-9">
+              <RegulationBoard />
+            </div>
+          </div>
+          <Reveal delay={0.1} className="mt-12">
+            <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-700">
+              Statutory framework
+            </p>
+            <div className="mt-5">
+              <ActsStrip />
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>
