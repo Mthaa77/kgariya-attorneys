@@ -29,11 +29,32 @@ import {
   RegulationBoard,
   ActsStrip,
   CredentialWall,
+  SAFlagChip,
 } from "@/components/site/sa-legal";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
+
+/** Chambers gallery — the firm at work (SA counsel, consultation, library). */
+const GALLERY = [
+  {
+    src: "/images/sa-team-boardroom.png",
+    alt: "Kgariya attorneys in consultation around a boardroom table at golden hour",
+    caption: "In consultation — a development packaging session",
+  },
+  {
+    src: "/images/sa-attorney-library.png",
+    alt: "A Kgariya attorney drafting documents in the practice library",
+    caption: "In the library — drafting and research",
+  },
+  {
+    src: "/images/sa-team-corridor.png",
+    alt: "Kgariya counsel and attorney walking through the firm's offices",
+    caption: "Counsel on the move — between forums",
+  },
+];
 
 export function HomePage() {
   const latest = ARTICLES.slice(0, 3);
@@ -124,6 +145,51 @@ export function HomePage() {
             </Reveal>
           </div>
         </div>
+
+        {/* ——— Inside the firm — chambers gallery ——— */}
+        <div className="relative mx-auto mt-20 max-w-7xl px-6">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-700">
+                  Inside the firm
+                </p>
+                <h3 className="mt-2.5 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">
+                  Counsel, consultation &amp;{" "}
+                  <span className="gold-text italic">craft</span>.
+                </h3>
+              </div>
+              <p className="max-w-sm text-[13px] leading-relaxed text-muted-foreground">
+                Where mandates are actually worked — in the boardroom, in the
+                library and on the move between the forums of South Africa.
+              </p>
+            </div>
+          </Reveal>
+          <div className="mt-9 grid gap-5 sm:grid-cols-3">
+            {GALLERY.map((g, i) => (
+              <Reveal key={g.src} delay={0.08 + i * 0.1} className={i === 1 ? "sm:mt-9" : ""}>
+                <figure className="group relative overflow-hidden rounded-[1.75rem] border border-navy-100 shadow-luxe transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxe-lg">
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <ImageReveal
+                      src={g.src}
+                      alt={g.alt}
+                      className="h-full w-full"
+                      imgClassName="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+                    />
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
+                  <span className="pointer-events-none absolute left-0 top-0 z-10 h-10 w-10 border-l-2 border-t-2 border-gold-400/0 transition-colors duration-500 group-hover:border-gold-400/70" />
+                  <figcaption className="absolute inset-x-4 bottom-4">
+                    <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-navy-950/70 px-3.5 py-1.5 text-[11px] font-semibold text-gold-200 backdrop-blur-md">
+                      <span className="h-1 w-1 shrink-0 rounded-full bg-gold-400" />
+                      <span className="truncate">{g.caption}</span>
+                    </span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ——— Client pathfinder (interactive onboarding router) ——— */}
@@ -199,6 +265,50 @@ export function HomePage() {
               </StaggerItem>
             ))}
           </Stagger>
+
+          {/* — In the forum — cinematic courtroom band — */}
+          <Reveal delay={0.1} className="mt-16">
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-luxe-lg">
+              <div className="relative h-[360px] sm:h-[440px]">
+                <ImageReveal
+                  src="/images/sa-counsel-speaking.png"
+                  alt="Counsel in South African court robes making submissions before the court"
+                  className="h-full w-full"
+                  imgClassName="object-cover object-[center_28%]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-navy-950/5" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy-950/75 via-navy-950/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-7 sm:p-10">
+                  <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-gold-300">
+                    <span className="h-px w-8 bg-gold-400" />
+                    In the forum
+                  </p>
+                  <h3 className="mt-4 max-w-xl font-display text-2xl font-semibold leading-snug text-white sm:text-[1.9rem]">
+                    Strategy is argued in rooms like this —{" "}
+                    <span className="gold-text italic">prepared long before we stand up.</span>
+                  </h3>
+                  <div className="mt-6 flex flex-wrap items-center gap-2">
+                    {[
+                      "High Court — Gauteng Division",
+                      "Supreme Court of Appeal",
+                      "AFSA arbitration",
+                      "Land Claims Court",
+                    ].map((c) => (
+                      <span
+                        key={c}
+                        className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[11px] font-semibold text-white/80 backdrop-blur-md"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                    <span className="ml-1 hidden sm:block">
+                      <SAFlagChip dark />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
 
           {/* — Courts & forums of South Africa — */}
           <Reveal delay={0.15} className="mt-14">
@@ -532,6 +642,17 @@ export function HomePage() {
                 onClick={() => navigate(`#/insights/${featured.slug}`)}
                 className="group relative flex h-full min-h-[380px] w-full flex-col justify-between overflow-hidden rounded-[2rem] bg-navy-950 p-8 text-left shadow-luxe transition-all duration-500 hover:-translate-y-1.5 hover:shadow-luxe-lg sm:p-10"
               >
+                <div className="pointer-events-none absolute inset-0 opacity-25">
+                  <Image
+                    src="/images/sa-judge-bench.png"
+                    alt=""
+                    aria-hidden
+                    fill
+                    sizes="(min-width: 1024px) 640px, 100vw"
+                    className="object-cover object-[center_30%]"
+                  />
+                </div>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/80 to-navy-950/55" />
                 <div className="texture-grid-dark pointer-events-none absolute inset-0" />
                 <div className="animate-aurora pointer-events-none absolute -right-16 -top-20 h-64 w-72 rounded-full bg-gold-500/15 blur-[90px]" />
                 <div className="relative">

@@ -54,3 +54,6 @@ server.log
 /skills/
 # local sqlite dev database
 /db
+
+# verification artifacts (browser screenshots, tool output cache)
+/tool-results
