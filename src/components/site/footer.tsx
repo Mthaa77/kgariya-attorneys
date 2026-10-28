@@ -18,6 +18,7 @@ import { BADGES, FIRM, PRACTICE_AREAS } from "@/lib/site-data";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { ActsStrip, SAFlag } from "@/components/site/sa-legal";
+import { PrototypeBanner } from "@/components/site/prototype-banner";
 
 /** Distinct premium icon per compliance badge — mirrors the TrustStrip. */
 const BADGE_ICONS = [Landmark, Award, ShieldCheck, FileCheck, Scale];
@@ -241,6 +242,12 @@ export function Footer() {
           <p className="font-display text-[12.5px] italic text-gold-400">
             {FIRM.tagline}
           </p>
+        </div>
+      </div>
+
+      <div className="relative border-t border-gold-500/20 bg-navy-950/80 px-6 py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-center">
+          <PrototypeBanner floating={false} />
         </div>
       </div>
     </footer>

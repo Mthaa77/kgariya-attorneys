@@ -12,7 +12,6 @@ import { SearchDialog } from "@/components/site/search-dialog";
 import { ThreeQuestions } from "@/components/site/three-questions";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { FloatingContact } from "@/components/site/floating-contact";
-import { PrototypeBanner } from "@/components/site/prototype-banner";
 import { HomePage } from "@/components/pages/home";
 
 /*
@@ -117,7 +116,6 @@ export default function Site() {
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
       <main className="flex-1">
-        <PrototypeBanner />
         <AnimatePresence mode="wait">
           <motion.div
             key={route.split("?")[0]}
