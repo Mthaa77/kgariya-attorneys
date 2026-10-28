@@ -1,6 +1,6 @@
 "use client";
 
-import { X } from "lucide-react";
+import { ArrowUpRight, MessageCircle, X } from "lucide-react";
 import { useState } from "react";
 
 type PrototypeBannerProps = {
@@ -21,11 +21,28 @@ export function PrototypeBanner({ floating = true }: PrototypeBannerProps) {
       }
       aria-label="Prototype notice"
     >
-      <div className="flex items-center gap-3">
-        <span className="size-2 shrink-0 rounded-full bg-gold-400" aria-hidden="true" />
-        <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.16em] sm:text-[11px]">
-          Prototype demo website by Carter Digitals
-        </p>
+      <div className="flex min-w-0 items-center gap-3">
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-navy-950 text-gold-400 shadow-inner" aria-hidden="true">
+          <MessageCircle className="size-4" />
+        </span>
+        <div className="min-w-0">
+          <p className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-navy-950/60">
+            Digital preview
+          </p>
+          <p className="text-[10px] font-bold uppercase leading-relaxed tracking-[0.12em] sm:text-[11px]">
+            Prototype demo by{" "}
+            <a
+              href="https://wa.me/27724026893"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 underline decoration-navy-950/30 underline-offset-2 transition-colors hover:text-navy-950/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-950/60"
+            >
+              Carter Digitals
+              <ArrowUpRight className="size-3" aria-hidden="true" />
+              <span className="sr-only">on WhatsApp</span>
+            </a>
+          </p>
+        </div>
       </div>
       {floating && (
         <button
