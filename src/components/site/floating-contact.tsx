@@ -5,7 +5,7 @@ import { FIRM } from "@/lib/site-data";
 
 export function FloatingContact() {
   return (
-    <aside className="fixed bottom-5 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-7 sm:right-7" aria-label="Quick contact options">
+    <aside className="fixed bottom-24 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-7 sm:right-7" aria-label="Quick contact options">
       <a
         href="https://wa.me/27127860920?text=Hello%20Kgariya%20Attorneys%2C%20I%27d%20like%20to%20make%20an%20enquiry."
         target="_blank"

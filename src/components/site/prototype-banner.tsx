@@ -16,7 +16,7 @@ export function PrototypeBanner({ floating = true }: PrototypeBannerProps) {
     <aside
       className={
         floating
-          ? "fixed inset-x-4 bottom-4 z-50 mx-auto flex max-w-xl items-center justify-between gap-4 rounded-2xl border border-gold-300/40 bg-gold-500 px-4 py-3 text-navy-950 shadow-[0_18px_50px_rgba(8,25,48,0.28)] sm:inset-x-auto sm:right-6 sm:bottom-6 sm:left-auto sm:w-[min(100%-3rem,31rem)]"
+          ? "fixed inset-x-4 bottom-4 z-[70] mx-auto flex max-w-xl items-center justify-between gap-4 rounded-2xl border border-gold-300/40 bg-gold-500 px-4 py-3 text-navy-950 shadow-[0_18px_50px_rgba(8,25,48,0.28)] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:right-auto sm:w-[min(100%-3rem,31rem)]"
           : "flex w-full items-center justify-between gap-4 rounded-xl border border-gold-300/30 bg-gold-500/10 px-4 py-3 text-gold-200"
       }
       aria-label="Prototype notice"
