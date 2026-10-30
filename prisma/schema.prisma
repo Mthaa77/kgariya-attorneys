@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/custom.db"
+}
+
+model Enquiry {
+  id           String   @id @default(uuid())
+  kind         String   @default("enquiry") // enquiry | callback | joining | career
+  practiceArea String?
+  name         String
+  email        String
+  phone        String?
+  company      String?
+  message      String
+  consent      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model Booking {
+  id           String   @id @default(uuid())
+  name         String
+  email        String
+  phone        String?
+  mode         String // video | phone | in-person
+  date         String
+  slot         String?
+  practiceArea String?
+  notes        String?
+  consent      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model Subscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
