@@ -238,8 +238,14 @@ function WebsiteTerms() {
       </P>
       <H>4. Intellectual property</H>
       <P>
-        All content, imagery and marks on this website are owned by or licensed to
-        the firm and may not be reproduced without written permission.
+        This website — including its design, text, imagery, graphics, source
+        code and the Kgariya crest — is protected by copyright under the
+        Copyright Act 98 of 1978 of the Republic of South Africa and is owned
+        by or licensed to the firm. Copying, reproducing, adapting or
+        distributing any part of this website without the firm's prior written
+        consent is prohibited and may give rise to civil claims and criminal
+        liability under South African law. The design and build of this site
+        are credited to Carter Digitals.
       </P>
       <H>5. Liability</H>
       <P>

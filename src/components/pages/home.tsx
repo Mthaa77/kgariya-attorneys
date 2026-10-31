@@ -32,6 +32,7 @@ import {
   SAFlagChip,
 } from "@/components/site/sa-legal";
 import {
+  ConstitutionCodexArt,
   ContractSigningArt,
   CourthouseColumnsArt,
   GavelStrikeArt,
@@ -240,6 +241,28 @@ export function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ——— Constitution medallion — the foundation beneath the six practices ——— */}
+      <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+        <div className="texture-dots pointer-events-none absolute inset-0 opacity-30" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-200/25 blur-[130px]" />
+        <div className="relative mx-auto max-w-5xl px-6 text-center">
+          <Reveal>
+            <ConstitutionCodexArt className="mx-auto w-full max-w-[560px]" />
+          </Reveal>
+          <SectionHeading
+            align="center"
+            eyebrow="The foundation"
+            title={
+              <>
+                Six practices, one{" "}
+                <span className="gold-text italic">supreme law</span>.
+              </>
+            }
+            lead="Everything we execute rests on the Constitution of the Republic of South Africa, 1996 — and on the statutes, courts and registries that give it force. That is the standard the courts hold us to, and the standard we hold ourselves to."
+          />
         </div>
       </section>
 

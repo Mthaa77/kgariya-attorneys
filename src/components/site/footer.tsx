@@ -234,13 +234,25 @@ export function Footer() {
 
       <div className="relative border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-center sm:flex-row sm:text-left">
-          <p className="text-[12px] text-white/50">
-            © {new Date().getFullYear()} {FIRM.name}. All rights reserved. Attorneys,
-            Notaries & Conveyancers — registered with the Legal Practice Council.
-          </p>
-          <p className="font-display text-[12.5px] italic text-gold-400">
-            {FIRM.tagline}
-          </p>
+          <div>
+            <p className="text-[12px] text-white/50">
+              © {new Date().getFullYear()} {FIRM.name}. All rights reserved. Attorneys,
+              Notaries & Conveyancers — registered with the Legal Practice Council.
+            </p>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-white/40">
+              This website — its design, copy, imagery and code — is protected
+              under the Copyright Act 98 of 1978 (South Africa). Copying or
+              reproduction without written consent is prohibited.
+            </p>
+          </div>
+          <div className="text-center sm:text-right">
+            <p className="font-display text-[12.5px] italic text-gold-400">
+              {FIRM.tagline}
+            </p>
+            <p className="mt-1.5 text-[9.5px] font-bold uppercase tracking-[0.24em] text-white/35">
+              Site by Carter Digitals
+            </p>
+          </div>
         </div>
       </div>
     </footer>

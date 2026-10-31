@@ -90,11 +90,11 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
       {/* finial diamond + orb */}
       <motion.path d="M170 26 L177 38 L170 50 L163 38 Z" stroke="url(#ksvg-gold)" strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0, 0.7)} />
       <motion.circle cx="170" cy="66" r="7" stroke="url(#ksvg-gold)" strokeWidth="2" {...draw(reduced, 0.15, 0.6)} />
-      {/* capital + column */}
-      <motion.path d="M148 84 H192" stroke="url(#ksvg-gold)" strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.35, 0.6)} />
-      <motion.path d="M170 73 V250" stroke="url(#ksvg-gold)" strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.3, 0.9)} />
+      {/* capital + column — solid gold: objectBoundingBox gradients don't paint on straight H/V lines */}
+      <motion.path d="M148 84 H192" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.35, 0.6)} />
+      <motion.path d="M170 73 V250" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.3, 0.9)} />
       {/* beam */}
-      <motion.path d="M86 96 H254" stroke="url(#ksvg-gold)" strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.55, 1)} />
+      <motion.path d="M86 96 H254" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.55, 1)} />
       <motion.circle
         cx="86" cy="96" r="4" fill="url(#ksvg-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
@@ -563,15 +563,262 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
         stroke="url(#kseal-gold)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"
       >
         <path d="M100 62 L105 69 L100 76 L95 69 Z" />
-        <path d="M100 78 V126" />
-        <path d="M64 92 H136" />
+        <path d="M100 78 V126" stroke={GOLD} />
+        <path d="M64 92 H136" stroke={GOLD} />
         <path d="M64 92 L58 106 M64 92 L70 106" />
         <path d="M136 92 L130 106 M136 92 L142 106" />
         <path d="M54 108 Q64 118 74 108" />
         <path d="M126 108 Q136 118 146 108" />
-        <path d="M86 126 H114" />
-        <path d="M92 134 H108" />
+        <path d="M86 126 H114" stroke={GOLD} />
+        <path d="M92 134 H108" stroke={GOLD} />
       </motion.g>
+    </svg>
+  );
+}
+
+/* ————————————————————————————————————————————————
+   8 · Constitution codex — showcase medallion (light sections)
+   The open Constitution with scales of justice rising from its spine,
+   wreathed in protea-like laurel inside a rotating gold halo — the
+   foundation beneath the firm's six practices.
+———————————————————————————————————————————————— */
+
+const CODEX_CX = 380;
+const CODEX_CY = 232;
+
+/* Round computed geometry to 2dp — server/client trig differs in the last
+   ULP, and un-rounded coordinates break React hydration (attr mismatch). */
+const r2 = (n: number) => +n.toFixed(2);
+
+const CODEX_RAYS = Array.from({ length: 20 }, (_, i) => {
+  const a = (i * Math.PI * 2) / 20;
+  return {
+    x1: r2(CODEX_CX + Math.cos(a) * 206),
+    y1: r2(CODEX_CY + Math.sin(a) * 206),
+    x2: r2(CODEX_CX + Math.cos(a) * 222),
+    y2: r2(CODEX_CY + Math.sin(a) * 222),
+  };
+});
+
+const CODEX_ORBITS = Array.from({ length: 7 }, (_, i) => {
+  const a = (i * 2 * Math.PI) / 7 + Math.PI / 7;
+  return {
+    x: r2(CODEX_CX + Math.cos(a) * 186),
+    y: r2(CODEX_CY + Math.sin(a) * 186),
+    r: 2.4 + (i % 3) * 0.8,
+  };
+});
+
+const CODEX_LEAF = "M0 0 C4.5 -7 5.5 -20 0 -30 C-5.5 -20 -4.5 -7 0 0 Z";
+
+const CODEX_LEAVES_L = [
+  { x: 347, y: 393, r: -38 },
+  { x: 325, y: 387, r: -50 },
+  { x: 305, y: 378, r: -58 },
+  { x: 267, y: 351, r: -68 },
+  { x: 250, y: 331, r: -76 },
+];
+const CODEX_LEAVES_R = [
+  { x: 413, y: 393, r: 38 },
+  { x: 435, y: 387, r: 50 },
+  { x: 455, y: 378, r: 58 },
+  { x: 493, y: 351, r: 68 },
+  { x: 510, y: 331, r: 76 },
+];
+
+/** One laurel leaf — static outer transform positions it, inner motion springs it open. */
+function CodexLeaf({ x, y, r, delay }: { x: number; y: number; r: number; delay: number }) {
+  const reduced = useReducedMotion();
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${r})`}>
+      <motion.path
+        d={CODEX_LEAF}
+        fill={GOLD}
+        fillOpacity="0.5"
+        stroke={GOLD}
+        strokeWidth="1.1"
+        strokeLinejoin="round"
+        style={{ transformBox: "fill-box", transformOrigin: "bottom center" }}
+        initial={{ scale: reduced ? 1 : 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={VIEW}
+        transition={{ delay, type: "spring", stiffness: 210, damping: 15 }}
+      />
+    </g>
+  );
+}
+
+export function ConstitutionCodexArt({ className = "" }: { className?: string }) {
+  const reduced = useReducedMotion();
+  const haloOrigin = {
+    transformBox: "view-box" as const,
+    transformOrigin: `${CODEX_CX}px ${CODEX_CY}px`,
+  };
+  return (
+    <svg viewBox="0 0 760 470" fill="none" className={className} aria-hidden="true">
+      <GoldDefs id="kcod-gold" />
+      <defs>
+        <radialGradient id="kcod-halo" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stopColor={GOLD} stopOpacity="0.35" />
+          <stop offset="62%" stopColor={GOLD} stopOpacity="0.09" />
+          <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      {/* ambient halo */}
+      <motion.circle
+        cx={CODEX_CX} cy={CODEX_CY} r="170" fill="url(#kcod-halo)"
+        initial={{ opacity: 0 }} whileInView={{ opacity: 0.7 }} viewport={VIEW}
+        transition={{ duration: 2, delay: 0.9 }}
+      />
+
+      {/* static outer ring */}
+      <motion.circle
+        cx={CODEX_CX} cy={CODEX_CY} r="186" stroke={GOLD} strokeOpacity="0.4" strokeWidth="1.2"
+        {...draw(reduced, 0.1, 1.5)}
+      />
+
+      {/* rotating dashed ring — inner */}
+      <Fade delay={0.5} duration={1.1}>
+        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 80, repeat: Infinity, ease: "linear" }}>
+          <circle cx={CODEX_CX} cy={CODEX_CY} r="172" stroke={GOLD} strokeWidth="1" strokeDasharray="2 9" opacity="0.42" fill="none" />
+        </motion.g>
+      </Fade>
+
+      {/* counter-rotating dashed ring — outer */}
+      <Fade delay={0.65} duration={1.1}>
+        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 110, repeat: Infinity, ease: "linear" }}>
+          <circle cx={CODEX_CX} cy={CODEX_CY} r="202" stroke={GOLD} strokeWidth="1" strokeDasharray="1 16" opacity="0.3" fill="none" />
+        </motion.g>
+      </Fade>
+
+      {/* slow-turning sun rays */}
+      <Fade delay={0.75} duration={1.2}>
+        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }}>
+          {CODEX_RAYS.map((p, i) => (
+            <line key={i} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} stroke={GOLD} strokeOpacity="0.42" strokeWidth="1.2" strokeLinecap="round" />
+          ))}
+        </motion.g>
+      </Fade>
+
+      {/* orbiting gold particles */}
+      <Fade delay={0.85} duration={1.2}>
+        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 55, repeat: Infinity, ease: "linear" }}>
+          {CODEX_ORBITS.map((p, i) => (
+            <circle key={i} cx={p.x} cy={p.y} r={p.r} fill={GOLD} opacity={0.4 + (i % 3) * 0.22} />
+          ))}
+        </motion.g>
+      </Fade>
+
+      {/* ——— scales of justice rising from the codex (entrance → float loop → sway loops) ——— */}
+      <Fade delay={0.1}>
+        <motion.g animate={reduced ? undefined : { y: [0, -5, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
+          {/* finial · orb · capital · stem · beam — solid gold on straight lines:
+              objectBoundingBox gradients never paint on zero-height bboxes */}
+          <motion.path d="M380 84 L387 96 L380 108 L373 96 Z" stroke="url(#kcod-gold)" strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0.15, 0.6)} />
+          <motion.circle cx="380" cy="118" r="5.5" stroke="url(#kcod-gold)" strokeWidth="2" {...draw(reduced, 0.3, 0.5)} />
+          <motion.path d="M360 132 H400" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.45, 0.5)} />
+          <motion.path d="M380 108 V236" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.4, 0.8)} />
+          <motion.path d="M290 142 H470" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.6, 0.9)} />
+          <motion.circle
+            cx="290" cy="142" r="4" fill="url(#kcod-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+            initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
+            transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 14 }}
+          />
+          <motion.circle
+            cx="470" cy="142" r="4" fill="url(#kcod-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+            initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
+            transition={{ delay: 1.3, type: "spring", stiffness: 260, damping: 14 }}
+          />
+          {/* left pan — pendulum sway */}
+          <motion.g
+            style={{ transformBox: "fill-box", transformOrigin: "top center" }}
+            animate={reduced ? undefined : { rotate: [0, 2.2, 0, -1.8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.path d="M290 144 L272 190 M290 144 L308 190" stroke="url(#kcod-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.0, 0.6)} />
+            <motion.path d="M268 192 Q290 214 312 192" stroke="url(#kcod-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.15, 0.6)} />
+            <motion.path d="M268 192 Q290 202 312 192" stroke="url(#kcod-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.25, 0.5)} />
+          </motion.g>
+          {/* right pan — opposite phase */}
+          <motion.g
+            style={{ transformBox: "fill-box", transformOrigin: "top center" }}
+            animate={reduced ? undefined : { rotate: [0, -2.2, 0, 1.8, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          >
+            <motion.path d="M470 144 L452 190 M470 144 L488 190" stroke="url(#kcod-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.08, 0.6)} />
+            <motion.path d="M448 192 Q470 214 492 192" stroke="url(#kcod-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.23, 0.6)} />
+            <motion.path d="M448 192 Q470 202 492 192" stroke="url(#kcod-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.33, 0.5)} />
+          </motion.g>
+        </motion.g>
+      </Fade>
+
+      {/* ——— the open codex ——— */}
+      <motion.path
+        d="M266 246 C300 226 352 222 378 236 L378 308 C350 295 300 299 266 318 Z"
+        fill={GOLD} fillOpacity="0.05" stroke={NAVY} strokeOpacity="0.45" strokeWidth="1.8" strokeLinejoin="round"
+        {...draw(reduced, 0.75, 1)}
+      />
+      <motion.path
+        d="M494 246 C460 226 408 222 382 236 L382 308 C410 295 460 299 494 318 Z"
+        fill={GOLD} fillOpacity="0.05" stroke={NAVY} strokeOpacity="0.45" strokeWidth="1.8" strokeLinejoin="round"
+        {...draw(reduced, 0.85, 1)}
+      />
+      {/* cover curve beneath */}
+      <motion.path d="M250 322 Q380 362 510 322" stroke={NAVY} strokeOpacity="0.38" strokeWidth="2" strokeLinecap="round" {...draw(reduced, 0.95, 0.8)} />
+      {/* gold spine edges */}
+      <motion.path d="M378 236 V308 M382 236 V308" stroke="url(#kcod-gold)" strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.05, 0.6)} />
+      {/* page rules */}
+      <motion.path d="M288 254 L352 247 M288 268 L352 262 M288 282 L352 277 M288 296 L352 292" stroke={NAVY} strokeOpacity="0.3" strokeWidth="1.3" strokeLinecap="round" {...draw(reduced, 1.15, 0.7)} />
+      <motion.path d="M408 247 L472 254 M408 262 L472 268 M408 277 L472 282 M408 292 L472 296" stroke={NAVY} strokeOpacity="0.3" strokeWidth="1.3" strokeLinecap="round" {...draw(reduced, 1.25, 0.7)} />
+      {/* ribbon bookmark */}
+      <motion.path
+        d="M373 308 L387 308 L387 334 L380 326.5 L373 334 Z"
+        fill="url(#kcod-gold)" fillOpacity="0.9"
+        style={{ transformBox: "fill-box", transformOrigin: "top center" }}
+        initial={{ scale: reduced ? 1 : 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
+        transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 14 }}
+      />
+
+      {/* ——— laurel wreath ——— */}
+      <motion.path d="M368 396 C308 390 258 358 236 304" stroke={GOLD} strokeOpacity="0.75" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.55, 0.8)} />
+      <motion.path d="M392 396 C452 390 502 358 524 304" stroke={GOLD} strokeOpacity="0.75" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.6, 0.8)} />
+      {CODEX_LEAVES_L.map((l, i) => (
+        <CodexLeaf key={`l-${i}`} x={l.x} y={l.y} r={l.r} delay={1.75 + i * 0.1} />
+      ))}
+      {CODEX_LEAVES_R.map((l, i) => (
+        <CodexLeaf key={`r-${i}`} x={l.x} y={l.y} r={l.r} delay={1.8 + i * 0.1} />
+      ))}
+      <motion.path
+        d="M380 393 L386 400 L380 407 L374 400 Z" fill="url(#kcod-gold)"
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 0.9 }} viewport={VIEW}
+        transition={{ delay: 2.15, type: "spring", stiffness: 200, damping: 12 }}
+      />
+
+      {/* ——— inscription ——— */}
+      <Fade delay={1.7} duration={0.9}>
+        <text
+          x={CODEX_CX} y="356" textAnchor="middle"
+          fontFamily="var(--font-display), Georgia, serif"
+          fontSize="10" fontWeight="600" letterSpacing="1.4"
+          fill={GOLD} fillOpacity="0.9"
+        >
+          REPUBLIC OF SOUTH AFRICA
+        </text>
+      </Fade>
+      <motion.path
+        d="M278 347 L283 352 L278 357 L273 352 Z" fill={GOLD}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 0.75 }} viewport={VIEW}
+        transition={{ delay: 1.95, type: "spring", stiffness: 200, damping: 12 }}
+      />
+      <motion.path
+        d="M482 347 L487 352 L482 357 L477 352 Z" fill={GOLD}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 0.75 }} viewport={VIEW}
+        transition={{ delay: 2.05, type: "spring", stiffness: 200, damping: 12 }}
+      />
     </svg>
   );
 }
