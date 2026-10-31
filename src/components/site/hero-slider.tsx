@@ -17,6 +17,7 @@ import {
   Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { FloatingLawIcons } from "@/components/site/floating-icons";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { COUNTERS } from "@/lib/site-data";
@@ -137,6 +138,16 @@ export function HeroSlider() {
       {/* Floating gold accents */}
       <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-gold-500/15 blur-[110px]" />
       <div className="pointer-events-none absolute bottom-10 right-10 h-56 w-56 rounded-full bg-gold-400/10 blur-[90px]" />
+
+      {/* Floating law icons — scales, gavel & constitution book drifting over the hero */}
+      <FloatingLawIcons
+        variant="dark"
+        items={[
+          { g: "scale", className: "right-4 top-[12%] lg:right-[2.5%] lg:top-[15%]", delay: 0.15 },
+          { g: "gavel", className: "bottom-[21%] left-6 hidden lg:flex", delay: 0.45 },
+          { g: "book", className: "bottom-[34%] right-[3%] hidden xl:flex", delay: 0.7 },
+        ]}
+      />
 
       {/* ——— Content ——— */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pb-32 pt-24">

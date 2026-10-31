@@ -41,6 +41,7 @@ import {
   SAMandateMap,
   ScalesOfJusticeArt,
 } from "@/components/site/law-svg";
+import { FloatingLawIcons } from "@/components/site/floating-icons";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
 import { Button } from "@/components/ui/button";
@@ -83,6 +84,15 @@ export function HomePage() {
       {/* ——— Positioning + counters ——— */}
       <section className="relative overflow-hidden bg-white py-24 sm:py-28">
         <div className="texture-dots pointer-events-none absolute inset-0 opacity-40" />
+        {/* Floating law icons — shield, key & signing pen drifting at the edges */}
+        <FloatingLawIcons
+          variant="light"
+          items={[
+            { g: "shield", className: "right-3 top-3 sm:right-5 sm:top-5", delay: 0.1 },
+            { g: "key", className: "bottom-3 left-3 sm:bottom-5 sm:left-5", delay: 0.35 },
+            { g: "book", className: "left-[1.5%] top-[30%] hidden min-[1440px]:flex", delay: 0.55 },
+          ]}
+        />
         <div className="relative mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
           <div>
             <SectionHeading
@@ -247,6 +257,14 @@ export function HomePage() {
       {/* ——— Constitution medallion — the foundation beneath the six practices ——— */}
       <section className="relative overflow-hidden bg-white py-20 sm:py-24">
         <div className="texture-dots pointer-events-none absolute inset-0 opacity-30" />
+        {/* Floating law icons — courthouse columns & justice seal flanking the codex */}
+        <FloatingLawIcons
+          variant="light"
+          items={[
+            { g: "columns", className: "left-3 top-3 sm:left-5 sm:top-5", delay: 0.15 },
+            { g: "seal", className: "bottom-3 right-3 sm:bottom-5 sm:right-5", delay: 0.45 },
+          ]}
+        />
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-200/25 blur-[130px]" />
         <div className="relative mx-auto max-w-5xl px-6 text-center">
           <Reveal>
@@ -270,6 +288,14 @@ export function HomePage() {
       <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0" />
         <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
+        {/* Floating law icons — seal & scales at the dark section's edges */}
+        <FloatingLawIcons
+          variant="dark"
+          items={[
+            { g: "seal", className: "right-3 top-3 sm:right-5 sm:top-5", delay: 0.1 },
+            { g: "scale", className: "bottom-3 left-3 sm:bottom-5 sm:left-5", delay: 0.4 },
+          ]}
+ />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Animated scales ghost — the showpiece behind the heading */}
           <ScalesOfJusticeArt className="pointer-events-none absolute left-1/2 top-0 hidden w-[520px] -translate-x-1/2 -translate-y-[38%] opacity-[0.16] md:block" />
@@ -418,6 +444,14 @@ export function HomePage() {
       <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0 opacity-70" />
         <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
+        {/* Floating law icons — shield & gavel guarding the jurisdiction band */}
+        <FloatingLawIcons
+          variant="dark"
+          items={[
+            { g: "shield", className: "left-3 top-3 sm:left-5 sm:top-5", delay: 0.2 },
+            { g: "gavel", className: "right-[1.5%] top-[26%] hidden min-[1440px]:flex", delay: 0.5 },
+          ]}
+ />
         <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
           <div>
             <SectionHeading
@@ -492,8 +526,8 @@ export function HomePage() {
                   </p>
                 </div>
               </div>
-              {/* Floating credential chip */}
-              <div className="animate-floaty absolute -right-3 top-8 hidden items-center gap-3 rounded-2xl border border-navy-100 bg-white/90 p-4 shadow-luxe-lg backdrop-blur-xl sm:flex">
+              {/* Floating credential chip — visible on every breakpoint */}
+              <div className="animate-floaty absolute -right-3 top-8 flex items-center gap-3 rounded-2xl border border-navy-100 bg-white/90 p-4 shadow-luxe-lg backdrop-blur-xl">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-500/15 text-gold-600">
                   <BadgeCheck className="h-5 w-5" />
                 </span>
@@ -602,6 +636,11 @@ export function HomePage() {
 
       {/* ——— Fee models ——— */}
       <section id="fees" className="relative scroll-mt-24 overflow-hidden bg-white py-24 sm:py-28">
+        {/* Floating law icon — signing pen at the fee section's corner */}
+        <FloatingLawIcons
+          variant="light"
+          items={[{ g: "pen", className: "bottom-3 right-3 sm:bottom-5 sm:right-5", delay: 0.25 }]}
+        />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Animated contract signing — agreed in writing */}
           <ContractSigningArt className="pointer-events-none absolute -top-8 right-0 hidden w-[240px] lg:block" />

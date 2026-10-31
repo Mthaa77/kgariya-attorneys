@@ -1,10 +1,11 @@
 "use client";
 
 /**
- * Carter Digitals preview banner — floating site credit + IP notice.
- * Collapsed: a compact navy/gold capsule (bottom-left). Expanded: a premium
- * panel carrying the firm's copyright notice under the Copyright Act
- * 98 of 1978 (South Africa) — copying any part of the site is forbidden.
+ * Carter Digitals preview banner — floating ownership + IP notice.
+ * Collapsed: a compact navy/gold capsule (bottom-left) stating that the
+ * website belongs to Carter Digitals. Expanded: a premium panel carrying
+ * the full ownership + copyright notice under the Copyright Act 98 of 1978
+ * (South Africa) — nobody may copy the site's designs or content.
  * Sits below dialogs (z-50+) and the cookie bar (z-70) so it never blocks
  * a consent screen or dialog; on small screens it floats above the cookie
  * bar zone until that is dismissed.
@@ -95,7 +96,7 @@ export function PreviewBanner() {
             type="button"
             onClick={() => setOpen(true)}
             aria-expanded={false}
-            aria-label="Carter Digitals — preview build and copyright notice"
+            aria-label="Carter Digitals — website owner and copyright notice"
             initial={{ opacity: 0, y: 26, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 14, scale: 0.96 }}
@@ -110,7 +111,7 @@ export function PreviewBanner() {
               </span>
               <span className="mt-1 flex items-center gap-1.5 text-[9px] font-semibold uppercase tracking-[0.18em] text-white/50">
                 <span className="animate-live-pulse h-1.5 w-1.5 rounded-full bg-gold-400" />
-                Preview build
+                Website owner · Protected
               </span>
             </span>
             <ChevronUp className="h-3.5 w-3.5 text-gold-400/70 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:text-gold-300" />
@@ -120,7 +121,7 @@ export function PreviewBanner() {
           <motion.div
             key="panel"
             role="complementary"
-            aria-label="Copyright notice — Carter Digitals preview build"
+            aria-label="Ownership and copyright notice — Carter Digitals"
             initial={{ opacity: 0, y: 26, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
@@ -146,7 +147,7 @@ export function PreviewBanner() {
                       Carter Digitals
                     </p>
                     <p className="mt-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/45">
-                      Design &amp; build · Preview
+                      Website owner · Design &amp; content
                     </p>
                   </div>
                 </div>
@@ -169,11 +170,12 @@ export function PreviewBanner() {
                 </span>
                 <div>
                   <p className="text-[13px] font-bold text-white">
-                    © {new Date().getFullYear()} Kgariya Attorneys Incorporated
+                    © {new Date().getFullYear()} Carter Digitals — Website owner
                   </p>
                   <p className="mt-1 text-[11px] leading-relaxed text-white/55">
-                    All rights reserved. This website — its design, copy, imagery,
-                    crest, graphics and source code — is protected under the{" "}
+                    This website belongs to Carter Digitals. Its design, copy,
+                    imagery, crest, graphics and source code are the property of
+                    Carter Digitals and are protected under the{" "}
                     <span className="font-semibold text-gold-200">
                       Copyright Act 98 of 1978
                     </span>{" "}
@@ -184,9 +186,11 @@ export function PreviewBanner() {
 
               <p className="mt-4 rounded-2xl border border-gold-500/20 bg-gold-500/[0.07] px-4 py-3 text-[11.5px] leading-relaxed text-gold-200/90">
                 <span className="font-bold text-gold-200">Copying is forbidden.</span>{" "}
-                Reproducing, adapting or redistributing any part of this site
-                without prior written consent is prohibited and may give rise to
-                civil claims and criminal liability under South African law.
+                Nobody may copy, reproduce, adapt or redistribute any part of
+                this site&apos;s designs or content — in whole or in part —
+                without the prior written consent of Carter Digitals.
+                Infringement may give rise to civil claims and criminal
+                liability under South African law.
               </p>
 
               {/* footer row */}
