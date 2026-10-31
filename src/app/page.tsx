@@ -12,6 +12,7 @@ import { SearchDialog } from "@/components/site/search-dialog";
 import { ThreeQuestions } from "@/components/site/three-questions";
 import { CookieConsent } from "@/components/site/cookie-consent";
 import { PreviewBanner } from "@/components/site/preview-banner";
+import { FloatingContact } from "@/components/site/floating-contact";
 import { HomePage } from "@/components/pages/home";
 
 /*
@@ -135,6 +136,7 @@ export default function Site() {
       <ThreeQuestions />
       <CookieConsent />
       <PreviewBanner />
+      <FloatingContact />
     </div>
   );
 }

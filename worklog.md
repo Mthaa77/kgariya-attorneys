@@ -225,3 +225,22 @@ Work Log:
 Stage Summary:
 - Floating law-icon chips now drift across the homepage on every screen size — the mobile experience regained its floating layer (hero scale chip, corner glyphs, LPC credential chip), and desktop gained gutter ornaments.
 - The Carter Digitals banner, website terms §4 and the footer now consistently declare that the website belongs to Carter Digitals and that nobody may copy its designs or content, under the Copyright Act 98 of 1978 (South Africa).
+
+---
+Task ID: 12-b
+Agent: Main agent (Z.ai)
+Task: "The floating email and phone icons" — restore the missing floating email/phone quick-contact icons, scan and fix any issues/errors, and refine where worthwhile.
+
+Work Log:
+- Diagnosis: unlike the law glyphs, no floating email/phone contact element existed anywhere in the codebase or git history (grep + git log) — the widget was lost in the pre-git refactor. Rebuilt it rather than searching for a ghost.
+- New src/components/site/floating-contact.tsx — FloatingContact dock, mounted site-wide in page.tsx: bottom-right column (mirroring the Carter Digitals capsule on the left) with a navy glass email orb (mailto with prefilled subject) above a primary gold-gradient call orb carrying an animate-gold-pulse halo (tap-to-call tel: link). Hover/keyboard-focus slides out a premium navy label chip ("Email the firm / info@kgariyainc.co.za", "Call the firm / (+27) 12 786 0920"). Layered transforms never fight: motion.span owns the entrance spring → inner span owns the new animate-floaty-soft idle drift → the anchor owns hover/press scale. Entrance springs are staggered (0.75s/0.9s) and reduced-motion aware.
+- Z-index choreography: dock at z-[46] — above content, below dialogs (z-50), back-to-top orb (z-65), cookie bar and scroll progress (z-70); sits at bottom-24 right-4 on mobile (clear of the back-to-top orb, same cookie-bar-zone convention as the preview banner) and bottom-[5.75rem] right-7 on ≥sm (forming one tidy right-edge stack with the back-to-top orb, 16px gap). Preview banner raised z-[45] → z-[47] so its expanded panel covers the dock instead of being overlapped by it (mobile verified).
+- globals.css: added the floaty-soft keyframes (−6px drift, 8.5s) and registered .animate-floaty-soft in the prefers-reduced-motion kill list.
+- Error scan (the "scan and fix" pass): ESLint clean; tsc found one real site bug — people.tsx imported a non-existent useSite export from @/lib/router (dead import; the store hook was already correctly imported as useSiteStore) — removed; tsconfig now excludes examples/, skills/, scripts/, mini-services/ so bunx tsc --noEmit is a clean site-only signal (it previously failed on unrelated template/skill files).
+- Browser sweep (agent-browser desktop 1440 + mobile 390): all 16 routes (home, 8 pages, 6 practice pages, 404) load with zero page errors; dock verified numerically on mobile (call orb 44px at right-4/bottom-24, back-to-top orb clear below) and visually on desktop incl. mid-scroll; hover labels verified programmatically (matches(':hover') → chip opacity 1) and design verified via forced-show screenshot; expanded Carter Digitals panel re-verified on mobile; container upgraded to role="group" + aria-label for assistive tech.
+- Refinements: email orb opens mailto with "Enquiry via kgariyainc.co.za" subject; label chips pointer-events-none + whitespace-nowrap so they never trap clicks or wrap; pulse halo aria-hidden.
+
+Stage Summary:
+- The floating email and phone icons are back — a premium quick-contact dock floats on every page and breakpoint: gold tap-to-call orb with live pulse, navy email orb, slide-out labels with the firm's real number/address, calm idle drift, full reduced-motion support.
+- Whole-site scan came back clean: lint green, site-only typecheck green (one dead import fixed), zero console/page errors across all 16 routes, dock/banner/back-to-top/cookie-bar layering verified on desktop and mobile.
+

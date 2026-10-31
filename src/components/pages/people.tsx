@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Award, BadgeCheck, GraduationCap, Quote, Stethoscope } from "lucide-react";
-import { navigate, useSite } from "@/lib/router";
+import { navigate } from "@/lib/router";
 import { DIRECTOR, PEOPLE_PLACEHOLDERS } from "@/lib/site-data";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";

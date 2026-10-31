@@ -87,7 +87,7 @@ export function PreviewBanner() {
   }, [open]);
 
   return (
-    <div className="pointer-events-none fixed bottom-24 left-4 z-[45] sm:bottom-6 sm:left-5">
+    <div className="pointer-events-none fixed bottom-24 left-4 z-[47] sm:bottom-6 sm:left-5">
       <AnimatePresence mode="wait" initial={false}>
         {!open ? (
           /* ——— Collapsed capsule ——— */
