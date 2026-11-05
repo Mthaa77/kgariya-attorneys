@@ -9,7 +9,12 @@ import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/
 import { Icon } from "@/components/site/icon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import useSWR from "swr";
 import { useSite as useSiteStore } from "@/lib/store";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityAttorney } from "@/sanity/types";
+
+const fetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 
 const QUAL_GROUPS = [
   { key: "Legal & Financial", icon: "scale" },
@@ -18,6 +23,8 @@ const QUAL_GROUPS = [
 ];
 
 export function PeoplePage() {
+  const { data: cmsAttorneys } = useSWR<SanityAttorney[]>("/api/cms?type=attorneys", fetcher);
+
   return (
     <div>
       <PageHero
@@ -149,6 +156,26 @@ export function PeoplePage() {
           </div>
         </div>
       </section>
+
+      {cmsAttorneys && cmsAttorneys.length > 0 && (
+        <section className="bg-ivory py-20 sm:py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionHeading eyebrow="Our people" title={<>The people behind the <span className="gold-text italic">mandate</span>.</>} lead="Published profiles approved by the Kgariya team." />
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {cmsAttorneys.map((attorney) => (
+                <Card key={attorney._id} className="overflow-hidden rounded-3xl border-navy-100 bg-white">
+                  {attorney.photograph && <Image src={String(urlFor(attorney.photograph as never).width(720).height(720).url())} alt={String(attorney.fullName)} width={720} height={720} className="aspect-square object-cover" />}
+                  <CardContent className="p-7">
+                    <h3 className="font-display text-xl font-semibold text-navy-900">{attorney.fullName}</h3>
+                    <p className="mt-1 text-[12px] font-bold uppercase tracking-[0.12em] text-gold-700">{String(attorney.professionalTitle ?? "")}</p>
+                    {attorney.biography && <p className="mt-4 text-[13.5px] leading-relaxed text-muted-foreground">{String(attorney.biography)}</p>}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Future profiles */}
       <section className="bg-ivory py-20 sm:py-24">
