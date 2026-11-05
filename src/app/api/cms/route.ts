@@ -5,6 +5,10 @@ import { articleBySlugQuery, articlesQuery, attorneysQuery, mattersQuery } from 
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const type = url.searchParams.get("type");
+  const slug = url.searchParams.get("slug");
+  if (type === "article" && (!slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))) {
+    return NextResponse.json({ error: "Invalid slug" }, { status: 400 });
+  }
   try {
     if (type === "attorneys") return NextResponse.json(await sanityClient.fetch(attorneysQuery));
     if (type === "articles") return NextResponse.json(await sanityClient.fetch(articlesQuery));

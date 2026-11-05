@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SanityLive } from "@/sanity/lib/live";
 
 const display = Playfair_Display({
   variable: "--font-display",
@@ -76,6 +77,7 @@ export default function RootLayout({
         className={`${display.variable} ${body.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
+        <SanityLive />
         <Toaster />
       </body>
     </html>

@@ -58,6 +58,14 @@ server.log
 # verification artifacts (browser screenshots, tool output cache)
 /tool-results
 
+# Sanity Studio generated files
+studio/node_modules/
+studio/dist/
+studio/.sanity/
+studio/package-lock.json
+studio/.sanity/runtime/
+studio/dist/
+
 # sandbox runtime helpers & local artifacts
 /.zscripts/
 /download/*.png

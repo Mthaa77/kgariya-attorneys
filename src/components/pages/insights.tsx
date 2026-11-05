@@ -16,8 +16,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { EnquiryForm } from "@/components/site/enquiry-form";
 import { useSite } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { PortableText } from "@portabletext/react";
 import useSWR from "swr";
 import type { SanityArticle } from "@/sanity/types";
+import { urlFor } from "@/sanity/lib/image";
 import { Notfound } from "./notfound";
 
 const fetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
@@ -294,9 +296,26 @@ function NewsletterForm() {
 /* ————— Article reader ————— */
 
 export function ArticlePage({ slug }: { slug: string }) {
-  const article = getArticle(slug);
-  if (!article) return <Notfound />;
+  const { data: cmsArticle, isLoading } = useSWR<SanityArticle | null>(
+    `/api/cms?type=article&slug=${encodeURIComponent(slug)}`,
+    fetcher
+  );
+  const staticArticle = getArticle(slug);
+  if (isLoading && !staticArticle) return <div className="min-h-[70vh] bg-white" aria-busy="true" />;
+  if (!cmsArticle && !staticArticle) return <Notfound />;
 
+  const article = cmsArticle
+    ? {
+        ...staticArticle,
+        title: cmsArticle.title,
+        excerpt: cmsArticle.excerpt,
+        category: cmsArticle.category ?? staticArticle?.category ?? "Insights",
+        categorySlug: staticArticle?.categorySlug ?? "commercial-litigation",
+        date: cmsArticle.publicationDate,
+        readTime: staticArticle?.readTime ?? "8 min read",
+        body: [],
+      }
+    : staticArticle!;
   const related = ARTICLES.filter(
     (a) => a.slug !== slug && a.categorySlug === article.categorySlug
   )
@@ -347,7 +366,7 @@ export function ArticlePage({ slug }: { slug: string }) {
               </span>
               <span className="flex items-center gap-1.5">
                 <CalendarDays className="h-3.5 w-3.5" />
-                {fmtDate(article.date)}
+                {fmtDate(article.date ?? new Date().toISOString())}
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock3 className="h-3.5 w-3.5" />
@@ -368,24 +387,27 @@ export function ArticlePage({ slug }: { slug: string }) {
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_320px]">
           <article className="mx-auto w-full max-w-3xl">
-            {article.body.map((p, i) => (
+            {cmsArticle?.body?.length ? (
+              <div className="prose prose-slate max-w-none prose-headings:font-display prose-headings:text-navy-900 prose-p:text-[15.5px] prose-p:leading-[1.85] prose-a:text-gold-700 prose-blockquote:border-gold-500 prose-blockquote:text-navy-900">
+                <PortableText
+                  value={cmsArticle.body as never}
+                  components={{
+                    types: {
+                      image: ({ value }) => (
+                        <img
+                          src={value ? urlFor(value).width(1400).auto("format").url() : ""}
+                          alt={value?.alt || "Article image"}
+                          className="my-8 w-full rounded-2xl"
+                        />
+                      ),
+                    },
+                  }}
+                />
+              </div>
+            ) : article.body.map((p, i) => (
               <Reveal key={i} delay={Math.min(i * 0.03, 0.2)}>
-                <p
-                  className={cn(
-                    "text-[15.5px] leading-[1.85] text-navy-900/85",
-                    i > 0 && "mt-6"
-                  )}
-                >
-                  {i === 0 ? (
-                    <>
-                      <span className="float-left mr-3 mt-1 font-display text-[3.4rem] font-bold leading-[0.8] text-gold-500">
-                        {p.charAt(0)}
-                      </span>
-                      {p.slice(1)}
-                    </>
-                  ) : (
-                    p
-                  )}
+                <p className={cn("text-[15.5px] leading-[1.85] text-navy-900/85", i > 0 && "mt-6")}>
+                  {i === 0 ? <><span className="float-left mr-3 mt-1 font-display text-[3.4rem] font-bold leading-[0.8] text-gold-500">{p.charAt(0)}</span>{p.slice(1)}</> : p}
                 </p>
               </Reveal>
             ))}
