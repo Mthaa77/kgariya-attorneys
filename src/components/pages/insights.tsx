@@ -86,8 +86,8 @@ export function InsightsPage() {
           {cat === "all" && ARTICLES[0] && (
             <Reveal delay={0.05}>
               <button
-                onClick={() => navigate(`#/insights/${ARTICLES[0].slug}`)}
                 className="group mt-10 grid w-full overflow-hidden rounded-[2rem] border border-navy-100 bg-ivory text-left shadow-luxe transition-all duration-500 hover:shadow-luxe-lg lg:grid-cols-[1.1fr_1fr]"
+                onClick={() => { window.location.href = `/insights/${ARTICLES[0].slug}`; }}
               >
                 <div className="relative min-h-[260px] overflow-hidden">
                   <div
@@ -146,12 +146,12 @@ export function InsightsPage() {
               <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-700">From the Kgariya newsroom</p>
               <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {cmsArticles.map((article) => (
-                  <button key={article._id} onClick={() => navigate(`#/insights/${article.slug}`)} className="group flex h-full flex-col rounded-3xl border border-navy-100 bg-white p-7 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-400/50 hover:shadow-luxe">
+                  <a key={article._id} href={`/insights/${article.slug}`} className="group flex h-full flex-col rounded-3xl border border-navy-100 bg-white p-7 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-400/50 hover:shadow-luxe">
                     <span className="w-fit rounded-full bg-navy-950 px-3 py-1 text-[10.5px] font-bold text-gold-300">{article.category ?? "Insight"}</span>
                     <h3 className="mt-5 font-display text-[17.5px] font-semibold leading-snug text-navy-900">{article.title}</h3>
                     <p className="mt-3 flex-1 text-[13.5px] leading-relaxed text-muted-foreground">{article.excerpt}</p>
                     <span className="mt-5 text-[12px] font-bold text-gold-700">Read article <ArrowRight className="ml-1 inline h-3.5 w-3.5" /></span>
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -161,14 +161,14 @@ export function InsightsPage() {
           <motion.div layout className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filtered.map((a) => (
-                <motion.button
+                <motion.a
+                  href={`/insights/${a.slug}`}
                   layout
                   key={a.slug}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  onClick={() => navigate(`#/insights/${a.slug}`)}
                   className="group flex h-full flex-col rounded-3xl border border-navy-100 bg-white p-7 text-left transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-400/50 hover:shadow-luxe"
                 >
                   <div className="flex items-center gap-3">
@@ -195,7 +195,7 @@ export function InsightsPage() {
                       {a.readTime}
                     </span>
                   </div>
-                </motion.button>
+                </motion.a>
               ))}
             </AnimatePresence>
           </motion.div>

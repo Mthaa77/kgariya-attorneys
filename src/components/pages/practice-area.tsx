@@ -27,11 +27,11 @@ import type { SanityMatter } from "@/sanity/types";
 
 const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 export function PracticeAreaPage({ slug }: { slug: string }) {
+  const { data: cmsMatters } = useSWR<SanityMatter[]>("/api/cms?type=matters", cmsFetcher);
   const area = getPractice(slug);
   if (!area) return <Notfound />;
 
   const others = PRACTICE_AREAS.filter((p) => p.slug !== slug).slice(0, 3);
-  const { data: cmsMatters } = useSWR<SanityMatter[]>("/api/cms?type=matters", cmsFetcher);
   const publishedMatters = (cmsMatters ?? [])
     .filter((matter) => !matter.practiceArea || matter.practiceArea === slug || matter.practiceArea === area.name)
     .map((matter) => ({
