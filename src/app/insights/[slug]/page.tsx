@@ -1,57 +1,88 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
-import { sanityFetch } from "@/sanity/lib/live";
-import { articleBySlugQuery, articlesQuery } from "@/sanity/lib/queries";
-import { urlFor } from "@/sanity/lib/image";
-import type { SanityArticle } from "@/sanity/types";
-import { Header } from "@/components/site/header";
-import { Footer } from "@/components/site/footer";
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { PortableText } from "@portabletext/react"
+import { sanityFetch } from "@/sanity/lib/live"
+import { articleBySlugQuery, articlesQuery } from "@/sanity/lib/queries"
+import { urlFor } from "@/sanity/lib/image"
+import type { SanityArticle } from "@/sanity/types"
+import { ARTICLES, type Article } from "@/lib/insights"
+import { Header } from "@/components/site/header"
+import { Footer } from "@/components/site/footer"
 
-const baseUrl = "https://www.kgariyainc.co.za";
-type Props = { params: Promise<{ slug: string }> };
+const baseUrl = "https://www.kgariyainc.co.za"
+type Props = { params: Promise<{ slug: string }> }
+type ArticleContent = SanityArticle | Article
 
-async function getArticle(slug: string) {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null;
-  const result = await sanityFetch({ query: articleBySlugQuery, params: { slug }, perspective: "published" });
-  return result.data as SanityArticle | null;
+function isValidSlug(slug: string) {
+  return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)
 }
 
-export const revalidate = 60;
+function isSanityArticle(article: ArticleContent): article is SanityArticle {
+  return "_id" in article
+}
+
+async function getArticle(slug: string): Promise<ArticleContent | null> {
+  if (!isValidSlug(slug)) return null
+
+  const result = await sanityFetch({ query: articleBySlugQuery, params: { slug }, perspective: "published" })
+  const sanityArticle = result.data as SanityArticle | null
+  return sanityArticle ?? ARTICLES.find((article) => article.slug === slug) ?? null
+}
+
+function getTitle(article: ArticleContent) {
+  return isSanityArticle(article) ? article.seo?.title || article.title : article.title
+}
+
+function getDescription(article: ArticleContent) {
+  return isSanityArticle(article) ? article.seo?.description || article.excerpt : article.excerpt
+}
+
+function getImage(article: ArticleContent) {
+  if (!isSanityArticle(article)) return null
+  const source = article.seo?.socialImage || article.mainImage
+  return source ? urlFor(source).width(1600).auto("format").url() : null
+}
+
+export const revalidate = 60
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = await getArticle(slug);
-  if (!article) return { title: "Insight not found | Kgariya Attorneys" };
-  const title = article.seo?.title || article.title;
-  const description = article.seo?.description || article.excerpt;
-  const image = article.seo?.socialImage || article.mainImage;
+  const { slug } = await params
+  const article = await getArticle(slug)
+  if (!article) return { title: "Insight not found | Kgariya Attorneys", robots: { index: false, follow: false } }
+
+  const title = getTitle(article)
+  const description = getDescription(article)
+  const image = getImage(article)
+  const canonical = `${baseUrl}/insights/${article.slug}`
+
   return {
     title,
     description,
-    alternates: { canonical: `${baseUrl}/insights/${article.slug}` },
+    alternates: { canonical },
     openGraph: {
       type: "article",
-      url: `${baseUrl}/insights/${article.slug}`,
+      url: canonical,
       title,
       description,
-      publishedTime: article.publicationDate,
-      authors: article.author?.fullName ? [article.author.fullName] : undefined,
-      images: image ? [{ url: urlFor(image).width(1600).auto("format").url(), alt: article.imageAlt || article.title }] : undefined,
+      publishedTime: isSanityArticle(article) ? article.publicationDate : article.date,
+      authors: isSanityArticle(article) && article.author?.fullName ? [article.author.fullName] : undefined,
+      images: image ? [{ url: image, alt: isSanityArticle(article) ? article.imageAlt || article.title : article.title }] : undefined,
     },
-    twitter: { card: "summary_large_image", title, description, images: image ? [urlFor(image).width(1600).auto("format").url()] : undefined },
+    twitter: { card: "summary_large_image", title, description, images: image ? [image] : undefined },
     robots: { index: true, follow: true },
-  };
+  }
 }
 
-export default async function SanityArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const article = await getArticle(slug);
-  if (!article) notFound();
+export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params
+  const article = await getArticle(slug)
+  if (!article) notFound()
+
   const related = ((await sanityFetch({ query: articlesQuery, perspective: "published" })).data as SanityArticle[])
     .filter((item) => item.slug !== article.slug)
-    .slice(0, 3);
-  const image = article.mainImage ? urlFor(article.mainImage).width(1800).auto("format").url() : null;
+    .slice(0, 3)
+  const image = getImage(article)
+  const publicationDate = isSanityArticle(article) ? article.publicationDate : article.date
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -64,21 +95,27 @@ export default async function SanityArticlePage({ params }: Props) {
               <h1 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-6xl">{article.title}</h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">{article.excerpt}</p>
               <p className="mt-7 text-sm text-white/55">
-                {article.publicationDate ? new Date(article.publicationDate).toLocaleDateString("en-ZA", { dateStyle: "long" }) : ""}
-                {article.author?.fullName ? ` · ${article.author.fullName}` : ""}
+                {publicationDate ? new Date(publicationDate).toLocaleDateString("en-ZA", { dateStyle: "long" }) : ""}
+                {isSanityArticle(article) && article.author?.fullName ? ` · ${article.author.fullName}` : ""}
               </p>
             </div>
           </header>
-          <div className="mx-auto grid max-w-7xl gap-14 px-6 py-16 lg:grid-cols-[minmax(0,1fr)_280px] sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-14 px-6 py-16 sm:py-24 lg:grid-cols-[minmax(0,1fr)_280px]">
             <div className="mx-auto w-full max-w-3xl">
-              {image && <img src={image} alt={article.imageAlt || article.title} className="mb-12 w-full rounded-3xl object-cover" />}
+              {image && <img src={image} alt={isSanityArticle(article) ? article.imageAlt || article.title : article.title} className="mb-12 w-full rounded-3xl object-cover" />}
               <div className="prose prose-slate max-w-none prose-headings:font-display prose-headings:text-navy-900 prose-a:text-gold-700 prose-blockquote:border-gold-500">
-                <PortableText
-                  value={article.body as never}
-                  components={{
-                    types: { image: ({ value }) => <img src={value ? urlFor(value).width(1400).auto("format").url() : ""} alt={value?.alt || "Article image"} className="my-8 w-full rounded-2xl" /> },
-                  }}
-                />
+                {isSanityArticle(article) ? (
+                  <PortableText
+                    value={article.body as never}
+                    components={{
+                      types: {
+                        image: ({ value }) => value ? <img src={urlFor(value).width(1400).auto("format").url()} alt={value.alt || "Article image"} className="my-8 w-full rounded-2xl" /> : null,
+                      },
+                    }}
+                  />
+                ) : (
+                  article.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+                )}
               </div>
               <div className="mt-14 rounded-3xl bg-ivory p-7 text-sm leading-relaxed text-muted-foreground">
                 This article is general information, not legal advice. Please use the enquiry form for advice on your specific matter after conflict screening.
@@ -96,5 +133,5 @@ export default async function SanityArticlePage({ params }: Props) {
       </main>
       <Footer />
     </div>
-  );
+  )
 }

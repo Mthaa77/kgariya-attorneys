@@ -16,6 +16,7 @@ export const article = defineType({
     defineField({ name: "publicationDate", title: "Publication date", type: "date", validation: (Rule) => Rule.required() }),
     defineField({ name: "seo", title: "Search and social metadata", type: "seo" }),
     defineField({ name: "publicationStatus", title: "Publication status", type: "string", options: { list: [{ title: "Draft", value: "draft" }, { title: "Published", value: "published" }], layout: "radio" }, initialValue: "draft", validation: (Rule) => Rule.required() }),
+    defineField({ name: "visibility", title: "Public visibility", description: "Only Public articles appear on the website. Use Internal for QA, editorial or private documents.", type: "string", options: { list: [{ title: "Public", value: "public" }, { title: "Internal", value: "internal" }], layout: "radio" }, initialValue: "public", validation: (Rule) => Rule.required() }),
   ],
   preview: { select: { title: "title", subtitle: "category", media: "mainImage" } },
 });
