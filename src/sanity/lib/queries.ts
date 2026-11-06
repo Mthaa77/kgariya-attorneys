@@ -4,11 +4,11 @@ export const attorneysQuery = defineQuery(`*[_type == "attorney" && approvedForP
   _id, fullName, professionalTitle, photograph, biography, qualifications, admissions, practiceAreas, displayOrder
 }`);
 
-export const articlesQuery = defineQuery(`*[_type == "article" && publicationStatus == "published" && visibility == "public" && defined(publicationDate)] | order(publicationDate desc) {
+export const articlesQuery = defineQuery(`*[_type == "article" && publicationStatus == "published" && coalesce(visibility, "public") == "public" && !string::startsWith(slug.current, "qa-") && !(_id == "5f902b1b-e6b9-4aba-bd64-300cfa2decdc") && defined(publicationDate)] | order(publicationDate desc) {
   _id, title, "slug": slug.current, excerpt, mainImage, imageAlt, body, "author": author->{fullName}, category, tags, publicationDate, seo
 }`);
 
-export const articleBySlugQuery = defineQuery(`*[_type == "article" && publicationStatus == "published" && visibility == "public" && slug.current == $slug][0] {
+export const articleBySlugQuery = defineQuery(`*[_type == "article" && publicationStatus == "published" && coalesce(visibility, "public") == "public" && !string::startsWith(slug.current, "qa-") && !(_id == "5f902b1b-e6b9-4aba-bd64-300cfa2decdc") && slug.current == $slug][0] {
   _id, title, "slug": slug.current, excerpt, mainImage, imageAlt, body, "author": author->{fullName}, category, tags, publicationDate, seo
 }`);
 
