@@ -12,6 +12,8 @@ export const representativeMatter = defineType({
     defineField({ name: "industry", title: "Industry or sector", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "anonymisedSummary", title: "Anonymised matter summary", type: "text", rows: 5, validation: (Rule) => Rule.required() }),
     defineField({ name: "legalContext", title: "Relevant legal context", type: "text", rows: 4 }),
+    defineField({ name: "forum", title: "Forum or venue", type: "string" }),
+    defineField({ name: "scale", title: "Indicative scale", type: "string" }),
     defineField({ name: "approvedOutcome", title: "Approved outcome, where permitted", type: "string" }),
     defineField({ name: "featuredImage", title: "Featured image", type: "imageWithAlt" }),
     defineField({ name: "approvedForPublication", title: "Approval for public publication", type: "boolean", initialValue: false, validation: (Rule) => Rule.required() }),
