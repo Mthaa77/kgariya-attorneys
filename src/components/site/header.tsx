@@ -26,8 +26,6 @@ import { navigate, useRoute } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { FIRM, PRACTICE_AREAS, PRACTICE_FORUMS, getPractice } from "@/lib/site-data";
 import useSWR from "swr";
-
-const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 import { Logo } from "./logo";
 import { Icon } from "./icon";
 import { Magnetic } from "./interactions";
@@ -35,11 +33,13 @@ import { SAFlagChip } from "./sa-legal";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 
+const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
+
 const EASE = [0.22, 1, 0.36, 1] as const;
 const SPRING = { type: "spring", stiffness: 380, damping: 32 } as const;
 
 /** Utility strip above the capsule — quietly slides away once scrolling starts. */
-function TopBar({ hidden }: { hidden: boolean }) {
+function TopBar({ hidden, phone, email, hoursShort, phoneHref }: { hidden: boolean; phone: string; email: string; hoursShort: string; phoneHref: string }) {
   return (
     <div
       className={cn(
@@ -50,22 +50,22 @@ function TopBar({ hidden }: { hidden: boolean }) {
       <div className="mx-auto flex h-11 max-w-[1400px] items-center justify-between px-6 text-[12.5px]">
         <div className="flex items-center gap-6 text-white/65">
           <a
-            href={FIRM.phoneHref}
+            href={phoneHref}
             className="flex items-center gap-2 transition-colors hover:text-gold-300"
           >
             <Phone className="h-3.5 w-3.5 text-gold-400" />
-            {FIRM.phone}
+            {phone}
           </a>
           <a
-            href={`mailto:${FIRM.email}`}
+            href={`mailto:${email}`}
             className="flex items-center gap-2 transition-colors hover:text-gold-300"
           >
             <Mail className="h-3.5 w-3.5 text-gold-400" />
-            {FIRM.email}
+            {email}
           </a>
           <span className="flex items-center gap-2">
             <Clock className="h-3.5 w-3.5 text-gold-400" />
-            {FIRM.hoursShort}
+            {hoursShort}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -410,7 +410,7 @@ export function Header() {
     <>
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50">
         <div className="pointer-events-auto">
-          <TopBar hidden={scrolled} />
+          <TopBar hidden={scrolled} phone={contactPhone} email={contactEmail} hoursShort={cmsSettings?.hoursShort || FIRM.hoursShort} phoneHref={phoneHref} />
 
           {/* ——— Floating capsule navbar ——— */}
           <div className="px-3 pb-2 pt-2 sm:px-5">
