@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const attorneysQuery = defineQuery(`*[_type == "attorney" && approvedForPublication == true] | order(displayOrder asc) {
-  _id, fullName, professionalTitle, photograph, biography, qualifications, admissions, practiceAreas, displayOrder
+  _id, fullName, professionalTitle, photograph, biography, welcomeQuote, experience, qualifications, admissions, practiceAreas, displayOrder
 }`);
 
 export const articlesQuery = defineQuery(`*[_type == "article" && publicationStatus == "published" && coalesce(visibility, "public") == "public" && !string::startsWith(slug.current, "qa-") && !(_id == "5f902b1b-e6b9-4aba-bd64-300cfa2decdc") && defined(publicationDate)] | order(publicationDate desc) {
@@ -16,6 +16,15 @@ export const mattersQuery = defineQuery(`*[_type == "representativeMatter" && ap
   _id, title, "slug": slug.current, practiceArea, industry, anonymisedSummary, legalContext, approvedOutcome, featuredImage, featuredImageAlt
 }`);
 
+
+export const practicesQuery = defineQuery(`*[_type == "practiceArea" && isPublished == true && defined(slug.current)] | order(number asc) {
+  _id, "slug": slug.current, number, name, shortName, menuLabel, tagline, intro, accent, accentSoft, iconKey,
+  "imageUrl": image.asset->url,
+  "overview": overview[].children[0].text,
+  scope, delivery, clients, stat { value, suffix, label }
+}`);
+
 export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0] {
-  firmName, phone, email, address, logo, globalSeo
+  firmName, shortName, tagline, phone, email, careersEmail, website, address, hours, hoursShort, mapsQuery,
+  logo, socialLinks, footerInformation, globalSeo
 }`);

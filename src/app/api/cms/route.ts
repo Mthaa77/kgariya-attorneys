@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { sanityClient } from "@/sanity/lib/client";
-import { articleBySlugQuery, articlesQuery, attorneysQuery, mattersQuery } from "@/sanity/lib/queries";
+import { articleBySlugQuery, articlesQuery, attorneysQuery, mattersQuery, practicesQuery, siteSettingsQuery } from "@/sanity/lib/queries";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -18,6 +18,8 @@ export async function GET(request: Request) {
       return NextResponse.json(await sanityClient.fetch(articleBySlugQuery, { slug }));
     }
     if (type === "matters") return NextResponse.json(await sanityClient.fetch(mattersQuery));
+    if (type === "practices") return NextResponse.json(await sanityClient.fetch(practicesQuery));
+    if (type === "siteSettings") return NextResponse.json(await sanityClient.fetch(siteSettingsQuery));
     return NextResponse.json({ error: "Unknown content type" }, { status: 400 });
   } catch {
     return NextResponse.json({ error: "CMS content unavailable" }, { status: 503 });

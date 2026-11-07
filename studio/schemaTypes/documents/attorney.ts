@@ -9,6 +9,7 @@ export const attorney = defineType({
     defineField({ name: "professionalTitle", title: "Professional title and position", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "photograph", title: "Profile photograph", type: "imageWithAlt", validation: (Rule) => Rule.required() }),
     defineField({ name: "biography", title: "Biography", type: "text", rows: 6, validation: (Rule) => Rule.required().min(50) }),
+    defineField({ name: "welcomeQuote", title: "Welcome quote", type: "text", rows: 4 }),
     defineField({ name: "experience", title: "Experience", type: "array", of: [{ type: "text" }] }),
     defineField({ name: "qualifications", title: "Qualifications", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "admissions", title: "Professional admissions and memberships", type: "array", of: [{ type: "string" }] }),

@@ -22,7 +22,7 @@ const documents = [
   },
   ...PRACTICE_AREAS.map((practice) => ({
     _id: draftId("practiceArea", practice.slug), _type: "practiceArea", slug: { _type: "slug", current: practice.slug }, number: practice.number,
-    name: practice.name, shortName: practice.shortName, menuLabel: practice.menuLabel, tagline: practice.tagline, intro: practice.intro, iconKey: practice.icon,
+    name: practice.name, shortName: practice.shortName, menuLabel: practice.menuLabel, tagline: practice.tagline, intro: practice.intro, accent: practice.accent, accentSoft: practice.accentSoft, iconKey: practice.icon,
     overview: toBlocks(practice.overview), scope: practice.scope, delivery: practice.delivery, clients: practice.clients, stat: practice.stat, isPublished: false,
   })),
   ...PRACTICE_AREAS.flatMap((practice) => practice.matters.map((matter, index) => ({
@@ -32,13 +32,13 @@ const documents = [
   }))),
   {
     _id: draftId("attorney", "founding-director"), _type: "attorney", fullName: "Founding Director", professionalTitle: DIRECTOR.role,
-    biography: DIRECTOR.welcome, experience: DIRECTOR.experience, qualifications: DIRECTOR.qualifications.map((item) => `${item.label} — ${item.group}`),
+    welcomeQuote: DIRECTOR.welcome, experience: DIRECTOR.experience, qualifications: DIRECTOR.qualifications.map((item) => `${item.label} — ${item.group}`),
     practiceAreas: PRACTICE_AREAS.map((practice) => practice.slug), displayOrder: 1, approvedForPublication: false,
   },
   ...ARTICLES.map((article) => ({
     _id: draftId("article", article.slug), _type: "article", slug: { _type: "slug", current: article.slug }, title: article.title,
     category: article.category, categorySlug: article.categorySlug, publicationDate: article.date, readTime: article.readTime, excerpt: article.excerpt,
-    body: toBlocks(article.body), publicationStatus: "published", visibility: "public", featured: Boolean(article.featured),
+    body: toBlocks(article.body), publicationStatus: "draft", visibility: "internal", featured: Boolean(article.featured),
   })),
 ];
 
@@ -50,9 +50,26 @@ if (!apply) {
 }
 
 const client = createClient({ projectId, dataset, apiVersion: "2025-01-01", token, useCdn: false, perspective: "drafts" });
-for (const chunk of Array.from({ length: Math.ceil(documents.length / 50) }, (_, index) => documents.slice(index * 50, index * 50 + 50))) {
+const chunkSize = 50;
+const existingIds = new Set<string>();
+
+// Read first, then create only missing IDs. Never replace an editor's existing draft.
+for (let offset = 0; offset < documents.length; offset += chunkSize) {
+  const batch = documents.slice(offset, offset + chunkSize);
+  const existing = await client.fetch<Array<{ _id: string }>>(
+    `*[_id in $ids]{_id}`,
+    { ids: batch.map((document) => document._id) },
+  );
+  for (const document of existing) existingIds.add(document._id);
+}
+
+const missingDocuments = documents.filter((document) => !existingIds.has(document._id));
+console.log(`Preserving ${existingIds.size} existing drafts; creating ${missingDocuments.length} missing drafts.`);
+
+for (let offset = 0; offset < missingDocuments.length; offset += chunkSize) {
+  const chunk = missingDocuments.slice(offset, offset + chunkSize);
   const transaction = client.transaction();
-  for (const document of chunk) transaction.createOrReplace(document);
+  for (const document of chunk) transaction.createIfNotExists(document);
   await transaction.commit();
 }
-console.log("Sanity draft migration complete. No published documents were created.");
+console.log(`Sanity draft migration complete. ${missingDocuments.length} new drafts created; existing drafts were not overwritten and no content documents were published.`);

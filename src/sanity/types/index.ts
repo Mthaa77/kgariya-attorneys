@@ -4,6 +4,8 @@ export type SanityAttorney = {
   professionalTitle?: string;
   photograph?: unknown;
   biography?: string;
+  welcomeQuote?: string;
+  experience?: string[];
   qualifications?: string[];
   admissions?: string[];
   practiceAreas?: string[];
@@ -36,4 +38,24 @@ export type SanityMatter = {
   approvedOutcome?: string;
   featuredImage?: unknown;
   featuredImageAlt?: string;
+};
+
+export type SanityPractice = {
+  _id: string;
+  slug: string;
+  number?: string;
+  name?: string;
+  shortName?: string;
+  menuLabel?: string;
+  tagline?: string;
+  intro?: string;
+  accent?: string;
+  accentSoft?: string;
+  iconKey?: string;
+  imageUrl?: string | null;
+  overview?: string[];
+  scope?: string[];
+  delivery?: string[];
+  clients?: string[];
+  stat?: { value: number; suffix: string; label: string };
 };

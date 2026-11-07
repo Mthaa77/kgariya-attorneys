@@ -16,6 +16,8 @@ export const practiceArea = defineType({
     defineField({ name: "tagline", title: "Tagline", type: "string" }),
     defineField({ name: "intro", title: "Introduction", type: "text", rows: 4 }),
     defineField({ name: "image", title: "Hero image", type: "imageWithAlt" }),
+    defineField({ name: "accent", title: "Accent colour", type: "string" }),
+    defineField({ name: "accentSoft", title: "Soft accent colour", type: "string" }),
     defineField({ name: "iconKey", title: "Icon key", type: "string" }),
     body("overview"), stringList("scope", "Scope"), stringList("delivery", "Delivery"), stringList("clients", "Clients"),
     defineField({ name: "stat", title: "Statistic", type: "object", fields: [defineField({ name: "value", type: "number", title: "Value" }), defineField({ name: "suffix", type: "string", title: "Suffix" }), defineField({ name: "label", type: "string", title: "Label" })] }),

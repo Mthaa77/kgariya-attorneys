@@ -28,6 +28,13 @@ export function PeoplePage() {
     /director|principal|founder/i.test(attorney.professionalTitle ?? "") || /director|founder/i.test(attorney.fullName)
   );
   const additionalAttorneys = cmsAttorneys?.filter((attorney) => attorney._id !== directorProfile?._id) ?? [];
+  const directorQualifications = directorProfile?.qualifications?.length
+    ? directorProfile.qualifications.map((qualification) => {
+        const [label, ...groupParts] = qualification.split(" — ");
+        return { label, group: groupParts.join(" — ") || "Other" };
+      })
+    : DIRECTOR.qualifications;
+  const directorExperience = directorProfile?.experience?.length ? directorProfile.experience : DIRECTOR.experience;
 
   return (
     <div>
@@ -96,7 +103,7 @@ export function PeoplePage() {
               <div className="mt-8 rounded-3xl border border-navy-100 bg-ivory p-7">
                 <Quote className="h-6 w-6 text-gold-500" />
                 <p className="mt-3 font-display text-[16.5px] italic leading-relaxed text-navy-900">
-                  {DIRECTOR.welcome}
+                  {directorProfile?.welcomeQuote ?? DIRECTOR.welcome}
                 </p>
               </div>
             </Reveal>
@@ -104,7 +111,7 @@ export function PeoplePage() {
             {/* Qualifications */}
             <div className="mt-10 space-y-6">
               {QUAL_GROUPS.map((g, gi) => {
-                const items = DIRECTOR.qualifications.filter((q) => q.group === g.key);
+                const items = directorQualifications.filter((q) => q.group === g.key);
                 return (
                   <Reveal key={g.key} delay={gi * 0.06}>
                     <div>
@@ -145,7 +152,7 @@ export function PeoplePage() {
                   </h3>
                 </div>
                 <ul className="mt-4 space-y-3">
-                  {DIRECTOR.experience.map((e, i) => (
+                  {directorExperience.map((e, i) => (
                     <li
                       key={i}
                       className="flex gap-3.5 rounded-2xl bg-ivory px-5 py-4 text-[14px] leading-relaxed text-muted-foreground"

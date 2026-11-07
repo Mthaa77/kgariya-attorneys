@@ -23,12 +23,34 @@ import { PracticeForums } from "@/components/site/sa-legal";
 import { Button } from "@/components/ui/button";
 import { Notfound } from "./notfound";
 import useSWR from "swr";
-import type { SanityMatter } from "@/sanity/types";
+import type { SanityMatter, SanityPractice } from "@/sanity/types";
 
 const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 export function PracticeAreaPage({ slug }: { slug: string }) {
   const { data: cmsMatters } = useSWR<SanityMatter[]>("/api/cms?type=matters", cmsFetcher);
-  const area = getPractice(slug);
+  const { data: cmsPractices } = useSWR<SanityPractice[]>("/api/cms?type=practices", cmsFetcher);
+  const fallbackArea = getPractice(slug);
+  const cmsArea = cmsPractices?.find((practice) => practice.slug === slug);
+  const area = fallbackArea
+    ? {
+        ...fallbackArea,
+        number: cmsArea?.number ?? fallbackArea.number,
+        name: cmsArea?.name ?? fallbackArea.name,
+        shortName: cmsArea?.shortName ?? fallbackArea.shortName,
+        menuLabel: cmsArea?.menuLabel ?? fallbackArea.menuLabel,
+        tagline: cmsArea?.tagline ?? fallbackArea.tagline,
+        intro: cmsArea?.intro ?? fallbackArea.intro,
+        accent: cmsArea?.accent ?? fallbackArea.accent,
+        accentSoft: cmsArea?.accentSoft ?? fallbackArea.accentSoft,
+        image: cmsArea?.imageUrl || fallbackArea.image,
+        icon: cmsArea?.iconKey ?? fallbackArea.icon,
+        overview: cmsArea?.overview?.length ? cmsArea.overview : fallbackArea.overview,
+        scope: cmsArea?.scope?.length ? cmsArea.scope : fallbackArea.scope,
+        delivery: cmsArea?.delivery?.length ? cmsArea.delivery : fallbackArea.delivery,
+        clients: cmsArea?.clients?.length ? cmsArea.clients : fallbackArea.clients,
+        stat: cmsArea?.stat ?? fallbackArea.stat,
+      }
+    : null;
   if (!area) return <Notfound />;
 
   const others = PRACTICE_AREAS.filter((p) => p.slug !== slug).slice(0, 3);
