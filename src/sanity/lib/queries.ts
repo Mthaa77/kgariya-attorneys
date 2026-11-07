@@ -28,3 +28,71 @@ export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0] {
   firmName, shortName, tagline, phone, email, careersEmail, website, address, hours, hoursShort, mapsQuery,
   logo, socialLinks, footerInformation, globalSeo
 }`);
+
+
+export const homePageQuery = defineQuery(`*[_type == "homePage" && isPublished == true][0] {
+  title,
+  heroSlides[] {
+    eyebrow, title, titleAccent, text, primaryLabel, primaryAction, secondaryLabel, secondaryRoute,
+    "imageUrl": image.asset->url, "imageAlt": image.alt
+  },
+  trustPillars, faqs
+}`);
+
+export const aboutPageQuery = defineQuery(`*[_type == "aboutPage" && isPublished == true][0] {
+  heroTitle, heroLead, title, intro, body, timeline[] { era, title, text }
+}`);
+
+export const groupPageQuery = defineQuery(`*[_type == "groupPage" && isPublished == true][0] {
+  heroTitle, heroLead, "heroImageUrl": heroImage.asset->url, title, intro, entities[] { iconKey, name, text }
+}`);
+
+export const careersPageQuery = defineQuery(`*[_type == "careersPage" && isPublished == true][0] {
+  heroTitle, "heroImageUrl": heroImage.asset->url, intro, openPositionsIntro, values[] { iconKey, title, text, displayOrder }
+}`);
+
+export const joiningPageQuery = defineQuery(`*[_type == "joiningPage" && isPublished == true][0] {
+  hero { title, text, "imageUrl": image.asset->url },
+  features[] { iconKey, title, text },
+  phases[] { phase, name, time, points }
+}`);
+
+export const sectorsQuery = defineQuery(`*[_type == "sector" && isPublished == true] | order(displayOrder asc) {
+  _id, name, iconKey, tagline, clientNeed, firmResponse,
+  "relatedPractices": relatedPractices[]->{ "slug": slug.current, name },
+  "featuredMatter": featuredMatter->{ title, "slug": slug.current }
+}`);
+
+export const testimonialsQuery = defineQuery(`*[_type == "testimonial" && isPublished == true] | order(displayOrder asc) {
+  _id, quote, attribution, organisationDescriptor,
+  "practiceArea": practiceArea->{ name, "slug": slug.current }
+}`);
+
+export const jobPostingsQuery = defineQuery(`*[_type == "jobPosting" && isOpen == true] | order(displayOrder asc) {
+  _id, title, employmentType, location, statusText, summary, requirementsOrTags, applicationEmail
+}`);
+
+export const tickerItemsQuery = defineQuery(`*[_type == "tickerItem" && active == true] | order(displayOrder asc) {
+  _id, kind, title, value, direction
+}`);
+
+export const regulatoryDisclosuresQuery = defineQuery(`*[_type == "regulatoryDisclosure"] | order(displayOrder asc) {
+  _id, iconKey, label, sub, detail
+}`);
+
+export const courtForumsQuery = defineQuery(`*[_type == "courtForum"] | order(displayOrder asc) {
+  _id, name, note
+}`);
+
+export const statutesQuery = defineQuery(`*[_type == "statute"] | order(displayOrder asc) {
+  _id, shortName, citation
+}`);
+
+export const professionalCredentialsQuery = defineQuery(`*[_type == "professionalCredential"] | order(displayOrder asc) {
+  _id, iconKey, label, sub
+}`);
+
+export const legalDocumentsQuery = defineQuery(`*[_type == "legalDocument" && published == true] | order(displayOrder asc) {
+  _id, documentType, "slug": slug.current, title, intro, sections[] { heading, body, listItems },
+  effectiveDate, lastReviewedDate, version
+}`);
