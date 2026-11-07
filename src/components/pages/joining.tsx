@@ -8,15 +8,28 @@ import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/
 import { Icon } from "@/components/site/icon";
 import { EnquiryForm } from "@/components/site/enquiry-form";
 import { Button } from "@/components/ui/button";
+import useSWR from "swr";
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 export function JoiningPage() {
+  const { data: cmsJoining } = useSWR<{
+    hero?: { title?: string; text?: string; imageUrl?: string };
+    features?: Array<{ iconKey: string; title: string; text: string }>;
+    phases?: Array<{ phase: string; name: string; time: string; points: string[] }>;
+  }>("/api/cms?type=joiningPage", cmsFetcher);
+  const joiningFeatures = cmsJoining?.features?.length
+    ? cmsJoining.features.map((item) => ({ icon: item.iconKey, title: item.title, text: item.text }))
+    : JOINING_FEATURES;
+  const joiningPhases = cmsJoining?.phases?.length ? cmsJoining.phases : JOINING_PHASES;
+
   return (
     <div>
       <PageHero
         eyebrow="Joining the firm"
-        title="An honourable handover for a life's practice."
-        lead="A dedicated succession and practice acquisition framework for retiring legal practitioners — built for seamless transitions, preserved legacies and protected clients."
-        image="/images/library.png"
+        title={cmsJoining?.hero?.title || "An honourable handover for a life's practice."}
+        lead={cmsJoining?.hero?.text || "A dedicated succession and practice acquisition framework for retiring legal practitioners — built for seamless transitions, preserved legacies and protected clients."}
+        image={cmsJoining?.hero?.imageUrl || "/images/library.png"}
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Joining the Firm" }]}
       >
         <div className="flex flex-wrap gap-3">
@@ -122,7 +135,7 @@ export function JoiningPage() {
             }
           />
           <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" gap={0.1}>
-            {JOINING_FEATURES.map((f) => (
+            {joiningFeatures.map((f) => (
               <StaggerItem key={f.title}>
                 <div className="group h-full rounded-3xl border border-white/10 bg-white/5 p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-500/40 hover:bg-white/10">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-400 transition-all duration-500 group-hover:bg-gold-500 group-hover:text-navy-950">
@@ -155,7 +168,7 @@ export function JoiningPage() {
             lead="Practice acquisitions follow a dedicated, phased model — from relaunch and compliance through credibility building to acquisition growth and client-transition notices."
           />
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {JOINING_PHASES.map((p, i) => (
+            {joiningPhases.map((p, i) => (
               <Reveal key={p.phase} delay={i * 0.08}>
                 <div className="relative h-full overflow-hidden rounded-3xl border border-navy-100 bg-white p-8 shadow-sm transition-shadow hover:shadow-luxe">
                   <span className="pointer-events-none absolute -right-4 -top-8 font-display text-[110px] font-bold leading-none text-navy-950/5">
