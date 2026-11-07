@@ -51,9 +51,13 @@ export function AboutPage() {
     heroLead?: string;
     title?: string;
     intro?: string;
+    body?: Array<{ children?: Array<{ text?: string }> }>;
     timeline?: Array<{ era: string; title: string; text: string }>;
   }>("/api/cms?type=aboutPage", cmsFetcher);
   const timeline = cmsAbout?.timeline?.length ? cmsAbout.timeline : TIMELINE;
+  const aboutParagraphs = cmsAbout?.body
+    ?.map((block) => block.children?.map((child) => child.text || "").join(""))
+    .filter(Boolean);
 
   return (
     <div>
@@ -92,37 +96,47 @@ export function AboutPage() {
             <div>
               <SectionHeading
                 eyebrow="Strategic intent"
-                title={
+                title={cmsAbout?.title || (
                   <>
                     The institutional{" "}
                     <span className="gold-text italic">leap forward</span>.
                   </>
-                }
-                lead="To address the increasingly complex regulatory and commercial demands of Gauteng's public and private sectors, Kgariya Inc. undertook a deliberate strategic pivot away from generalized legal provision."
+                )}
+                lead={cmsAbout?.intro || "To address the increasingly complex regulatory and commercial demands of Gauteng's public and private sectors, Kgariya Inc. undertook a deliberate strategic pivot away from generalized legal provision."}
               />
               <div className="mt-6 space-y-5">
-                <Reveal>
-                  <p className="text-[15px] leading-relaxed text-muted-foreground">
-                    Recognising that institutional clients demand specialised depth
-                    rather than superficial width, the firm retired its historical
-                    generalist model and concentrated its strategic assets around six
-                    prioritised core competencies. This realignment ensures
-                    institutional clients access high-value legal expertise backed by
-                    direct commercial execution experience — optimising attorney
-                    resource allocation, accelerating transaction close times, and
-                    delivering risk-adjusted legal strategy across high-stakes
-                    disputes and development finance structures.
-                  </p>
-                </Reveal>
-                <Reveal delay={0.08}>
-                  <p className="text-[15px] leading-relaxed text-muted-foreground">
-                    The firm operates from Walker Creek Office Park in Pretoria with
-                    the strategic support of the broader Kgariya &amp; Co Group —
-                    real-world development, construction and advisory capability that
-                    keeps our legal work anchored to project cash flows and commercial
-                    risk, not abstractions.
-                  </p>
-                </Reveal>
+                {aboutParagraphs?.length ? (
+                  aboutParagraphs.map((paragraph, index) => (
+                    <Reveal key={index} delay={index * 0.08}>
+                      <p className="text-[15px] leading-relaxed text-muted-foreground">{paragraph}</p>
+                    </Reveal>
+                  ))
+                ) : (
+                  <>
+                    <Reveal>
+                      <p className="text-[15px] leading-relaxed text-muted-foreground">
+                        Recognising that institutional clients demand specialised depth
+                        rather than superficial width, the firm retired its historical
+                        generalist model and concentrated its strategic assets around six
+                        prioritised core competencies. This realignment ensures
+                        institutional clients access high-value legal expertise backed by
+                        direct commercial execution experience — optimising attorney
+                        resource allocation, accelerating transaction close times, and
+                        delivering risk-adjusted legal strategy across high-stakes
+                        disputes and development finance structures.
+                      </p>
+                    </Reveal>
+                    <Reveal delay={0.08}>
+                      <p className="text-[15px] leading-relaxed text-muted-foreground">
+                        The firm operates from Walker Creek Office Park in Pretoria with
+                        the strategic support of the broader Kgariya &amp; Co Group —
+                        real-world development, construction and advisory capability that
+                        keeps our legal work anchored to project cash flows and commercial
+                        risk, not abstractions.
+                      </p>
+                    </Reveal>
+                  </>
+                )}
               </div>
 
               {/* Counters mini */}
