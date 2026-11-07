@@ -7,11 +7,22 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FAQS } from "@/lib/site-data";
+import useSWR from "swr";
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 export function FaqAccordion({ dark = false }: { dark?: boolean }) {
+  const { data: cmsHome } = useSWR<{ faqs?: Array<{ question: string; answer: string }> }>(
+    "/api/cms?type=homePage",
+    cmsFetcher
+  );
+  const faqs = cmsHome?.faqs?.length
+    ? cmsHome.faqs.map((item) => ({ q: item.question, a: item.answer }))
+    : FAQS;
+
   return (
     <Accordion type="single" collapsible className="w-full">
-      {FAQS.map((f, i) => (
+      {faqs.map((f, i) => (
         <AccordionItem
           key={i}
           value={`faq-${i}`}
