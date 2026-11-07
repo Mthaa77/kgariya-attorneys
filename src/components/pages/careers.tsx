@@ -16,6 +16,7 @@ const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json(
 export function CareersPage() {
   const { data: cmsCareers } = useSWR<{
     heroTitle?: string;
+    heroImageUrl?: string;
     intro?: string;
     openPositionsIntro?: string;
     values?: Array<{ iconKey: string; title: string; text: string }>;
@@ -47,6 +48,7 @@ export function CareersPage() {
         eyebrow="Careers"
         title={cmsCareers?.heroTitle || "Real mandates. Named mentors. Careers that last."}
         lead={cmsCareers?.intro || "Join a Pretoria practice in deliberate growth — where candidate attorneys see court rolls and deeds offices in year one, and associates build institutional-grade work."}
+        image={cmsCareers?.heroImageUrl || "/images/office.png"}
         image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Careers" }]}
       />
