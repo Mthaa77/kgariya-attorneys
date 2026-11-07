@@ -25,6 +25,9 @@ import { cn } from "@/lib/utils";
 import { navigate, useRoute } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { FIRM, PRACTICE_AREAS, PRACTICE_FORUMS, getPractice } from "@/lib/site-data";
+import useSWR from "swr";
+
+const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 import { Logo } from "./logo";
 import { Icon } from "./icon";
 import { Magnetic } from "./interactions";
@@ -343,7 +346,22 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
+type CmsSiteSettings = {
+  firmName?: string;
+  tagline?: string;
+  phone?: string;
+  email?: string;
+  hours?: string;
+  hoursShort?: string;
+};
+
 export function Header() {
+
+  const { data: cmsSettings } = useSWR<CmsSiteSettings>("/api/cms?type=siteSettings", cmsSettingsFetcher);
+  const contactPhone = cmsSettings?.phone || FIRM.phone;
+  const contactEmail = cmsSettings?.email || FIRM.email;
+  const contactHours = cmsSettings?.hours || FIRM.hours;
+  const phoneHref = cmsSettings?.phone ? `tel:${cmsSettings.phone.replace(/[^+0-9]/g, "")}` : FIRM.phoneHref;
   const route = useRoute();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -711,10 +729,10 @@ export function Header() {
                 transition={{ duration: 0.35, delay: 0.38, ease: EASE }}
                 className="rounded-xl bg-white/[0.05] p-4 text-center ring-1 ring-white/10"
               >
-                <a href={FIRM.phoneHref} className="text-[14px] font-bold text-gold-300">
-                  {FIRM.phone}
+                <a href={phoneHref} className="text-[14px] font-bold text-gold-300">
+                  {contactPhone}
                 </a>
-                <p className="mt-1 text-[12px] text-white/50">{FIRM.hours}</p>
+                <p className="mt-1 text-[12px] text-white/50">{contactHours}</p>
                 <div className="mt-3 flex justify-center">
                   <SAFlagChip dark />
                 </div>
