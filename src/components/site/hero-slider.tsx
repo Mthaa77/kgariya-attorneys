@@ -24,6 +24,9 @@ import { COUNTERS } from "@/lib/site-data";
 import { Counter } from "./counter";
 import { Magnetic, WordReveal } from "./interactions";
 import { cn } from "@/lib/utils";
+import useSWR from "swr";
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -69,10 +72,40 @@ export function HeroSlider() {
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const { data: cmsHome } = useSWR<{
+    heroSlides?: Array<{
+      imageUrl?: string;
+      eyebrow?: string;
+      title?: string;
+      titleAccent?: string;
+      text?: string;
+      primaryLabel?: string;
+      secondaryLabel?: string;
+      secondaryRoute?: string;
+    }>;
+  }>("/api/cms?type=homePage", cmsFetcher);
+
+  const slides = cmsHome?.heroSlides?.length
+    ? cmsHome.heroSlides.map((item, i) => {
+        const fallback = SLIDES[i % SLIDES.length];
+        return {
+          image: item.imageUrl || fallback.image,
+          eyebrow: item.eyebrow || fallback.eyebrow,
+          title: item.title || fallback.title,
+          titleAccent: item.titleAccent || fallback.titleAccent,
+          text: item.text || fallback.text,
+          primary: { label: item.primaryLabel || fallback.primary.label, action: "booking" },
+          secondary: {
+            label: item.secondaryLabel || fallback.secondary.label,
+            route: item.secondaryRoute || fallback.secondary.route,
+          },
+        };
+      })
+    : SLIDES;
 
   const go = useCallback((i: number) => {
-    setIndex(((i % SLIDES.length) + SLIDES.length) % SLIDES.length);
-  }, []);
+    setIndex(((i % slides.length) + slides.length) % slides.length);
+  }, [slides.length]);
 
   useEffect(() => {
     if (paused) return;
@@ -93,7 +126,7 @@ export function HeroSlider() {
   const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
   const stackY = useTransform(scrollYProgress, [0, 1], [0, -130]);
 
-  const slide = SLIDES[index];
+  const slide = slides[index % slides.length];
 
   return (
     <section
