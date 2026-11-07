@@ -49,7 +49,6 @@ export function CareersPage() {
         title={cmsCareers?.heroTitle || "Real mandates. Named mentors. Careers that last."}
         lead={cmsCareers?.intro || "Join a Pretoria practice in deliberate growth — where candidate attorneys see court rolls and deeds offices in year one, and associates build institutional-grade work."}
         image={cmsCareers?.heroImageUrl || "/images/office.png"}
-        image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Careers" }]}
       />
 
