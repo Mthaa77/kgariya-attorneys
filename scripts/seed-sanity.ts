@@ -156,7 +156,8 @@ const documents = [
 
 ];
 
-console.log(`Prepared ${documents.length} draft documents: 1 siteSettings, ${PRACTICE_AREAS.length} practiceArea, ${PRACTICE_AREAS.reduce((total, practice) => total + practice.matters.length, 0)} representativeMatter, 1 attorney, ${ARTICLES.length} article.`);
+console.log(`Prepared ${documents.length} source-backed draft documents across core pages, practices, matters, articles and supporting editorial collections.`);
+console.log("Five legal-policy documents are migrated separately and remain unpublished pending the firm's compliance review.");
 console.log("All records use stable draft IDs and remain unpublished until explicitly promoted.");
 if (!apply) {
   console.log("Dry run only. Re-run with --apply to write these drafts to Sanity.");
