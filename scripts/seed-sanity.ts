@@ -119,8 +119,8 @@ const documents = [
     _id: draftId("sector", item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")),
     _type: "sector", name: item.name, iconKey: item.icon, tagline: item.tagline,
     clientNeed: item.need, firmResponse: item.response,
-    relatedPractices: item.practices.map((slug) => ({ _type: "reference", _ref: id("practiceArea", slug) })),
-    featuredMatter: { _type: "reference", _ref: id("representativeMatter", item.fileRef[0] + "-" + (item.fileRef[1] + 1)) },
+    relatedPractices: item.practices.map((slug) => ({ _type: "reference", _weak: true, _ref: id("practiceArea", slug) })),
+    featuredMatter: { _type: "reference", _weak: true, _ref: id("representativeMatter", item.fileRef[0] + "-" + (item.fileRef[1] + 1)) },
     displayOrder: index + 1, isPublished: false
   })),
   ...TESTIMONIALS.map((item, index) => {
@@ -128,7 +128,7 @@ const documents = [
     return {
       _id: draftId("testimonial", "testimonial-" + (index + 1)), _type: "testimonial",
       quote: item.quote, attribution: item.name, organisationDescriptor: item.org,
-      ...(practice ? { practiceArea: { _type: "reference", _ref: id("practiceArea", practice.slug) } } : {}),
+      ...(practice ? { practiceArea: { _type: "reference", _weak: true, _ref: id("practiceArea", practice.slug) } } : {}),
       displayOrder: index + 1, isPublished: false
     };
   }),
