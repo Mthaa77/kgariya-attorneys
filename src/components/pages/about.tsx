@@ -11,6 +11,9 @@ import { Icon } from "@/components/site/icon";
 import { Counter } from "@/components/site/counter";
 import { Button } from "@/components/ui/button";
 import { COUNTERS } from "@/lib/site-data";
+import useSWR from "swr";
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 import {
   CredentialWall,
   CourtsMarquee,
@@ -43,12 +46,21 @@ const TIMELINE = [
 ];
 
 export function AboutPage() {
+  const { data: cmsAbout } = useSWR<{
+    heroTitle?: string;
+    heroLead?: string;
+    title?: string;
+    intro?: string;
+    timeline?: Array<{ era: string; title: string; text: string }>;
+  }>("/api/cms?type=aboutPage", cmsFetcher);
+  const timeline = cmsAbout?.timeline?.length ? cmsAbout.timeline : TIMELINE;
+
   return (
     <div>
       <PageHero
         eyebrow="About the firm"
-        title="Built on evidence. Structured for institutions."
-        lead="Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."
+        title={cmsAbout?.heroTitle || "Built on evidence. Structured for institutions."}
+        lead={cmsAbout?.heroLead || "Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."}
         image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "About the Firm" }]}
       >
@@ -145,7 +157,7 @@ export function AboutPage() {
                 </div>
               </Reveal>
               <div className="relative mt-8 space-y-0">
-                {TIMELINE.map((t, i) => (
+                {timeline.map((t, i) => (
                   <Reveal key={t.era} delay={i * 0.06}>
                     <div className="relative border-l-2 border-navy-100 pb-8 pl-8 last:pb-0">
                       <span
