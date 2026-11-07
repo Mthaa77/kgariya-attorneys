@@ -1,5 +1,9 @@
 import { createClient } from "@sanity/client";
-import { FIRM, PRACTICE_AREAS, DIRECTOR } from "../src/lib/site-data";
+import {
+  FIRM, PRACTICE_AREAS, DIRECTOR, FAQS, SECTORS, TRUST_PILLARS, GROUP_ENTITIES,
+  VACANCIES, CAREER_VALUES, JOINING_FEATURES, JOINING_PHASES, SA_REGULATION,
+  COURTS_FORUMS, SA_ACTS, CREDENTIALS, TICKER_ITEMS, TESTIMONIALS,
+} from "../src/lib/site-data";
 import { ARTICLES } from "../src/lib/insights";
 
 const apply = process.argv.includes("--apply");
@@ -55,6 +59,101 @@ const documents = [
     category: article.category, categorySlug: article.categorySlug, publicationDate: article.date, readTime: article.readTime, excerpt: article.excerpt,
     body: toBlocks(article.body), publicationStatus: "draft", visibility: "internal", featured: Boolean(article.featured),
   })),
+
+  {
+    _id: draftId("homePage", "singleton"), _type: "homePage", title: "Homepage", isPublished: false,
+    heroSlides: [
+      { _key: "hero-commercial-litigation", eyebrow: "Commercial Litigation & Arbitration", title: "High-stakes disputes,", titleAccent: "fought with strategy.", text: "High Court litigation and AFSA arbitration for corporates, banks and public bodies — strategy before summons, reporting at every stage.", image: { _type: "imageWithAlt", asset: { _type: "reference", _ref: "image-f6216c46f0f1a9ce1870d611cf07415730c0767e-1080x695-jpg" }, alt: "Commercial litigation and arbitration" }, primaryLabel: "Book a consultation", primaryAction: "booking", secondaryLabel: "Our practice areas", secondaryRoute: "#practice" },
+      { _key: "hero-development-packaging", eyebrow: "Real Estate Development Packaging", title: "From bare land", titleAccent: "to capital close.", text: "End-to-end legal packaging for townships, rezoning, NHBRC, SHRA schemes and bank/DFI finance applications — built to underwrite.", image: { _type: "imageWithAlt", asset: { _type: "reference", _ref: "image-66dd8534758977b4d819244db927e2c1a9055b08-980x653-jpg" }, alt: "Real estate development packaging" }, primaryLabel: "Book a consultation", primaryAction: "booking", secondaryLabel: "Explore development packaging", secondaryRoute: "#/practice/real-estate-development" },
+      { _key: "hero-banking-finance", eyebrow: "Banking & Development Finance", title: "Facilities and security,", titleAccent: "documented to hold.", text: "Facility agreements, multi-tiered security packages and workouts — panel-ready for lenders, negotiated fairly for borrowers.", image: { _type: "imageWithAlt", asset: { _type: "reference", _ref: "image-c46e56063cd4d66471a4db3b3ef26a0afe7e0221-886x590-jpg" }, alt: "Banking and development finance" }, primaryLabel: "Book a consultation", primaryAction: "booking", secondaryLabel: "Banking & finance practice", secondaryRoute: "#/practice/banking-finance" }
+    ],
+    trustPillars: TRUST_PILLARS.map((item) => ({ iconKey: item.icon, title: item.title, text: item.text })),
+    faqs: FAQS.map((item) => ({ question: item.q, answer: item.a })),
+  },
+  {
+    _id: draftId("aboutPage", "singleton"), _type: "aboutPage", isPublished: false,
+    heroTitle: "Built on evidence. Structured for institutions.",
+    heroLead: "Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute.",
+    title: "The institutional leap forward.",
+    intro: "To address the increasingly complex regulatory and commercial demands of Gauteng's public and private sectors, Kgariya Inc. undertook a deliberate strategic pivot away from generalized legal provision.",
+    body: toBlocks([
+      "Recognising that institutional clients demand specialised depth rather than superficial width, the firm retired its historical generalist model and concentrated its strategic assets around six prioritised core competencies. This realignment ensures institutional clients access high-value legal expertise backed by direct commercial execution experience — optimising attorney resource allocation, accelerating transaction close times, and delivering risk-adjusted legal strategy across high-stakes disputes and development finance structures.",
+      "The firm operates from Walker Creek Office Park in Pretoria with the strategic support of the broader Kgariya & Co Group — real-world development, construction and advisory capability that keeps our legal work anchored to project cash flows and commercial risk, not abstractions."
+    ]),
+    timeline: [
+      { _key: "origins", era: "Origins", title: "A general practice — and a lesson", text: "The firm's legacy listed over forty sub-services, from aviation to immigration. Institutional clients, we learned, do not want width. They want depth they can verify." },
+      { _key: "pivot", era: "The pivot", title: "Retiring 40 sub-services, by design", text: "Kgariya Inc. formally retired non-core areas — competition, aviation, immigration among them — and concentrated its operational infrastructure on six prioritised competencies." },
+      { _key: "today", era: "Today", title: "Litigation-led, development-anchored", text: "A Pretoria commercial disputes and finance practice: High Court and AFSA work, end-to-end development packaging, and panel-ready banking, agri-finance and conveyancing capacity." },
+      { _key: "next", era: "Next", title: "Growth by honourable succession", text: "The “Joining the Firm” model scales the practice by merging the mandates of retiring practitioners — continuity for their clients, careers for their staff." }
+    ]
+  },
+  {
+    _id: draftId("groupPage", "singleton"), _type: "groupPage", isPublished: false,
+    heroTitle: "Legal advice anchored to real projects.",
+    heroLead: "Kgariya Attorneys Inc. operates with the strategic support of the broader Kgariya & Co Group — complementary capability across real estate development, construction management, and property & financial advisory.",
+    heroImage: { _type: "imageWithAlt", asset: { _type: "reference", _ref: "image-9678416bdfb457fe72d32ff42bb2f9f4f31b68b8-1344x768-jpg" }, alt: "Kgariya & Co Group construction and project capability" },
+    title: "Three capabilities. One ecosystem.",
+    intro: "The group brings together complementary capabilities that the legal practice draws on — and contributes legal rigour back to.",
+    entities: GROUP_ENTITIES.map((item) => ({ iconKey: item.icon, name: item.name, text: item.text }))
+  },
+  {
+    _id: draftId("careersPage", "singleton"), _type: "careersPage", isPublished: false,
+    heroTitle: "Real mandates. Named mentors. Careers that last.",
+    intro: "Join a Pretoria practice in deliberate growth — where candidate attorneys see court rolls and deeds offices in year one, and associates build institutional-grade work.",
+    openPositionsIntro: "Applications are reviewed on a rolling basis. Send a CV and a short motivation through the form below, or via email.",
+    values: CAREER_VALUES.map((item) => ({ iconKey: item.icon, title: item.title, text: item.text }))
+  },
+  {
+    _id: draftId("joiningPage", "singleton"), _type: "joiningPage", isPublished: false,
+    hero: { title: "An honourable handover for a life's practice.", text: "A dedicated succession and practice acquisition framework for retiring legal practitioners — built for seamless transitions, preserved legacies and protected clients." },
+    features: JOINING_FEATURES.map((item) => ({ iconKey: item.icon, title: item.title, text: item.text })),
+    phases: JOINING_PHASES.map((item) => ({ phase: item.phase, name: item.name, time: item.time, points: item.points }))
+  },
+  ...VACANCIES.map((item, index) => ({
+    _id: draftId("jobPosting", "vacancy-" + (index + 1)), _type: "jobPosting",
+    title: item.title, employmentType: item.type.split(" · ")[0], location: item.type.split(" · ")[1] || "Pretoria",
+    statusText: item.open, summary: item.text, requirementsOrTags: item.tags,
+    applicationEmail: FIRM.careersEmail, isOpen: true, displayOrder: index + 1
+  })),
+  ...SECTORS.map((item, index) => ({
+    _id: draftId("sector", item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")),
+    _type: "sector", name: item.name, iconKey: item.icon, tagline: item.tagline,
+    clientNeed: item.need, firmResponse: item.response,
+    relatedPractices: item.practices.map((slug) => ({ _type: "reference", _ref: id("practiceArea", slug) })),
+    featuredMatter: { _type: "reference", _ref: id("representativeMatter", item.fileRef[0] + "-" + (item.fileRef[1] + 1)) },
+    displayOrder: index + 1, isPublished: false
+  })),
+  ...TESTIMONIALS.map((item, index) => {
+    const practice = PRACTICE_AREAS.find((area) => area.name === item.practice);
+    return {
+      _id: draftId("testimonial", "testimonial-" + (index + 1)), _type: "testimonial",
+      quote: item.quote, attribution: item.name, organisationDescriptor: item.org,
+      ...(practice ? { practiceArea: { _type: "reference", _ref: id("practiceArea", practice.slug) } } : {}),
+      displayOrder: index + 1, isPublished: false
+    };
+  }),
+  ...TICKER_ITEMS.map((item, index) => ({
+    _id: draftId("tickerItem", "ticker-" + (index + 1)), _type: "tickerItem",
+    kind: item.kind, title: item.title, value: item.value, direction: item.direction,
+    active: false, displayOrder: index + 1
+  })),
+  ...SA_REGULATION.map((item, index) => ({
+    _id: draftId("regulatoryDisclosure", "disclosure-" + (index + 1)), _type: "regulatoryDisclosure",
+    iconKey: item.icon, label: item.label, sub: item.sub, detail: item.detail, displayOrder: index + 1
+  })),
+  ...COURTS_FORUMS.map((item, index) => ({
+    _id: draftId("courtForum", "forum-" + (index + 1)), _type: "courtForum",
+    name: item.name, note: item.note, displayOrder: index + 1
+  })),
+  ...SA_ACTS.map((item, index) => ({
+    _id: draftId("statute", "statute-" + (index + 1)), _type: "statute",
+    shortName: item.short, citation: item.citation, displayOrder: index + 1
+  })),
+  ...CREDENTIALS.map((item, index) => ({
+    _id: draftId("professionalCredential", "credential-" + (index + 1)), _type: "professionalCredential",
+    iconKey: item.icon, label: item.label, sub: item.sub, displayOrder: index + 1
+  })),
+
 ];
 
 console.log(`Prepared ${documents.length} draft documents: 1 siteSettings, ${PRACTICE_AREAS.length} practiceArea, ${PRACTICE_AREAS.reduce((total, practice) => total + practice.matters.length, 0)} representativeMatter, 1 attorney, ${ARTICLES.length} article.`);
