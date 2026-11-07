@@ -9,6 +9,9 @@ import { PageHero } from "@/components/site/page-hero";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";
 import { Icon } from "@/components/site/icon";
 import { Button } from "@/components/ui/button";
+import useSWR from "swr";
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 const SYNERGIES = [
   {
@@ -26,13 +29,25 @@ const SYNERGIES = [
 ];
 
 export function GroupPage() {
+  const { data: cmsGroup } = useSWR<{
+    heroTitle?: string;
+    heroLead?: string;
+    heroImageUrl?: string;
+    title?: string;
+    intro?: string;
+    entities?: Array<{ iconKey: string; name: string; text: string }>;
+  }>("/api/cms?type=groupPage", cmsFetcher);
+  const entities = cmsGroup?.entities?.length
+    ? cmsGroup.entities.map((entity) => ({ icon: entity.iconKey, name: entity.name, text: entity.text }))
+    : GROUP_ENTITIES;
+
   return (
     <div>
       <PageHero
         eyebrow="Kgariya & Co Group"
-        title="Legal advice anchored to real projects."
-        lead="Kgariya Attorneys Inc. operates with the strategic support of the broader Kgariya & Co Group — complementary capability across real estate development, construction management, and property & financial advisory."
-        image="/images/group-construction.png"
+        title={cmsGroup?.heroTitle || "Legal advice anchored to real projects."}
+        lead={cmsGroup?.heroLead || "Kgariya Attorneys Inc. operates with the strategic support of the broader Kgariya & Co Group — complementary capability across real estate development, construction management, and property & financial advisory."}
+        image={cmsGroup?.heroImageUrl || "/images/group-construction.png"}
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Kgariya & Co Group" }]}
       />
 
@@ -41,16 +56,16 @@ export function GroupPage() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
             eyebrow="Group entities"
-            title={
+            title={cmsGroup?.title || (
               <>
                 Three capabilities.{" "}
                 <span className="gold-text italic">One ecosystem.</span>
               </>
-            }
-            lead="The group brings together complementary capabilities that the legal practice draws on — and contributes legal rigour back to."
+            )}
+            lead={cmsGroup?.intro || "The group brings together complementary capabilities that the legal practice draws on — and contributes legal rigour back to."}
           />
           <Stagger className="mt-14 grid gap-6 lg:grid-cols-3" gap={0.12}>
-            {GROUP_ENTITIES.map((e) => (
+            {entities.map((e) => (
               <StaggerItem key={e.name}>
                 <div className="card-lift group h-full overflow-hidden rounded-3xl border border-navy-100 bg-white shadow-luxe">
                   <div className="relative h-44 overflow-hidden bg-navy-950">
