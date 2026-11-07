@@ -16,11 +16,11 @@ import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { BADGES, FIRM, PRACTICE_AREAS } from "@/lib/site-data";
 import useSWR from "swr";
-
-const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { ActsStrip, SAFlag } from "@/components/site/sa-legal";
+
+const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 /** Distinct premium icon per compliance badge — mirrors the TrustStrip. */
 const BADGE_ICONS = [Landmark, Award, ShieldCheck, FileCheck, Scale];
