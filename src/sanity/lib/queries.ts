@@ -59,8 +59,8 @@ export const joiningPageQuery = defineQuery(`*[_type == "joiningPage" && isPubli
 
 export const sectorsQuery = defineQuery(`*[_type == "sector" && isPublished == true] | order(displayOrder asc) {
   _id, name, iconKey, tagline, clientNeed, firmResponse,
-  "relatedPractices": relatedPractices[]->{ "slug": slug.current, name },
-  "featuredMatter": featuredMatter->{ title, "slug": slug.current }
+  "practiceSlugs": relatedPractices[]._ref,
+  "featuredMatter": featuredMatter->{ title, approvedOutcome, forum, scale }
 }`);
 
 export const testimonialsQuery = defineQuery(`*[_type == "testimonial" && isPublished == true] | order(displayOrder asc) {
