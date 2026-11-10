@@ -44,6 +44,7 @@ import {
 import { FloatingLawIcons } from "@/components/site/floating-icons";
 import { BackToTop, ImageReveal, Magnetic, SpotlightCard } from "@/components/site/interactions";
 import { ConflictNotice } from "@/components/site/conflict-notice";
+import { WelcomeFilm } from "@/components/site/welcome-film";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -78,6 +79,7 @@ export function HomePage() {
 
       {/* ——— Premium live ticker ——— */}
       <LiveTicker />
+      <WelcomeFilm />
 
       <TrustStrip />
 
