@@ -87,8 +87,8 @@ export function PracticeCapabilityExplorer({
         </p>
 
         <div
-          role="tablist"
-          aria-label="Practice capability areas"
+          role="group"
+          aria-label="Select a practice capability area"
           className="mt-8 space-y-2"
         >
           {groups.map((group, index) => {
@@ -97,9 +97,7 @@ export function PracticeCapabilityExplorer({
               <button
                 key={group.label}
                 type="button"
-                role="tab"
-                aria-selected={active}
-                aria-controls="practice-capability-panel"
+                aria-pressed={active}
                 onClick={() => setActiveIndex(index)}
                 className={[
                   "group flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition-all duration-300",
@@ -145,7 +143,7 @@ export function PracticeCapabilityExplorer({
 
       <div
         id="practice-capability-panel"
-        role="tabpanel"
+        aria-live="polite"
         className="relative min-h-[410px] overflow-hidden rounded-[2rem] border border-navy-100 bg-white p-5 shadow-luxe sm:p-8"
         style={{ borderTopColor: accent, borderTopWidth: "4px" }}
       >
