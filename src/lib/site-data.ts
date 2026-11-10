@@ -26,6 +26,48 @@ export const FIRM = {
   mapsQuery: "90 Florence Ribeiro Street, Pretoria 0181",
 };
 
+/**
+ * Public office directory.
+ * Pretoria carries the verified street address. Middelburg and Cape Town are
+ * confirmed office locations; branch-level directions and contact details are
+ * intentionally omitted until supplied and approved by the firm.
+ */
+export type FirmOffice = {
+  id: string;
+  name: string;
+  label: string;
+  city: string;
+  province: string;
+  address?: typeof FIRM.address;
+  mapsQuery?: string;
+};
+
+export const OFFICES: FirmOffice[] = [
+  {
+    id: "pretoria",
+    name: "Pretoria Office",
+    label: "Head office",
+    city: FIRM.address.city,
+    province: FIRM.address.province,
+    address: FIRM.address,
+    mapsQuery: FIRM.mapsQuery,
+  },
+  {
+    id: "middelburg",
+    name: "Middelburg Office",
+    label: "Office",
+    city: "Middelburg",
+    province: "Mpumalanga",
+  },
+  {
+    id: "cape-town",
+    name: "Cape Town Office",
+    label: "Office",
+    city: "Cape Town",
+    province: "Western Cape",
+  },
+];
+
 export const NAV = [
   { label: "Home", route: "#/" },
   { label: "Our People", route: "#/people" },
@@ -651,7 +693,7 @@ export const JOURNEY = [
   {
     step: 2,
     title: "Consultation & strategy scoping",
-    text: "Once conflict checks clear, we schedule a structured scoping consultation — video conference, telephone, or in person at our Pretoria office — to define legal scope, strategy and risk parameters.",
+    text: "Once conflict checks clear, we schedule a structured scoping consultation — by video, telephone, or in person at one of our offices by arrangement — to define legal scope, strategy and risk parameters.",
     chips: ["Video / phone / in person", "Scope & risk mapping"],
   },
   {
@@ -715,7 +757,7 @@ export const FAQS = [
   },
   {
     q: "Do you act outside Gauteng?",
-    a: "Our offices are in Pretoria and our core practice is Gauteng-focused. Selected mandates — particularly mining-adjacent, agricultural finance and development packaging — are accepted further afield where our panel and registration position allows.",
+    a: "The firm has offices in Pretoria, Middelburg and Cape Town, and serves clients across South Africa. The appropriate office and consultation arrangements depend on the matter and are confirmed when an enquiry is reviewed.",
   },
   {
     q: "Are you B-BBEE verified and LPC compliant?",
