@@ -378,7 +378,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     overview: [
       "We draft the documents that carry the risk. The practice structures, documents and secures commercial debt facilities, property finance and corporate restructurings — loan facility agreements, intercreditor agreements and multi-tiered security packages that survive both registration and enforcement.",
       "For borrowers, we negotiate facilities and restructures with a developer's understanding of cash flow. For lenders, we build security packages and run workouts that recover value while respecting the commercial relationship.",
-      "The practice also assists with debt collection and recovery processes relating to vehicle and asset finance, as well as home-loan finance, with a focus on structured enforcement, clear reporting and commercially practical recovery strategies."
+      "The practice also assists with debt collection and recovery processes relating to vehicle and asset finance, as well as home-loan finance, with a focus on structured enforcement, clear reporting and commercially practical recovery strategies.",
       "The practice is panel-ready: conflict protocols, trust account discipline, turnaround commitments and reporting built for bank and DFI panel assessment.",
     ],
     scope: [
