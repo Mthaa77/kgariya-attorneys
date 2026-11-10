@@ -49,7 +49,7 @@ export function OfficeDirectory({
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         {OFFICES.map((office, index) => {
           const hasAddress = Boolean(office.address);
           return (
@@ -120,7 +120,7 @@ export function OfficeDirectory({
       </div>
 
       {showContactDetails && (
-        <div className="grid gap-4 rounded-[1.6rem] border border-navy-100 bg-navy-950 p-5 text-white shadow-luxe sm:grid-cols-3 sm:p-6">
+        <div className="grid gap-4 rounded-[1.6rem] border border-navy-100 bg-navy-950 p-5 text-white shadow-luxe sm:grid-cols-2 sm:p-6">
           <a
             href={FIRM.phoneHref}
             className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-white/[0.06]"
