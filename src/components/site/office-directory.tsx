@@ -55,7 +55,7 @@ export function OfficeDirectory({
           return (
             <article
               key={office.id}
-              className="group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-navy-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold-300 hover:shadow-luxe sm:p-6"
+              className={`group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-navy-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold-300 hover:shadow-luxe sm:p-6 ${office.id === "pretoria" ? "sm:col-span-2" : ""}`}
             >
               <span
                 className="absolute inset-x-0 top-0 h-[3px]"
