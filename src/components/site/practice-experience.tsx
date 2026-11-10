@@ -17,12 +17,12 @@ import type {
 } from "@/lib/practice-page-content";
 
 const sectionLinks = [
-  { label: "Overview", href: "#overview" },
-  { label: "Capabilities", href: "#expertise" },
-  { label: "Our approach", href: "#approach" },
-  { label: "Representative matters", href: "#matters" },
-  { label: "FAQs", href: "#faqs" },
-  { label: "Enquire", href: "#enquire" },
+  { label: "Overview", id: "overview" },
+  { label: "Capabilities", id: "expertise" },
+  { label: "Our approach", id: "approach" },
+  { label: "Representative matters", id: "matters" },
+  { label: "FAQs", id: "faqs" },
+  { label: "Enquire", id: "enquire" },
 ];
 
 export function PracticeSectionNav() {
@@ -37,16 +37,22 @@ export function PracticeSectionNav() {
           On this page
         </span>
         {sectionLinks.map((link, index) => (
-          <a
-            key={link.href}
-            href={link.href}
+          <button
+            key={link.id}
+            type="button"
+            onClick={() =>
+              document.getElementById(link.id)?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              })
+            }
             className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-transparent px-3.5 py-2 text-[12px] font-semibold text-navy-700 transition-all duration-300 hover:border-gold-300/70 hover:bg-ivory hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500"
           >
             <span className="font-display text-[11px] text-gold-600/80">
               {String(index + 1).padStart(2, "0")}
             </span>
             {link.label}
-          </a>
+          </button>
         ))}
       </div>
     </nav>
