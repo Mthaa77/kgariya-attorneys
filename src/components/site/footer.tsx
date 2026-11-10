@@ -84,8 +84,8 @@ export function Footer() {
         <div>
           <Logo dark size="lg" />
           <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-white/65">
-            A Pretoria commercial disputes and finance practice with deep property
-            and real estate development packaging expertise. We prove capability
+            A Pretoria commercial, property and finance practice with real estate
+            development, packaging and advisory expertise. We prove capability
             through matters, credentials and people — evidence over slogans.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
