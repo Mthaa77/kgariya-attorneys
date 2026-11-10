@@ -128,7 +128,7 @@ export const getArticle = (slug: string) => ARTICLES.find((a) => a.slug === slug
 export const CATEGORIES = [
   { name: "All", slug: "all" },
   { name: "Commercial Litigation & Arbitration", slug: "commercial-litigation" },
-  { name: "Real Estate Development Packaging", slug: "real-estate-development" },
+  { name: "Real Estate Development & Advisory", slug: "real-estate-development" },
   { name: "Mining & Resources", slug: "mining-resources" },
   { name: "Agricultural & Development Finance", slug: "agricultural-finance" },
   { name: "Banking & Finance", slug: "banking-finance" },
