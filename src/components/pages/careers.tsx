@@ -130,7 +130,7 @@ export function CareersPage() {
               <p className="text-[13px] leading-relaxed text-gold-100">
                 Articles of clerkship at Kgariya Inc. are structured for admission:
                 supervised court exposure, deeds office practice, and rotation
-                across litigation, conveyancing and development packaging — with
+                across litigation, conveyancing, and real estate development, packaging & advisory — with
                 protected study time before board exams.
               </p>
             </div>
