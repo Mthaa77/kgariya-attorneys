@@ -6,9 +6,6 @@ import { ArrowLeft, ArrowRight, Quote, Scale } from "lucide-react";
 import { navigate } from "@/lib/router";
 import { TESTIMONIALS } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
-import useSWR from "swr";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const DURATION = 6500;
@@ -19,32 +16,18 @@ const DURATION = 6500;
  */
 export function Testimonials() {
   const [index, setIndex] = useState(0);
-  const { data: cmsTestimonials } = useSWR<Array<{
-    quote: string;
-    attribution: string;
-    organisationDescriptor: string;
-    practiceArea?: { name?: string } | null;
-  }>>("/api/cms?type=testimonials", cmsFetcher);
-  const testimonials = cmsTestimonials?.length
-    ? cmsTestimonials.map((item) => ({
-        quote: item.quote,
-        name: item.attribution,
-        org: item.organisationDescriptor,
-        practice: item.practiceArea?.name || "Kgariya Attorneys Incorporated",
-      }))
-    : TESTIMONIALS;
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused) return;
-    const t = setTimeout(() => setIndex((i) => (i + 1) % testimonials.length), DURATION);
+    const t = setTimeout(() => setIndex((i) => (i + 1) % TESTIMONIALS.length), DURATION);
     return () => clearTimeout(t);
   }, [index, paused]);
 
   const go = (i: number) =>
-    setIndex(((i % testimonials.length) + testimonials.length) % testimonials.length);
+    setIndex(((i % TESTIMONIALS.length) + TESTIMONIALS.length) % TESTIMONIALS.length);
 
-  const t = testimonials[index % testimonials.length];
+  const t = TESTIMONIALS[index];
 
   return (
     <section

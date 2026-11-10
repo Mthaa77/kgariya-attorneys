@@ -9,12 +9,7 @@ import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/
 import { Icon } from "@/components/site/icon";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import useSWR from "swr";
 import { useSite as useSiteStore } from "@/lib/store";
-import { urlFor } from "@/sanity/lib/image";
-import type { SanityAttorney } from "@/sanity/types";
-
-const fetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 
 const QUAL_GROUPS = [
   { key: "Legal & Financial", icon: "scale" },
@@ -23,19 +18,6 @@ const QUAL_GROUPS = [
 ];
 
 export function PeoplePage() {
-  const { data: cmsAttorneys } = useSWR<SanityAttorney[]>("/api/cms?type=attorneys", fetcher);
-  const directorProfile = cmsAttorneys?.find((attorney) =>
-    /director|principal|founder/i.test(attorney.professionalTitle ?? "") || /director|founder/i.test(attorney.fullName)
-  );
-  const additionalAttorneys = cmsAttorneys?.filter((attorney) => attorney._id !== directorProfile?._id) ?? [];
-  const directorQualifications = directorProfile?.qualifications?.length
-    ? directorProfile.qualifications.map((qualification) => {
-        const [label, ...groupParts] = qualification.split(" — ");
-        return { label, group: groupParts.join(" — ") || "Other" };
-      })
-    : DIRECTOR.qualifications;
-  const directorExperience = directorProfile?.experience?.length ? directorProfile.experience : DIRECTOR.experience;
-
   return (
     <div>
       <PageHero
@@ -58,7 +40,7 @@ export function PeoplePage() {
                 <div className="absolute -left-4 -top-4 h-full w-full rounded-[2rem] border-2 border-gold-500/40" />
                 <div className="relative overflow-hidden rounded-[2rem] shadow-luxe-lg">
                   <Image
-                    src={directorProfile?.photograph ? String(urlFor(directorProfile.photograph as never).width(864).height(1152).url()) : DIRECTOR.photo}
+                    src={DIRECTOR.photo}
                     alt="Portrait of the Founding Director of Kgariya Attorneys Incorporated"
                     width={864}
                     height={1152}
@@ -67,7 +49,7 @@ export function PeoplePage() {
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-transparent p-7 pt-20">
                     <p className="font-display text-2xl font-semibold text-white">
-                      {directorProfile?.fullName ?? "The Founding Director"}
+                      The Founding Director
                     </p>
                     <p className="mt-1 text-[13px] text-gold-300">
                       Director · Attorney · Former property company CEO
@@ -103,7 +85,7 @@ export function PeoplePage() {
               <div className="mt-8 rounded-3xl border border-navy-100 bg-ivory p-7">
                 <Quote className="h-6 w-6 text-gold-500" />
                 <p className="mt-3 font-display text-[16.5px] italic leading-relaxed text-navy-900">
-                  {directorProfile?.welcomeQuote ?? DIRECTOR.welcome}
+                  {DIRECTOR.welcome}
                 </p>
               </div>
             </Reveal>
@@ -111,7 +93,7 @@ export function PeoplePage() {
             {/* Qualifications */}
             <div className="mt-10 space-y-6">
               {QUAL_GROUPS.map((g, gi) => {
-                const items = directorQualifications.filter((q) => q.group === g.key);
+                const items = DIRECTOR.qualifications.filter((q) => q.group === g.key);
                 return (
                   <Reveal key={g.key} delay={gi * 0.06}>
                     <div>
@@ -152,7 +134,7 @@ export function PeoplePage() {
                   </h3>
                 </div>
                 <ul className="mt-4 space-y-3">
-                  {directorExperience.map((e, i) => (
+                  {DIRECTOR.experience.map((e, i) => (
                     <li
                       key={i}
                       className="flex gap-3.5 rounded-2xl bg-ivory px-5 py-4 text-[14px] leading-relaxed text-muted-foreground"
@@ -167,26 +149,6 @@ export function PeoplePage() {
           </div>
         </div>
       </section>
-
-      {additionalAttorneys.length > 0 && (
-        <section className="bg-ivory py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl px-6">
-            <SectionHeading eyebrow="Our people" title={<>The people behind the <span className="gold-text italic">mandate</span>.</>} lead="Published profiles approved by the Kgariya team." />
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {additionalAttorneys.map((attorney) => (
-                <Card key={attorney._id} className="overflow-hidden rounded-3xl border-navy-100 bg-white">
-                  {Boolean(attorney.photograph) && <Image src={String(urlFor(attorney.photograph as never).width(720).height(720).url())} alt={String(attorney.fullName)} width={720} height={720} className="aspect-square object-cover" />}
-                  <CardContent className="p-7">
-                    <h3 className="font-display text-xl font-semibold text-navy-900">{String(attorney.fullName)}</h3>
-                    <p className="mt-1 text-[12px] font-bold uppercase tracking-[0.12em] text-gold-700">{String(attorney.professionalTitle ?? "")}</p>
-                    {attorney.biography && <p className="mt-4 text-[13.5px] leading-relaxed text-muted-foreground">{String(attorney.biography)}</p>}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Future profiles */}
       <section className="bg-ivory py-20 sm:py-24">

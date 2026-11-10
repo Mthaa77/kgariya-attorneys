@@ -10,9 +10,6 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/components/site/icon";
 import { Reveal, SectionHeading } from "@/components/site/reveal";
 import { Magnetic } from "@/components/site/interactions";
-import useSWR from "swr";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const DURATION = 6800;
@@ -27,39 +24,14 @@ const DURATION = 6800;
 export function SectorMatrix() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const { data: cmsSectors } = useSWR<Array<{
-    _id: string;
-    name: string;
-    iconKey: string;
-    tagline: string;
-    clientNeed: string;
-    firmResponse: string;
-    practiceSlugs?: string[];
-    featuredMatter?: { title?: string; approvedOutcome?: string; forum?: string; scale?: string } | null;
-  }>>("/api/cms?type=sectors", cmsFetcher);
-  const sectors = cmsSectors?.length
-    ? cmsSectors.map((item) => {
-        const fallback = SECTORS.find((sector) => sector.name === item.name) || SECTORS[0];
-        return {
-          ...fallback,
-          name: item.name,
-          icon: item.iconKey,
-          tagline: item.tagline,
-          need: item.clientNeed,
-          response: item.firmResponse,
-          practices: item.practiceSlugs?.map((reference) => reference.split(".").pop() || "").filter(Boolean) || fallback.practices,
-          featuredMatter: item.featuredMatter || null,
-        };
-      })
-    : SECTORS;
 
   useEffect(() => {
-    if (paused || !sectors.length) return;
-    const t = setTimeout(() => setIndex((i) => (i + 1) % sectors.length), DURATION);
+    if (paused) return;
+    const t = setTimeout(() => setIndex((i) => (i + 1) % SECTORS.length), DURATION);
     return () => clearTimeout(t);
-  }, [index, paused, sectors.length]);
+  }, [index, paused]);
 
-  const sector = sectors[index % sectors.length];
+  const sector = SECTORS[index];
   const practices = sector.practices
     .map((slug) => getPractice(slug))
     .filter(Boolean);

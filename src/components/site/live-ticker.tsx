@@ -1,13 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import useSWR from "swr";
 import { ArrowDownRight, ArrowUpRight, Diamond, Pause, Play } from "lucide-react";
 import { TICKER_ITEMS, type TickerItem } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 import { useSite } from "@/lib/store";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 
 function TickerCell({ item }: { item: TickerItem }) {
   const Up = item.direction === "up";
@@ -47,8 +44,6 @@ function TickerCell({ item }: { item: TickerItem }) {
  */
 export function LiveTicker() {
   const [paused, setPaused] = useState(false);
-  const { data: cmsItems } = useSWR<Array<TickerItem>>("/api/cms?type=tickerItems", cmsFetcher);
-  const items = cmsItems?.length ? cmsItems : TICKER_ITEMS;
 
   return (
     <section
@@ -84,7 +79,7 @@ export function LiveTicker() {
           >
             {[0, 1].map((dup) => (
               <div key={dup} aria-hidden={dup === 1} className="flex h-full items-center">
-                {items.map((item, i) => (
+                {TICKER_ITEMS.map((item, i) => (
                   <TickerCell key={`${dup}-${i}`} item={item} />
                 ))}
                 <span className="shrink-0 px-6 text-[10.5px] italic text-white/35">

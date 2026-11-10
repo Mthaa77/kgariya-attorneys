@@ -7,9 +7,6 @@
  */
 
 import { Gavel, Landmark, Scale, BookLock, BookOpenCheck, ChevronRight } from "lucide-react";
-import useSWR from "swr";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 import {
   COURTS_FORUMS,
   PRACTICE_FORUMS,
@@ -74,10 +71,10 @@ export function SAFlagChip({ dark = false }: { dark?: boolean }) {
 
 /* ——————————— Courts & forums marquee ——————————— */
 
-function CourtItem({ dark, items }: { dark: boolean; items: Array<{ name: string; note: string }> }) {
+function CourtItem({ dark }: { dark: boolean }) {
   return (
     <>
-      {items.map((c) => (
+      {(COURTS_FORUMS as readonly { name: string; note: string }[]).map((c) => (
         <span
           key={c.name}
           className="flex shrink-0 items-center gap-2.5 whitespace-nowrap"
@@ -119,10 +116,6 @@ export function CourtsMarquee({
   dark?: boolean;
   className?: string;
 }) {
-  const { data: cmsCourts } = useSWR<Array<{ name: string; note?: string }>>("/api/cms?type=courtForums", cmsFetcher);
-  const courts = cmsCourts?.length
-    ? cmsCourts.map((court) => ({ name: court.name, note: court.note || "" }))
-    : (COURTS_FORUMS as readonly { name: string; note: string }[]);
   return (
     <div
       className={`relative overflow-hidden ${
@@ -141,8 +134,8 @@ export function CourtsMarquee({
       />
       <div className="marquee-pause py-4">
         <div className="animate-marquee flex w-max items-center gap-8 pr-8">
-          <CourtItem dark={dark} items={courts} />
-          <CourtItem dark={dark} items={courts} />
+          <CourtItem dark={dark} />
+          <CourtItem dark={dark} />
         </div>
       </div>
     </div>
@@ -153,16 +146,9 @@ export function CourtsMarquee({
 
 /** Premium grid of South African regulation & admission signals. */
 export function RegulationBoard({ dark = false }: { dark?: boolean }) {
-  const { data: cmsDisclosures } = useSWR<Array<{ iconKey: string; label: string; sub: string; detail: string }>>(
-    "/api/cms?type=regulatoryDisclosures",
-    cmsFetcher
-  );
-  const disclosures = cmsDisclosures?.length
-    ? cmsDisclosures.map((item) => ({ icon: item.iconKey, label: item.label, sub: item.sub, detail: item.detail }))
-    : SA_REGULATION;
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {(disclosures as readonly {
+      {(SA_REGULATION as readonly {
         icon: string;
         label: string;
         sub: string;
@@ -228,13 +214,9 @@ export function RegulationBoard({ dark = false }: { dark?: boolean }) {
 
 /** Compact chip wall of the statutes the practice works under. */
 export function ActsStrip({ dark = false }: { dark?: boolean }) {
-  const { data: cmsStatutes } = useSWR<Array<{ shortName: string; citation: string }>>("/api/cms?type=statutes", cmsFetcher);
-  const acts = cmsStatutes?.length
-    ? cmsStatutes.map((item) => ({ short: item.shortName, citation: item.citation }))
-    : SA_ACTS;
   return (
     <div className="flex flex-wrap items-center gap-2.5">
-      {(acts as readonly { short: string; citation: string }[]).map((a) => (
+      {(SA_ACTS as readonly { short: string; citation: string }[]).map((a) => (
         <span
           key={a.short}
           className={`group inline-flex items-center gap-2.5 rounded-full border px-4 py-2 transition-colors ${
@@ -279,13 +261,6 @@ export function CredentialWall({
   dark?: boolean;
   className?: string;
 }) {
-  const { data: cmsCredentials } = useSWR<Array<{ iconKey: string; label: string; sub: string }>>(
-    "/api/cms?type=professionalCredentials",
-    cmsFetcher
-  );
-  const credentials = cmsCredentials?.length
-    ? cmsCredentials.map((item) => ({ icon: item.iconKey, label: item.label, sub: item.sub }))
-    : CREDENTIALS;
   return (
     <div className={`grid gap-3 sm:grid-cols-2 ${className}`}>
       {(CREDENTIALS as readonly {

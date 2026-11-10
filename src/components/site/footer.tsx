@@ -100,7 +100,7 @@ export function Footer() {
       {/* Main footer */}
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <Logo dark />
+          <Logo dark size="lg" />
           <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-white/65">
             A Pretoria commercial disputes and finance practice with deep property
             and real estate development packaging expertise. We prove capability

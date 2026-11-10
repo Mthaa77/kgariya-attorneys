@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowRight, BookOpen, Briefcase, MapPin } from "lucide-react";
-import useSWR from "swr";
 import { CAREER_VALUES, VACANCIES } from "@/lib/site-data";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";
@@ -11,44 +10,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
-
 export function CareersPage() {
-  const { data: cmsCareers } = useSWR<{
-    heroTitle?: string;
-    heroImageUrl?: string;
-    intro?: string;
-    openPositionsIntro?: string;
-    values?: Array<{ iconKey: string; title: string; text: string }>;
-  }>("/api/cms?type=careersPage", cmsFetcher);
-  const { data: cmsJobs } = useSWR<Array<{
-    title: string;
-    employmentType?: string;
-    location?: string;
-    statusText?: string;
-    summary?: string;
-    requirementsOrTags?: string[];
-  }>>("/api/cms?type=jobPostings", cmsFetcher);
-  const careerValues = cmsCareers?.values?.length
-    ? cmsCareers.values.map((value) => ({ icon: value.iconKey, title: value.title, text: value.text }))
-    : CAREER_VALUES;
-  const vacancies = cmsCareers
-    ? (cmsJobs || []).map((job) => ({
-        title: job.title,
-        type: [job.employmentType, job.location].filter(Boolean).join(" · "),
-        open: job.statusText || "Open",
-        text: job.summary || "",
-        tags: job.requirementsOrTags || [],
-      }))
-    : VACANCIES;
-
   return (
     <div>
       <PageHero
         eyebrow="Careers"
-        title={cmsCareers?.heroTitle || "Real mandates. Named mentors. Careers that last."}
-        lead={cmsCareers?.intro || "Join a Pretoria practice in deliberate growth — where candidate attorneys see court rolls and deeds offices in year one, and associates build institutional-grade work."}
-        image={cmsCareers?.heroImageUrl || "/images/office.png"}
+        title="Real mandates. Named mentors. Careers that last."
+        lead="Join a Pretoria practice in deliberate growth — where candidate attorneys see court rolls and deeds offices in year one, and associates build institutional-grade work."
+        image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Careers" }]}
       />
 
@@ -63,10 +32,10 @@ export function CareersPage() {
                 of clerkship.
               </>
             }
-            lead={cmsCareers?.openPositionsIntro || "Applications are reviewed on a rolling basis. Send a CV and a short motivation through the form below, or via email."}
+            lead="Applications are reviewed on a rolling basis. Send a CV and a short motivation through the form below, or via email."
           />
           <div className="mt-14 space-y-5">
-            {vacancies.map((v, i) => (
+            {VACANCIES.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.06}>
                 <Card className="card-lift overflow-hidden rounded-3xl border-navy-100">
                   <CardContent className="grid gap-6 p-7 sm:p-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
@@ -139,7 +108,7 @@ export function CareersPage() {
             }
           />
           <Stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" gap={0.1}>
-            {careerValues.map((v) => (
+            {CAREER_VALUES.map((v) => (
               <StaggerItem key={v.title}>
                 <div className="group h-full rounded-3xl border border-white/10 bg-white/5 p-7 transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-500/40 hover:bg-white/10">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-400 transition-all duration-500 group-hover:bg-gold-500 group-hover:text-navy-950">

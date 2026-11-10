@@ -76,10 +76,10 @@ export function HomePage() {
   return (
     <div>
       <HeroSlider />
-      <WelcomeFilm />
 
       {/* ——— Premium live ticker ——— */}
       <LiveTicker />
+      <WelcomeFilm />
 
       <TrustStrip />
 

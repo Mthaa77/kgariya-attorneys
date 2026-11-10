@@ -22,47 +22,11 @@ import { PracticeCard } from "@/components/site/practice-card";
 import { PracticeForums } from "@/components/site/sa-legal";
 import { Button } from "@/components/ui/button";
 import { Notfound } from "./notfound";
-import useSWR from "swr";
-import type { SanityMatter, SanityPractice } from "@/sanity/types";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 export function PracticeAreaPage({ slug }: { slug: string }) {
-  const { data: cmsMatters } = useSWR<SanityMatter[]>("/api/cms?type=matters", cmsFetcher);
-  const { data: cmsPractices } = useSWR<SanityPractice[]>("/api/cms?type=practices", cmsFetcher);
-  const fallbackArea = getPractice(slug);
-  const cmsArea = cmsPractices?.find((practice) => practice.slug === slug);
-  const area = fallbackArea
-    ? {
-        ...fallbackArea,
-        number: cmsArea?.number ?? fallbackArea.number,
-        name: cmsArea?.name ?? fallbackArea.name,
-        shortName: cmsArea?.shortName ?? fallbackArea.shortName,
-        menuLabel: cmsArea?.menuLabel ?? fallbackArea.menuLabel,
-        tagline: cmsArea?.tagline ?? fallbackArea.tagline,
-        intro: cmsArea?.intro ?? fallbackArea.intro,
-        accent: cmsArea?.accent ?? fallbackArea.accent,
-        accentSoft: cmsArea?.accentSoft ?? fallbackArea.accentSoft,
-        image: cmsArea?.imageUrl || fallbackArea.image,
-        icon: cmsArea?.iconKey ?? fallbackArea.icon,
-        overview: cmsArea?.overview?.length ? cmsArea.overview : fallbackArea.overview,
-        scope: cmsArea?.scope?.length ? cmsArea.scope : fallbackArea.scope,
-        delivery: cmsArea?.delivery?.length ? cmsArea.delivery : fallbackArea.delivery,
-        clients: cmsArea?.clients?.length ? cmsArea.clients : fallbackArea.clients,
-        stat: cmsArea?.stat ?? fallbackArea.stat,
-      }
-    : null;
+  const area = getPractice(slug);
   if (!area) return <Notfound />;
 
   const others = PRACTICE_AREAS.filter((p) => p.slug !== slug).slice(0, 3);
-  const publishedMatters = (cmsMatters ?? [])
-    .filter((matter) => !matter.practiceArea || matter.practiceArea === slug || matter.practiceArea === area.name)
-    .map((matter) => ({
-      title: matter.title,
-      sector: matter.industry || "Representative matter",
-      detail: matter.anonymisedSummary || matter.legalContext || "An anonymised representative matter.",
-      outcome: matter.approvedOutcome || "Approved for publication",
-    }));
-  const displayMatters = publishedMatters.length ? publishedMatters : area.matters;
 
   return (
     <div>
@@ -224,13 +188,7 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
             lead="Anonymised profiles with outcome labels. No client names or confidential details — published in line with LPC marketing rules."
           />
           <div className="mt-12">
-            {displayMatters.length ? (
-              <MatterDeck matters={displayMatters} ctaLabel="Discuss a similar matter" />
-            ) : (
-              <div className="rounded-3xl border border-dashed border-navy-200 bg-white p-8 text-center text-sm text-muted-foreground">
-                Representative matters will appear here after publication approval.
-              </div>
-            )}
+            <MatterDeck matters={area.matters} ctaLabel="Discuss a similar matter" />
           </div>
         </div>
       </section>

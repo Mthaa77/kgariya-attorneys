@@ -1,9 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import useSWR from "swr";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : []));
 import {
   Cookie,
   Eye,
@@ -322,16 +319,6 @@ export function LegalPage() {
   const [tab, setTab] = useState<TabId>(
     TABS.some((t) => t.id === initial) ? initial : "privacy"
   );
-  const { data: legalDocuments } = useSWR<Array<{
-    documentType: TabId;
-    title?: string;
-    sections?: Array<{
-      heading?: string;
-      body?: Array<{ children?: Array<{ text?: string }> }>;
-      listItems?: string[];
-    }>;
-  }>>("/api/cms?type=legalDocuments", cmsFetcher);
-  const selectedDocument = legalDocuments?.find((document) => document.documentType === tab);
 
   // Derived-during-render: follow the route query when it changes
   const [lastInitial, setLastInitial] = useState(initial);
@@ -383,32 +370,11 @@ export function LegalPage() {
           <Reveal delay={0.05}>
             <div className="mt-10 rounded-[2rem] border border-navy-100 bg-ivory p-8 sm:p-12">
               <div className="mx-auto max-w-3xl">
-                {selectedDocument?.sections?.length ? (
-                  <div>
-                    {selectedDocument.sections.map((section, index) => (
-                      <div key={section.heading || index}>
-                        {section.heading && <H>{section.heading}</H>}
-                        {section.body?.map((block, blockIndex) => (
-                          <P key={blockIndex}>{block.children?.map((child) => child.text || "").join("")}</P>
-                        ))}
-                        {Boolean(section.listItems?.length) && <L items={section.listItems || []} />}
-                      </div>
-                    ))}
-                    {selectedDocument.title === "Privacy Policy (POPIA)" && (
-                      <p className="mt-8 text-xs italic text-muted-foreground">
-                        Draft content — the firm's compliance officer must approve this document before publication.
-                      </p>
-                    )}
-                  </div>
-                ) : (
-                  <>
-                    {tab === "privacy" && <PrivacyPolicy />}
-                    {tab === "paia" && <PaiaManual />}
-                    {tab === "cookies" && <CookiePolicy />}
-                    {tab === "terms" && <WebsiteTerms />}
-                    {tab === "lpc" && <LpcDisclosures />}
-                  </>
-                )}
+                {tab === "privacy" && <PrivacyPolicy />}
+                {tab === "paia" && <PaiaManual />}
+                {tab === "cookies" && <CookiePolicy />}
+                {tab === "terms" && <WebsiteTerms />}
+                {tab === "lpc" && <LpcDisclosures />}
               </div>
             </div>
           </Reveal>

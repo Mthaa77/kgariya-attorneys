@@ -416,10 +416,10 @@ export function Header() {
           <div className="px-3 pb-2 pt-2 sm:px-5">
             <div
               className={cn(
-                "relative mx-auto flex items-center justify-between gap-4 rounded-full border px-4 transition-all duration-500 ease-out sm:px-6",
+                "relative mx-auto flex min-w-0 items-center justify-between gap-2 rounded-full border px-3 transition-all duration-500 ease-out sm:gap-4 sm:px-6",
                 scrolled
-                  ? "h-[62px] max-w-[1240px] border-white/10 bg-navy-950/75 shadow-luxe-lg backdrop-blur-2xl"
-                  : "h-[74px] max-w-[1400px] border-white/10 bg-navy-950/40 shadow-luxe backdrop-blur-xl"
+                  ? "h-[64px] max-w-[1240px] border-white/10 bg-navy-950/75 shadow-luxe-lg backdrop-blur-2xl"
+                  : "h-[70px] max-w-[1400px] border-white/10 bg-navy-950/40 shadow-luxe backdrop-blur-xl"
               )}
               onMouseLeave={() => {
                 setHovered(null);
@@ -432,9 +432,9 @@ export function Header() {
               <button
                 onClick={() => navigate("#/")}
                 aria-label="Kgariya Attorneys — home"
-                className="shrink-0 transition-transform duration-300 hover:scale-[1.03]"
+                className="min-w-0 shrink-0 transition-transform duration-300 hover:scale-[1.02]"
               >
-                <Logo dark compact={scrolled} />
+                <Logo dark compact={scrolled} className="max-w-full" />
               </button>
 
               {/* Desktop nav */}
@@ -496,15 +496,8 @@ export function Header() {
                 })}
               </nav>
 
-              <div className="flex items-center gap-2.5">
-                <button
-                  onClick={() => useSite.getState().openDialog("search")}
-                  aria-label="Search the site"
-                  className="hidden h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition-all duration-300 hover:border-gold-400/60 hover:text-gold-300 md:flex xl:hidden"
-                >
-                  <Search className="h-4 w-4" />
-                </button>
-                <Magnetic strength={0.18} className="hidden md:inline-block">
+              <div className="flex shrink-0 items-center gap-2.5">
+                <Magnetic strength={0.18} className="hidden xl:inline-block">
                   <Button
                     onClick={() => useSite.getState().openDialog("booking")}
                     className="btn-sheen h-11 rounded-full bg-gold-500 px-5 text-[13px] font-bold text-navy-950 shadow-gold transition-all duration-300 hover:bg-gold-400 hover:shadow-luxe"
@@ -516,7 +509,7 @@ export function Header() {
                 <button
                   onClick={() => setMobileOpen(true)}
                   aria-label="Open menu"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gold-500 text-navy-950 shadow-gold transition-transform duration-300 hover:scale-105 xl:hidden"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-500 text-navy-950 shadow-gold transition-transform duration-300 hover:scale-105 xl:hidden"
                 >
                   <Menu className="h-5 w-5" />
                 </button>
@@ -594,6 +587,18 @@ export function Header() {
           </div>
 
           <div className="flex min-h-[calc(100%-11rem)] flex-col p-5">
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                useSite.getState().openDialog("search");
+              }}
+              className="mb-3 flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.045] px-4 py-3.5 text-left text-[14px] font-semibold text-white/85 transition-colors hover:bg-white/[0.08]"
+            >
+              <Search className="h-4 w-4 text-gold-300" />
+              Search the site
+              <ArrowRight className="ml-auto h-4 w-4 text-gold-400" />
+            </button>
+
             {/* Practice areas accordion */}
             <button
               onClick={() => setPaOpen((v) => !v)}
