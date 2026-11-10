@@ -36,7 +36,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "township-development-legal-roadmap",
     title: "From land assembly to capital close: a legal roadmap for township development",
-    category: "Real Estate Development Packaging",
+    category: "Real Estate Development & Advisory",
     categorySlug: "real-estate-development",
     date: "2026-09-28",
     readTime: "8 min read",
