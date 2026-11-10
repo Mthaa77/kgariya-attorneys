@@ -6,9 +6,6 @@ import {
   FileCheck,
   Landmark,
   Lock,
-  Mail,
-  MapPin,
-  Phone,
   Scale,
   ShieldCheck,
 } from "lucide-react";
@@ -18,6 +15,7 @@ import { BADGES, FIRM, PRACTICE_AREAS } from "@/lib/site-data";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { ActsStrip, SAFlag } from "@/components/site/sa-legal";
+import { OfficeDirectory } from "@/components/site/office-directory";
 
 /** Distinct premium icon per compliance badge — mirrors the TrustStrip. */
 const BADGE_ICONS = [Landmark, Award, ShieldCheck, FileCheck, Scale];
@@ -54,7 +52,7 @@ export function Footer() {
               Next step
             </p>
             <h2 className="mt-3 max-w-xl font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              Book a consultation — video, telephone, or in person in Pretoria.
+              Book a consultation — by video, telephone or in person at one of our offices, by arrangement.
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -160,41 +158,24 @@ export function Footer() {
           <h3 className="text-[11px] font-bold uppercase tracking-[0.24em] text-gold-400">
             Office Directory
           </h3>
-          <ul className="mt-5 space-y-4 text-[13.5px] text-white/70">
-            <li className="flex gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              <span>
-                {FIRM.address.line1}
-                <br />
-                {FIRM.address.line2}
-                <br />
-                {FIRM.address.city} {FIRM.address.postal}
-              </span>
-            </li>
-            <li>
-              <a
-                href={FIRM.phoneHref}
-                className="flex items-center gap-3 transition-colors hover:text-gold-300"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-gold-400" />
-                {FIRM.phone}
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${FIRM.email}`}
-                className="flex items-center gap-3 transition-colors hover:text-gold-300"
-              >
-                <Mail className="h-4 w-4 shrink-0 text-gold-400" />
-                {FIRM.email}
-              </a>
-            </li>
-          </ul>
+          <OfficeDirectory variant="footer" showContactDetails={false} />
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-[12px] font-semibold text-gold-300">Office hours</p>
-            <p className="mt-1 text-[12.5px] text-white/60">{FIRM.hours}</p>
-            <p className="mt-2 text-[12px] text-white/50">
-              Consultations by video, telephone or in person.
+            <p className="text-[12px] font-semibold text-gold-300">Central contact</p>
+            <a
+              href={FIRM.phoneHref}
+              className="mt-2 flex items-center gap-2 text-[12.5px] text-white/75 transition-colors hover:text-gold-300"
+            >
+              {FIRM.phone}
+            </a>
+            <a
+              href={"mailto:" + FIRM.email}
+              className="mt-2 block break-all text-[12px] text-white/60 transition-colors hover:text-gold-300"
+            >
+              {FIRM.email}
+            </a>
+            <p className="mt-3 text-[12px] text-white/50">{FIRM.hours}</p>
+            <p className="mt-2 text-[11.5px] leading-relaxed text-white/45">
+              Consultations by video, telephone or in person by arrangement.
             </p>
           </div>
         </div>
