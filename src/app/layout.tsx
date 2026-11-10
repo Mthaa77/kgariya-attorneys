@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Kgariya Attorneys Incorporated" }],
   icons: {
-    icon: "/crest.svg",
+    icon: "/kgariya-symbol.webp",
   },
   openGraph: {
     title: "Kgariya Attorneys Incorporated",
@@ -47,6 +47,14 @@ export const metadata: Metadata = {
       "A Pretoria commercial disputes and finance practice with deep property and development packaging expertise. Evidence over slogans.",
     url: "https://www.kgariyainc.co.za",
     siteName: "Kgariya Attorneys Incorporated",
+    images: [
+      {
+        url: "/images/kgariya-official-logo.webp",
+        width: 320,
+        height: 347,
+        alt: "Kgariya Attorneys Incorporated official logo",
+      },
+    ],
     locale: "en_ZA",
     type: "website",
   },

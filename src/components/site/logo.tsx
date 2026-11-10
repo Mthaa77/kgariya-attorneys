@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /** Gold-gradient shield crest with K monogram — echoes the firm's brand mark. */
@@ -56,39 +57,43 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
 }
 
 /** Full horizontal lockup: crest + wordmark. */
+/** Official brand lockup supplied by Kgariya Attorneys Incorporated. */
 export function Logo({
   dark = false,
   className,
   compact = false,
+  size = "md",
 }: {
   dark?: boolean;
   className?: string;
   compact?: boolean;
+  size?: "md" | "lg";
 }) {
+  const frameSize = compact
+    ? "h-[48px] w-[44px]"
+    : size === "lg"
+      ? "h-[108px] w-[99px]"
+      : "h-[70px] w-[64px]";
+
   return (
-    <span className={cn("inline-flex items-center gap-3 select-none", className)}>
-      <Crest dark={dark} className="h-11 w-11 shrink-0 drop-shadow-sm" />
-      <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "font-display font-bold tracking-[0.08em]",
-            compact ? "text-base" : "text-lg sm:text-xl",
-            dark ? "text-white" : "text-navy-900"
-          )}
-        >
-          KGARIYA
-        </span>
-        <span className="mt-1.5 flex items-center gap-1.5">
-          <span className={cn("h-px w-3", dark ? "bg-gold-500/70" : "bg-gold-600/70")} />
-          <span
-            className={cn(
-              "text-[9px] font-semibold uppercase tracking-[0.32em]",
-              dark ? "text-gold-300" : "text-gold-700"
-            )}
-          >
-            Attorneys Inc.
-          </span>
-        </span>
+    <span className={cn("inline-flex shrink-0 select-none", className)}>
+      <span
+        className={cn(
+          "relative block shrink-0 overflow-hidden rounded-[14px] border bg-[#e9e5df] transition-transform duration-300 hover:scale-[1.02]",
+          dark
+            ? "border-[#d7b970]/60 shadow-[0_9px_26px_rgba(0,0,0,0.28)]"
+            : "border-[#c6a55c]/45 shadow-[0_7px_22px_rgba(10,27,51,0.16)]",
+          frameSize
+        )}
+      >
+        <Image
+          src="/images/kgariya-official-logo.webp"
+          alt="Kgariya Attorneys Incorporated official logo"
+          width={320}
+          height={347}
+          sizes={compact ? "44px" : size === "lg" ? "99px" : "64px"}
+          className="h-full w-full object-contain"
+        />
       </span>
     </span>
   );
