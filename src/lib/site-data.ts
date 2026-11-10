@@ -79,19 +79,19 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     menuLabel: "Commercial Litigation & Arbitration",
     tagline: "High-stakes disputes, fought with strategy.",
     intro:
-      "Our primary practice leader. We represent corporates, financial institutions and public bodies in High Court litigation and formal arbitration — banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
+      "We represent corporates, financial institutions and public bodies in all courts, formal arbitration and other appropriate legal forums in relation to banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
     accent: "#16315c",
     accentSoft: "#eef2f8",
     image: "/images/hero-litigation.png",
     icon: "scale",
     overview: [
-      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and choose the forum — High Court or AFSA arbitration — that delivers the fastest, most certain, most cost-effective outcome.",
-      "The division drafts specialised pleadings, manages urgent High Court applications, runs interlocutory proceedings, conducts multi-day arbitration trials and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
+      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
+      "The division drafts specialised pleadings, manages urgent court applications, runs interlocutory proceedings, conducts formal arbitration hearings and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
       "We act for blue-chip companies, banks and lenders, construction and engineering firms, insurers, and franchisors across Gauteng. Institutional clients receive structured reporting at every stage, so boards and panels always know where a matter stands and what it is costing.",
     ],
     scope: [
-      "High Court litigation and appeals",
-      "AFSA arbitration proceedings",
+      "Representation in all courts and appropriate legal forums",
+      "Formal arbitration proceedings",
       "Urgent and interlocutory applications",
       "Banking and financial disputes",
       "Construction and engineering claims",
@@ -105,7 +105,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Structured dispute strategy and forum selection",
       "Specialised pleadings and motion drafting",
       "Multi-day arbitration trial management",
-      "Dedicated High Court advocacy",
+      "Court, arbitration and other appropriate forum advocacy",
       "Settlement negotiation and workout-linked dispute resolution",
     ],
     clients: [
@@ -150,12 +150,12 @@ export const PRACTICE_AREAS: PracticeArea[] = [
   {
     slug: "real-estate-development",
     number: "02",
-    name: "Real Estate Development Packaging",
-    shortName: "Development Packaging",
-    menuLabel: "Real Estate Development Packaging",
-    tagline: "From bare land to capital close — packaged end to end.",
+    name: "Real Estate Development, Packaging & Advisory",
+    shortName: "Development, Packaging & Advisory",
+    menuLabel: "Real Estate Development & Advisory",
+    tagline: "From acquisition strategy to project delivery — advised end to end.",
     intro:
-      "Our key differentiator. We structure complete legal packages for large-scale developments — bridging the gap between municipal land-use approvals, state regulatory compliance and bank or DFI capital close.",
+      "We provide real estate development, packaging and advisory services across the legal life cycle of a project, from acquisition and land-use strategy through structuring, approvals, financing and delivery.",
     accent: "#1e4076",
     accentSoft: "#eaf0fa",
     image: "/images/hero-development.png",
@@ -169,6 +169,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Land assembly and acquisition agreements",
       "Joint venture legal frameworks",
       "Legal feasibility assessments and cost modelling",
+      "Real estate development advisory",
       "Township establishment, rezoning and land-use rights",
       "NHBRC enrolment",
       "SHRA and subsidised housing schemes",
@@ -377,6 +378,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     overview: [
       "We draft the documents that carry the risk. The practice structures, documents and secures commercial debt facilities, property finance and corporate restructurings — loan facility agreements, intercreditor agreements and multi-tiered security packages that survive both registration and enforcement.",
       "For borrowers, we negotiate facilities and restructures with a developer's understanding of cash flow. For lenders, we build security packages and run workouts that recover value while respecting the commercial relationship.",
+      "The practice also assists with debt collection and recovery processes relating to vehicle and asset finance, as well as home-loan finance, with a focus on structured enforcement, clear reporting and commercially practical recovery strategies."
       "The practice is panel-ready: conflict protocols, trust account discipline, turnaround commitments and reporting built for bank and DFI panel assessment.",
     ],
     scope: [
@@ -386,6 +388,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Commercial property and development loans",
       "Development debt packaging",
       "Debt workouts",
+      "Debt collection relating to vehicle and asset finance",
+      "Debt collection relating to home-loan finance",
       "Corporate financial restructurings",
       "Financial recovery workouts",
     ],
@@ -448,6 +452,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     overview: [
       "Conveyancing is where transactions land — or don't. The practice executes commercial and residential property transfers, registers mortgage bonds for major banking panels, opens sectional title registers, manages township conveyancing registers and performs notarial acts.",
       "Our pipelines are built for volume without losing matter-level care: milestone tracking, proactive correspondence, and clean deeds office performance. Institutional clients — banks, property funds, educational institutions — get predictable registration timelines and honest reporting.",
+      "In addition to conveyancing execution, the practice advises on acquisitions involving schools, parcels or premises, hospitals and places of religious worship. Our property work also includes land audits, land-rights due diligence and town-planning advisory to support informed acquisition, development and registration decisions.",
       "As panel attorneys we understand what lender checklists actually require, and we design our instruction flows to pass them the first time.",
     ],
     scope: [
@@ -456,6 +461,9 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Sectional title register openings",
       "Township conveyancing registers",
       "Institutional property portfolio conveyancing",
+      "Advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship",
+      "Land audits and land-rights due diligence",
+      "Town-planning advisory",
       "Notarial executions and notarial bonds",
     ],
     delivery: [
@@ -1049,7 +1057,7 @@ export const TESTIMONIALS = [
       "The development packaging was underwriting-grade from day one. Our credit committee had every question answered before it was asked — that is rare.",
     name: "Head of Development Finance",
     org: "National banking institution",
-    practice: "Real Estate Development Packaging",
+    practice: "Real Estate Development, Packaging & Advisory",
   },
   {
     quote:
