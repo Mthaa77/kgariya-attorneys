@@ -569,8 +569,8 @@ export const SECTORS: Sector[] = [
     name: "Blue-Chip Companies",
     icon: "briefcase",
     tagline: "Boardroom stakes, courtroom discipline.",
-    need: "High-court commercial litigation, complex breach-of-contract disputes, AFSA arbitrations and corporate workouts.",
-    response: "Specialised litigation practice, structured dispute strategy and dedicated High Court advocacy.",
+    need: "Commercial disputes and contract claims requiring court proceedings, formal arbitration or other appropriate legal forums, alongside corporate workouts.",
+    response: "Specialised litigation practice, structured dispute strategy and representation across courts, formal arbitration and other appropriate legal forums.",
     practices: ["commercial-litigation", "banking-finance"],
     fileRef: ["commercial-litigation", 0],
   },
@@ -710,8 +710,8 @@ export const FAQS = [
     a: "Three: standard hourly rates for litigation and open-ended advisory; fixed-fee project packaging for structured developments, drafting and conveyancing transactions; and tailored monthly retainers for corporate and public entities.",
   },
   {
-    q: "High Court or AFSA arbitration — how do you choose?",
-    a: "It depends on confidentiality, speed, cost and enforceability. Arbitration is private and often faster; the High Court offers precedent-setting and certain remedies like interdicts. We recommend a forum only after mapping your commercial objectives.",
+    q: "Which court or dispute forum is right for my matter?",
+    a: "The right forum depends on the legal remedy, confidentiality, speed, cost, procedural requirements and enforceability. We assess the dispute and commercial objectives before advising whether court proceedings, formal arbitration or another appropriate legal forum is suitable.",
   },
   {
     q: "Do you act outside Gauteng?",
@@ -748,7 +748,7 @@ export const DIRECTOR = {
   experience: [
     "Direct hands-on operational experience handling Land Bank legal matters during tenure at AFGRI.",
     "Former Chief Executive Officer of a property company — managing commercial portfolios, residential developments, mixed-use schemes, SHRA-subsidised social housing and property portfolio operations.",
-    "Leads the firm's pivot to specialist commercial litigation, development packaging and development finance mandates.",
+    "Leads the firm's pivot to specialist commercial litigation, real estate development, packaging and advisory, and development finance mandates.",
   ],
 };
 
@@ -797,15 +797,15 @@ export const VACANCIES = [
     title: "Candidate Attorney (Articles of Clerkship)",
     type: "Full-time · Pretoria",
     open: "2027 intake — applications reviewed on a rolling basis",
-    text: "Two-year articles across litigation, conveyancing and development packaging. We invest in candidates who want exposure to institutional mandates, court attendance and deeds office practice from year one.",
+    text: "Two-year articles across litigation, conveyancing, and real estate development, packaging and advisory. We invest in candidates who want exposure to institutional mandates, court attendance and deeds office practice from year one.",
     tags: ["LLB completed", "Admission exams preparation", "Mentorship"],
   },
   {
     title: "Associate — Commercial Litigation",
     type: "Full-time · Pretoria",
     open: "Open",
-    text: "Two to five years' post-admission experience in commercial litigation or arbitration. High Court drafting, urgent applications and AFSA proceedings; development and finance sector exposure advantageous.",
-    tags: ["High Court advocacy", "AFSA", "Drafting-intensive"],
+    text: "Two to five years' post-admission experience in commercial litigation or arbitration. Court drafting, urgent applications and formal arbitration proceedings; development and finance sector exposure advantageous.",
+    tags: ["Court and forum advocacy", "Formal arbitration", "Drafting-intensive"],
   },
   {
     title: "Conveyancing Paralegal / Secretary",
