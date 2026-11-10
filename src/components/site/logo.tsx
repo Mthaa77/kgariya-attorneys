@@ -58,6 +58,7 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
 
 /** Full horizontal lockup: crest + wordmark. */
 /** Official brand lockup supplied by Kgariya Attorneys Incorporated. */
+/** Official Kgariya Attorneys lockup: emblem plus legible firm name. */
 export function Logo({
   dark = false,
   className,
@@ -69,31 +70,60 @@ export function Logo({
   compact?: boolean;
   size?: "md" | "lg";
 }) {
-  const frameSize = compact
-    ? "h-[48px] w-[44px]"
+  const markSize = compact
+    ? "h-9 w-10"
     : size === "lg"
-      ? "h-[108px] w-[99px]"
-      : "h-[70px] w-[64px]";
+      ? "h-[72px] w-[78px]"
+      : "h-[44px] w-[48px]";
+  const nameSize = compact
+    ? "text-[14px] sm:text-[15px]"
+    : size === "lg"
+      ? "text-[24px]"
+      : "text-[17px] sm:text-[18px]";
+  const subtitleSize = compact
+    ? "text-[6.5px] sm:text-[7px] tracking-[0.1em]"
+    : size === "lg"
+      ? "text-[10px] tracking-[0.17em]"
+      : "text-[7.5px] sm:text-[8px] tracking-[0.14em]";
 
   return (
-    <span className={cn("inline-flex shrink-0 select-none", className)}>
+    <span className={cn("inline-flex min-w-0 shrink-0 items-center gap-2.5 select-none sm:gap-3", className)}>
       <span
         className={cn(
-          "relative block shrink-0 overflow-hidden rounded-[14px] border bg-[#e9e5df] transition-transform duration-300 hover:scale-[1.02]",
-          dark
-            ? "border-[#d7b970]/60 shadow-[0_9px_26px_rgba(0,0,0,0.28)]"
-            : "border-[#c6a55c]/45 shadow-[0_7px_22px_rgba(10,27,51,0.16)]",
-          frameSize
+          "relative flex shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[#d6bd7c]/55 bg-[#f7f5f0] shadow-[0_5px_15px_rgba(0,0,0,0.22)]",
+          markSize
         )}
       >
         <Image
-          src="/images/kgariya-official-logo.webp"
-          alt="Kgariya Attorneys Incorporated official logo"
-          width={320}
-          height={347}
-          sizes={compact ? "44px" : size === "lg" ? "99px" : "64px"}
+          src="/images/kgariya-mark.webp"
+          alt=""
+          aria-hidden="true"
+          width={384}
+          height={358}
+          sizes={compact ? "40px" : size === "lg" ? "78px" : "48px"}
+          unoptimized
           className="h-full w-full object-contain"
         />
+      </span>
+      <span className="flex min-w-0 flex-col items-start justify-center gap-1 leading-none">
+        <span
+          className={cn(
+            "font-display font-bold uppercase leading-none tracking-[0.12em]",
+            nameSize,
+            dark ? "text-white" : "text-navy-950"
+          )}
+        >
+          KGARIYA
+        </span>
+        <span
+          className={cn(
+            "whitespace-nowrap font-sans font-bold uppercase leading-none",
+            subtitleSize,
+            dark ? "text-gold-300" : "text-gold-700"
+          )}
+        >
+          ATTORNEYS INCORPORATED
+        </span>
       </span>
     </span>
   );

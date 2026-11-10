@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Kgariya Attorneys Incorporated" }],
   icons: {
-    icon: "/kgariya-symbol.webp",
+    icon: "/images/kgariya-mark.webp",
   },
   openGraph: {
     title: "Kgariya Attorneys Incorporated",
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     siteName: "Kgariya Attorneys Incorporated",
     images: [
       {
-        url: "/images/kgariya-official-logo.webp",
-        width: 320,
-        height: 347,
+        url: "/images/kgariya-mark.webp",
+        width: 384,
+        height: 358,
         alt: "Kgariya Attorneys Incorporated official logo",
       },
     ],
@@ -63,6 +63,7 @@ export const metadata: Metadata = {
     title: "Kgariya Attorneys Incorporated",
     description:
       "Commercial litigation, arbitration, real estate development packaging and development finance — Pretoria, South Africa.",
+    images: ["/images/kgariya-mark.webp"],
   },
   robots: { index: true, follow: true },
 };
