@@ -70,7 +70,7 @@ const PROFILES: Option<ProfileId>[] = [
 
 const NEEDS: Option<NeedId>[] = [
   { id: "dispute", label: "A commercial dispute or claim", hint: "Court, arbitration, enforcement", icon: Scale },
-  { id: "development", label: "A development or land use", hint: "Townships, rezoning, capital close", icon: MapPinned },
+  { id: "development", label: "A development or land-use mandate", hint: "Acquisition strategy, approvals, finance and delivery", icon: MapPinned },
   { id: "mining", label: "A mining-adjacent matter", hint: "Surface rights, SLPs, mineral rights", icon: Mountain },
   { id: "agri", label: "Farm or agricultural finance", hint: "Land Bank, farm bonds, movables", icon: Wheat },
   { id: "finance", label: "Banking, finance or security", hint: "Facilities, workouts, restructuring", icon: Banknote },
@@ -107,7 +107,7 @@ const WAYPOINTS: Record<ProfileId, Waypoint[]> = {
     { label: "The attorneys who act", hint: "Meet the team", target: "#/people", kind: "route" },
   ],
   developer: [
-    { label: "Development packaging dossier", hint: "Sector matrix — capital to township register", target: "client-matrix", kind: "scroll" },
+    { label: "Development, packaging & advisory dossier", hint: "Sector matrix — from land strategy to delivery", target: "client-matrix", kind: "scroll" },
     { label: "How we engage", hint: "Four steps from enquiry to close", target: "journey", kind: "scroll" },
     { label: "Fee structures", hint: "Success-weighted models for developments", target: "fees", kind: "scroll" },
   ],

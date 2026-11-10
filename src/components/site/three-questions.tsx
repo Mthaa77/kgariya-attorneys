@@ -18,12 +18,12 @@ import { Icon } from "./icon";
 import { cn } from "@/lib/utils";
 
 const Q1 = [
-  { id: "dispute", label: "A commercial dispute or claim", hint: "Court, arbitration, enforcement" },
-  { id: "development", label: "A development project or land use", hint: "Townships, rezoning, SHRA, capital close" },
+  { id: "dispute", label: "A commercial dispute or claim", hint: "All-court representation, formal arbitration, enforcement" },
+  { id: "development", label: "A development project or land use", hint: "Acquisition, land-use strategy, approvals, financing" },
   { id: "mining", label: "A mining-adjacent matter", hint: "Surface rights, SLPs, mineral rights" },
   { id: "agri", label: "Farm or agricultural finance", hint: "Land Bank, farm bonds, movables" },
-  { id: "finance", label: "Banking, finance or security", hint: "Facilities, workouts, restructuring" },
-  { id: "property", label: "A transfer, bond or sectional title", hint: "Conveyancing and registration" },
+  { id: "finance", label: "Banking, finance or security", hint: "Facilities, workouts, vehicle/asset and home-loan recovery" },
+  { id: "property", label: "A transfer, bond or property matter", hint: "Land audits, land rights, town planning, conveyancing" },
 ] as const;
 
 const Q1_MAP: Record<string, string> = {

@@ -36,7 +36,7 @@ export const ARTICLES: Article[] = [
   {
     slug: "township-development-legal-roadmap",
     title: "From land assembly to capital close: a legal roadmap for township development",
-    category: "Real Estate Development Packaging",
+    category: "Real Estate Development & Advisory",
     categorySlug: "real-estate-development",
     date: "2026-09-28",
     readTime: "8 min read",
@@ -128,7 +128,7 @@ export const getArticle = (slug: string) => ARTICLES.find((a) => a.slug === slug
 export const CATEGORIES = [
   { name: "All", slug: "all" },
   { name: "Commercial Litigation & Arbitration", slug: "commercial-litigation" },
-  { name: "Real Estate Development Packaging", slug: "real-estate-development" },
+  { name: "Real Estate Development & Advisory", slug: "real-estate-development" },
   { name: "Mining & Resources", slug: "mining-resources" },
   { name: "Agricultural & Development Finance", slug: "agricultural-finance" },
   { name: "Banking & Finance", slug: "banking-finance" },

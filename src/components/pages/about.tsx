@@ -33,7 +33,7 @@ const TIMELINE = [
   {
     era: "Today",
     title: "Litigation-led, development-anchored",
-    text: "A Pretoria commercial disputes and finance practice: High Court and AFSA work, end-to-end development packaging, and panel-ready banking, agri-finance and conveyancing capacity.",
+    text: "A Pretoria commercial, property and finance practice: representation in all courts, formal arbitration and other appropriate legal forums, real estate development, packaging and advisory, banking, agri-finance and conveyancing.",
   },
   {
     era: "Next",
