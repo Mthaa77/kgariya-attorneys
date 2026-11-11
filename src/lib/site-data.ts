@@ -112,7 +112,7 @@ export type PracticeArea = {
   stat: { value: number; suffix: string; label: string };
 };
 
-export const PRACTICE_AREAS: PracticeArea[
+export const PRACTICE_AREAS: PracticeArea[] = [
   {
     slug: "agricultural-finance",
     number: "01",
