@@ -23,7 +23,8 @@ const Q1 = [
   { id: "mining", label: "A mining-adjacent matter", hint: "Surface rights, SLPs, mineral rights" },
   { id: "agri", label: "Farm or agricultural finance", hint: "Land Bank, farm bonds, movables" },
   { id: "finance", label: "Banking, finance or security", hint: "Facilities, workouts, vehicle/asset and home-loan recovery" },
-  { id: "property", label: "A transfer, bond or property matter", hint: "Land audits, land rights, town planning, conveyancing" },
+  { id: "property", label: "A transfer, bond or property matter", hint: "Development, land rights, conveyancing and registration" },
+  { id: "mergers", label: "Buying, selling or restructuring a business", hint: "Share and asset deals, due diligence, transaction documents" },
 ] as const;
 
 const Q1_MAP: Record<string, string> = {
@@ -32,7 +33,8 @@ const Q1_MAP: Record<string, string> = {
   mining: "mining-resources",
   agri: "agricultural-finance",
   finance: "banking-finance",
-  property: "conveyancing-property",
+  property: "real-estate-development",
+  mergers: "mergers-acquisitions",
 };
 
 const Q2 = [
