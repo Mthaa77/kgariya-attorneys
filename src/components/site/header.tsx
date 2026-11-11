@@ -128,10 +128,10 @@ const TRAY_MEDIA: Record<string, { src: string; caption: string; alt: string }> 
     caption: "Counsel on the move — between forums",
     alt: "South African counsel and attorney walking through the firm's offices",
   },
-  "conveyancing-property": {
-    src: "/images/sa-judge-bench.png",
-    caption: "Officers of the court — Deeds Office & Master's alignments",
-    alt: "A South African judicial officer in robes presiding at the bench",
+  "mergers-acquisitions": {
+    src: "/images/sa-team-boardroom.png",
+    caption: "At the table — transaction strategy and documentation",
+    alt: "South African legal professionals reviewing corporate transaction documents in a boardroom",
   },
 };
 
