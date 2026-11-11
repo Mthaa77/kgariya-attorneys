@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const socialPreviewImage =
-  "https://raw.githubusercontent.com/Mthaa77/kgariya-attorneys/main/public/images/kgariya-social-preview.png?v=20261111-logo-v2";
+const socialPreviewImage = "/opengraph-image?v=20261111-brand-refresh";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kgariyainc.co.za"),
