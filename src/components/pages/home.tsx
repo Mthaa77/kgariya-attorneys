@@ -105,7 +105,7 @@ export function HomePage() {
                   <span className="gold-text italic">institutional</span> mandate.
                 </>
               }
-              lead="Kgariya Attorneys Incorporated evolved deliberately from a broad general practice into a specialist commercial disputes, real estate development, packaging and advisory, and finance firm. We retired more than forty sub-services to concentrate on six practices where we hold genuine depth."
+              lead="Kgariya Attorneys Incorporated has evolved into a focused commercial practice spanning agricultural finance, banking and finance, litigation and arbitration, mining-adjacent legal work, real estate development and conveyancing, and mergers and acquisitions. The firm concentrates on six specialist practices where it can bring focused legal attention to complex mandates."
             />
             <Reveal delay={0.15}>
               <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">
