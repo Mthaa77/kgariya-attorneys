@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const socialPreviewImage =
-  "https://raw.githubusercontent.com/Mthaa77/kgariya-attorneys/main/public/images/office-sunset.jpg?v=20261111";
+const socialPreviewImage = "/opengraph-image?v=20261111-branded-logo";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kgariyainc.co.za"),
@@ -43,7 +42,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialPreviewImage,
-        alt: "Kgariya Attorneys Incorporated, commercial, property and finance attorneys in South Africa",
+        width: 1200,
+        height: 630,
+        alt: "Kgariya Attorneys Incorporated premium navy-and-gold logo",
       },
     ],
     locale: "en_ZA",
