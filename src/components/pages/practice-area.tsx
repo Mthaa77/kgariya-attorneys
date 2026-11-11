@@ -239,8 +239,9 @@ function PracticeHero({
 }
 
 export function PracticeAreaPage({ slug }: { slug: string }) {
-  const area = getPractice(slug);
-  const page = PRACTICE_PAGE_CONTENT[slug];
+  const canonicalSlug = slug === "conveyancing-property" ? "real-estate-development" : slug;
+  const area = getPractice(canonicalSlug);
+  const page = PRACTICE_PAGE_CONTENT[canonicalSlug];
 
   if (!area || !page) return <Notfound />;
 
