@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { cn } from "@/lib/utils";
+
+const wordmark = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Kgariya_logo_a3ddc0c8_2K-J5qR3a8OajUozBHztcbfcNVZ6UPx94.jpg";
 
 /** Gold-gradient shield crest with K monogram — echoes the firm's brand mark. */
 export function Crest({ className, dark = false }: { className?: string; dark?: boolean }) {
@@ -57,7 +60,6 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
 
 /** Full horizontal lockup: crest + wordmark. */
 export function Logo({
-  dark = false,
   className,
   compact = false,
 }: {
@@ -66,29 +68,16 @@ export function Logo({
   compact?: boolean;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-3 select-none", className)}>
-      <Crest dark={dark} className="h-11 w-11 shrink-0 drop-shadow-sm" />
-      <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "font-display font-bold tracking-[0.08em]",
-            compact ? "text-base" : "text-lg sm:text-xl",
-            dark ? "text-white" : "text-navy-900"
-          )}
-        >
-          KGARIYA
-        </span>
-        <span className="mt-1.5 flex items-center gap-1.5">
-          <span className={cn("h-px w-3", dark ? "bg-gold-500/70" : "bg-gold-600/70")} />
-          <span
-            className={cn(
-              "text-[9px] font-semibold uppercase tracking-[0.32em]",
-              dark ? "text-gold-300" : "text-gold-700"
-            )}
-          >
-            Attorneys Inc.
-          </span>
-        </span>
+    <span className={cn("inline-flex select-none items-center", className)}>
+      <span className={cn("relative block overflow-hidden rounded-lg bg-[#f7f6f2] shadow-[0_2px_10px_rgba(0,0,0,0.12)] ring-1 ring-white/20 transition duration-500 ease-out group-hover:shadow-[0_6px_20px_rgba(198,165,92,0.2)]", compact ? "h-10 w-[130px]" : "h-12 w-[158px]")}>
+        <Image
+          src={wordmark}
+          alt="Kgariya Attorneys"
+          fill
+          sizes="(max-width: 640px) 130px, 158px"
+          className="scale-[1.2] object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.24]"
+          priority
+        />
       </span>
     </span>
   );

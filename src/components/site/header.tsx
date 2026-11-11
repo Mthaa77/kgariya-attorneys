@@ -432,7 +432,7 @@ export function Header() {
               <button
                 onClick={() => navigate("#/")}
                 aria-label="Kgariya Attorneys — home"
-                className="shrink-0 transition-transform duration-300 hover:scale-[1.03]"
+                className="group shrink-0 transition-transform duration-500 ease-out hover:scale-[1.035]"
               >
                 <Logo dark compact={scrolled} />
               </button>

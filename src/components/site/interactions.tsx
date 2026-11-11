@@ -11,6 +11,7 @@ import {
   useSpring,
   useTransform,
   AnimatePresence,
+  useReducedMotion,
 } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -286,13 +287,14 @@ export function ImageReveal({
   imgClassName?: string;
   delay?: number;
 }) {
+  const reducedMotion = useReducedMotion();
   return (
     <motion.div
       className={cn("relative overflow-hidden", className)}
-      initial={{ clipPath: "inset(12% 8% 12% 8% round 32px)", opacity: 0 }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0% round 32px)", opacity: 1 }}
+      initial={reducedMotion ? false : { clipPath: "inset(12% 8% 12% 8% round 32px)", opacity: 0, scale: 1.025 }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0% round 32px)", opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.1, ease: EASE, delay }}
+      transition={{ duration: reducedMotion ? 0 : 1.15, ease: EASE, delay: reducedMotion ? 0 : delay }}
     >
       <Image src={src} alt={alt} fill className={cn("object-cover", imgClassName)} sizes="50vw" />
     </motion.div>

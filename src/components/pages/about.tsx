@@ -65,7 +65,7 @@ export function AboutPage() {
         eyebrow="About the firm"
         title={cmsAbout?.heroTitle || "Built on evidence. Structured for institutions."}
         lead={cmsAbout?.heroLead || "Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."}
-        image="/images/office.png"
+        image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Create_law_firm_background_designs_a8b9e172_2K-LjPpOWYJuddWOeVOGnA2ublwBIPvtc.jpg"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "About the Firm" }]}
       >
         <div className="flex flex-wrap gap-3">

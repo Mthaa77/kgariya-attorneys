@@ -52,9 +52,9 @@ import Image from "next/image";
 /** Chambers gallery — the firm at work (SA counsel, consultation, library). */
 const GALLERY = [
   {
-    src: "/images/sa-team-boardroom.png",
-    alt: "Kgariya attorneys in consultation around a boardroom table at golden hour",
-    caption: "In consultation — a development packaging session",
+    src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Create_law_firm_background_designs_a8b9e172_2K-LjPpOWYJuddWOeVOGnA2ublwBIPvtc.jpg",
+    alt: "Kgariya Attorneys identity displayed in the firm’s modern, softly lit Pretoria office",
+    caption: "A considered place for consequential work",
   },
   {
     src: "/images/sa-attorney-library.png",
