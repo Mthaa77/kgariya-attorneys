@@ -568,7 +568,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Investors and joint venture partners",
     ],
     matters: [],
-    stat: { value: 6, suffix: "", label: "Core deal workstreams" },
+    stat: { value: 4, suffix: "", label: "Core legal workstreams" },
   }
 
 ];
