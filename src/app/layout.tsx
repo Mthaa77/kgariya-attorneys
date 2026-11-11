@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
+const socialPreviewImage =
+  "https://raw.githubusercontent.com/Mthaa77/kgariya-attorneys/main/public/images/office-sunset.jpg?v=20261111";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kgariyainc.co.za"),
   title: {
@@ -39,10 +42,8 @@ export const metadata: Metadata = {
     siteName: "Kgariya Attorneys Incorporated",
     images: [
       {
-        url: "/images/kgariya-mark.webp",
-        width: 384,
-        height: 358,
-        alt: "Kgariya Attorneys Incorporated official logo",
+        url: socialPreviewImage,
+        alt: "Kgariya Attorneys Incorporated, commercial, property and finance attorneys in South Africa",
       },
     ],
     locale: "en_ZA",
@@ -53,7 +54,7 @@ export const metadata: Metadata = {
     title: "Kgariya Attorneys Incorporated",
     description:
       "Commercial, property and finance law: court representation, formal arbitration, real estate development advisory and conveyancing — Pretoria, South Africa.",
-    images: ["/images/kgariya-mark.webp"],
+    images: [socialPreviewImage],
   },
   robots: { index: true, follow: true },
 };
