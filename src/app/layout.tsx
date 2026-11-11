@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const socialPreviewImage = "/opengraph-image?v=20261111-brand-refresh";
+const socialPreviewImage = "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261111-brand-refresh";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.kgariyainc.co.za"),
