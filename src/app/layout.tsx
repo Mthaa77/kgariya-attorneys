@@ -8,7 +8,10 @@ const socialPreviewImage =
   "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261111-brand-refresh-v2";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.kgariyainc.co.za"),
+  metadataBase: new URL("https://kgariya-attorneyzz.vercel.app"),
+  alternates: {
+    canonical: "https://www.kgariyainc.co.za",
+  },
   title: {
     default: "Kgariya Attorneys Incorporated | Commercial, Property & Finance Attorneys, Pretoria",
     template: "%s | Kgariya Attorneys Incorporated",
