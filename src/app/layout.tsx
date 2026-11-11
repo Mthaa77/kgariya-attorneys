@@ -19,6 +19,7 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.kgariyainc.co.za"),
   title: {
     default: "Kgariya Attorneys Incorporated | Commercial, Property & Finance Attorneys, Pretoria",
     template: "%s | Kgariya Attorneys Incorporated",

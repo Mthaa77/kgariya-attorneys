@@ -20,7 +20,6 @@ export function WelcomeFilm() {
 
     if (motionPreference.matches) {
       video.pause();
-      setIsPlaying(false);
     } else {
       void video.play().catch(() => setIsPlaying(false));
     }
@@ -28,7 +27,6 @@ export function WelcomeFilm() {
     const handleMotionPreference = (event: MediaQueryListEvent) => {
       if (event.matches) {
         video.pause();
-        setIsPlaying(false);
       }
     };
 
