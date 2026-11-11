@@ -1,36 +1,34 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SanityLive } from "@/sanity/lib/live";
 
-const display = Playfair_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: "normal",
-  display: "swap",
-});
-
-const body = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
+// Keep the social image on the live Vercel host until the firm's custom
+// domain is connected during the official handover.
+const socialPreviewImage =
+  "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261111-brand-refresh-v2";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kgariya-attorneyzz.vercel.app"),
+  alternates: {
+    canonical: "https://www.kgariyainc.co.za",
+  },
   title: {
-    default: "Kgariya Attorneys Incorporated | Commercial Litigation & Development Finance Attorneys, Pretoria",
+    default: "Kgariya Attorneys Incorporated | Commercial, Property & Finance Attorneys, Pretoria",
     template: "%s | Kgariya Attorneys Incorporated",
   },
   description:
-    "Kgariya Attorneys Incorporated is a Pretoria commercial disputes and finance practice specialising in High Court litigation, AFSA arbitration, real estate development packaging, mining-adjacent services, agricultural and development finance, banking and conveyancing.",
+    "Kgariya Attorneys Incorporated is a South African commercial, property and finance practice providing representation in all courts, formal arbitration and other appropriate legal forums, alongside real estate development, packaging and advisory, banking and finance, and conveyancing services.",
   keywords: [
     "commercial litigation Pretoria",
     "arbitration attorneys Gauteng",
     "AFSA arbitration South Africa",
-    "real estate development packaging",
+    "real estate development advisory Pretoria",
+    "real estate development packaging Pretoria",
+    "vehicle and asset finance debt collection",
+    "home-loan debt collection",
+    "land audits and land-rights due diligence",
+    "town-planning advisory",
     "development finance attorneys",
     "conveyancing Pretoria",
     "mining law attorneys",
@@ -40,14 +38,22 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Kgariya Attorneys Incorporated" }],
   icons: {
-    icon: "/crest.svg",
+    icon: "/images/kgariya-mark.webp",
   },
   openGraph: {
     title: "Kgariya Attorneys Incorporated",
     description:
-      "A Pretoria commercial disputes and finance practice with deep property and development packaging expertise. Evidence over slogans.",
+      "A South African commercial, property and finance practice offering court representation, formal arbitration, real estate development advisory and conveyancing. Evidence over slogans.",
     url: "https://www.kgariyainc.co.za",
     siteName: "Kgariya Attorneys Incorporated",
+    images: [
+      {
+        url: socialPreviewImage,
+        width: 1200,
+        height: 630,
+        alt: "Kgariya Attorneys Incorporated premium navy-and-gold logo",
+      },
+    ],
     locale: "en_ZA",
     type: "website",
   },
@@ -55,7 +61,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kgariya Attorneys Incorporated",
     description:
-      "Commercial litigation, arbitration, real estate development packaging and development finance — Pretoria, South Africa.",
+      "Commercial, property and finance law: court representation, formal arbitration, real estate development advisory and conveyancing — Pretoria, South Africa.",
+    images: [socialPreviewImage],
   },
   robots: { index: true, follow: true },
 };
@@ -74,7 +81,7 @@ export default function RootLayout({
   return (
     <html lang="en-ZA" suppressHydrationWarning>
       <body
-        className={`${display.variable} ${body.variable} font-sans antialiased bg-background text-foreground`}
+        className="font-sans antialiased bg-background text-foreground"
       >
         {children}
         <SanityLive />

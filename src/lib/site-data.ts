@@ -26,6 +26,48 @@ export const FIRM = {
   mapsQuery: "90 Florence Ribeiro Street, Pretoria 0181",
 };
 
+/**
+ * Public office directory.
+ * Pretoria carries the verified street address. Middelburg and Cape Town are
+ * confirmed office locations; branch-level directions and contact details are
+ * intentionally omitted until supplied and approved by the firm.
+ */
+export type FirmOffice = {
+  id: string;
+  name: string;
+  label: string;
+  city: string;
+  province: string;
+  address?: typeof FIRM.address;
+  mapsQuery?: string;
+};
+
+export const OFFICES: FirmOffice[] = [
+  {
+    id: "pretoria",
+    name: "Pretoria Office",
+    label: "Head office",
+    city: FIRM.address.city,
+    province: FIRM.address.province,
+    address: FIRM.address,
+    mapsQuery: FIRM.mapsQuery,
+  },
+  {
+    id: "middelburg",
+    name: "Middelburg Office",
+    label: "Office",
+    city: "Middelburg",
+    province: "Mpumalanga",
+  },
+  {
+    id: "cape-town",
+    name: "Cape Town Office",
+    label: "Office",
+    city: "Cape Town",
+    province: "Western Cape",
+  },
+];
+
 export const NAV = [
   { label: "Home", route: "#/" },
   { label: "Our People", route: "#/people" },
@@ -79,19 +121,19 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     menuLabel: "Commercial Litigation & Arbitration",
     tagline: "High-stakes disputes, fought with strategy.",
     intro:
-      "Our primary practice leader. We represent corporates, financial institutions and public bodies in High Court litigation and formal arbitration — banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
+      "We represent corporates, financial institutions and public bodies in all courts, formal arbitration and other appropriate legal forums in relation to banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
     accent: "#16315c",
     accentSoft: "#eef2f8",
     image: "/images/hero-litigation.png",
     icon: "scale",
     overview: [
-      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and choose the forum — High Court or AFSA arbitration — that delivers the fastest, most certain, most cost-effective outcome.",
-      "The division drafts specialised pleadings, manages urgent High Court applications, runs interlocutory proceedings, conducts multi-day arbitration trials and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
+      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
+      "The division drafts specialised pleadings, manages urgent court applications, runs interlocutory proceedings, conducts formal arbitration hearings and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
       "We act for blue-chip companies, banks and lenders, construction and engineering firms, insurers, and franchisors across Gauteng. Institutional clients receive structured reporting at every stage, so boards and panels always know where a matter stands and what it is costing.",
     ],
     scope: [
-      "High Court litigation and appeals",
-      "AFSA arbitration proceedings",
+      "Representation in all courts and appropriate legal forums",
+      "Formal arbitration proceedings",
       "Urgent and interlocutory applications",
       "Banking and financial disputes",
       "Construction and engineering claims",
@@ -105,7 +147,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Structured dispute strategy and forum selection",
       "Specialised pleadings and motion drafting",
       "Multi-day arbitration trial management",
-      "Dedicated High Court advocacy",
+      "Court, arbitration and other appropriate forum advocacy",
       "Settlement negotiation and workout-linked dispute resolution",
     ],
     clients: [
@@ -150,12 +192,12 @@ export const PRACTICE_AREAS: PracticeArea[] = [
   {
     slug: "real-estate-development",
     number: "02",
-    name: "Real Estate Development Packaging",
-    shortName: "Development Packaging",
-    menuLabel: "Real Estate Development Packaging",
-    tagline: "From bare land to capital close — packaged end to end.",
+    name: "Real Estate Development, Packaging & Advisory",
+    shortName: "Development, Packaging & Advisory",
+    menuLabel: "Real Estate Development & Advisory",
+    tagline: "From acquisition strategy to project delivery — advised end to end.",
     intro:
-      "Our key differentiator. We structure complete legal packages for large-scale developments — bridging the gap between municipal land-use approvals, state regulatory compliance and bank or DFI capital close.",
+      "We provide real estate development, packaging and advisory services across the legal life cycle of a project, from acquisition and land-use strategy through structuring, approvals, financing and delivery.",
     accent: "#1e4076",
     accentSoft: "#eaf0fa",
     image: "/images/hero-development.png",
@@ -169,6 +211,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Land assembly and acquisition agreements",
       "Joint venture legal frameworks",
       "Legal feasibility assessments and cost modelling",
+      "Real estate development advisory",
       "Township establishment, rezoning and land-use rights",
       "NHBRC enrolment",
       "SHRA and subsidised housing schemes",
@@ -377,6 +420,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     overview: [
       "We draft the documents that carry the risk. The practice structures, documents and secures commercial debt facilities, property finance and corporate restructurings — loan facility agreements, intercreditor agreements and multi-tiered security packages that survive both registration and enforcement.",
       "For borrowers, we negotiate facilities and restructures with a developer's understanding of cash flow. For lenders, we build security packages and run workouts that recover value while respecting the commercial relationship.",
+      "The practice also assists with debt collection and recovery processes relating to vehicle and asset finance, as well as home-loan finance, with a focus on structured enforcement, clear reporting and commercially practical recovery strategies.",
       "The practice is panel-ready: conflict protocols, trust account discipline, turnaround commitments and reporting built for bank and DFI panel assessment.",
     ],
     scope: [
@@ -386,6 +430,8 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Commercial property and development loans",
       "Development debt packaging",
       "Debt workouts",
+      "Debt collection relating to vehicle and asset finance",
+      "Debt collection relating to home-loan finance",
       "Corporate financial restructurings",
       "Financial recovery workouts",
     ],
@@ -448,6 +494,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     overview: [
       "Conveyancing is where transactions land — or don't. The practice executes commercial and residential property transfers, registers mortgage bonds for major banking panels, opens sectional title registers, manages township conveyancing registers and performs notarial acts.",
       "Our pipelines are built for volume without losing matter-level care: milestone tracking, proactive correspondence, and clean deeds office performance. Institutional clients — banks, property funds, educational institutions — get predictable registration timelines and honest reporting.",
+      "In addition to conveyancing execution, the practice advises on acquisitions involving schools, parcels or premises, hospitals and places of religious worship. Our property work also includes land audits, land-rights due diligence and town-planning advisory to support informed acquisition, development and registration decisions.",
       "As panel attorneys we understand what lender checklists actually require, and we design our instruction flows to pass them the first time.",
     ],
     scope: [
@@ -456,6 +503,9 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Sectional title register openings",
       "Township conveyancing registers",
       "Institutional property portfolio conveyancing",
+      "Advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship",
+      "Land audits and land-rights due diligence",
+      "Town-planning advisory",
       "Notarial executions and notarial bonds",
     ],
     delivery: [
@@ -561,8 +611,8 @@ export const SECTORS: Sector[] = [
     name: "Blue-Chip Companies",
     icon: "briefcase",
     tagline: "Boardroom stakes, courtroom discipline.",
-    need: "High-court commercial litigation, complex breach-of-contract disputes, AFSA arbitrations and corporate workouts.",
-    response: "Specialised litigation practice, structured dispute strategy and dedicated High Court advocacy.",
+    need: "Commercial disputes and contract claims requiring court proceedings, formal arbitration or other appropriate legal forums, alongside corporate workouts.",
+    response: "Specialised litigation practice, structured dispute strategy and representation across courts, formal arbitration and other appropriate legal forums.",
     practices: ["commercial-litigation", "banking-finance"],
     fileRef: ["commercial-litigation", 0],
   },
@@ -643,7 +693,7 @@ export const JOURNEY = [
   {
     step: 2,
     title: "Consultation & strategy scoping",
-    text: "Once conflict checks clear, we schedule a structured scoping consultation — video conference, telephone, or in person at our Pretoria office — to define legal scope, strategy and risk parameters.",
+    text: "Once conflict checks clear, we schedule a structured scoping consultation — by video, telephone, or in person at one of our offices by arrangement — to define legal scope, strategy and risk parameters.",
     chips: ["Video / phone / in person", "Scope & risk mapping"],
   },
   {
@@ -702,12 +752,12 @@ export const FAQS = [
     a: "Three: standard hourly rates for litigation and open-ended advisory; fixed-fee project packaging for structured developments, drafting and conveyancing transactions; and tailored monthly retainers for corporate and public entities.",
   },
   {
-    q: "High Court or AFSA arbitration — how do you choose?",
-    a: "It depends on confidentiality, speed, cost and enforceability. Arbitration is private and often faster; the High Court offers precedent-setting and certain remedies like interdicts. We recommend a forum only after mapping your commercial objectives.",
+    q: "Which court or dispute forum is right for my matter?",
+    a: "The right forum depends on the legal remedy, confidentiality, speed, cost, procedural requirements and enforceability. We assess the dispute and commercial objectives before advising whether court proceedings, formal arbitration or another appropriate legal forum is suitable.",
   },
   {
     q: "Do you act outside Gauteng?",
-    a: "Our offices are in Pretoria and our core practice is Gauteng-focused. Selected mandates — particularly mining-adjacent, agricultural finance and development packaging — are accepted further afield where our panel and registration position allows.",
+    a: "The firm has offices in Pretoria, Middelburg and Cape Town, and serves clients across South Africa. The appropriate office and consultation arrangements depend on the matter and are confirmed when an enquiry is reviewed.",
   },
   {
     q: "Are you B-BBEE verified and LPC compliant?",
@@ -740,7 +790,7 @@ export const DIRECTOR = {
   experience: [
     "Direct hands-on operational experience handling Land Bank legal matters during tenure at AFGRI.",
     "Former Chief Executive Officer of a property company — managing commercial portfolios, residential developments, mixed-use schemes, SHRA-subsidised social housing and property portfolio operations.",
-    "Leads the firm's pivot to specialist commercial litigation, development packaging and development finance mandates.",
+    "Leads the firm's pivot to specialist commercial litigation, real estate development, packaging and advisory, and development finance mandates.",
   ],
 };
 
@@ -789,15 +839,15 @@ export const VACANCIES = [
     title: "Candidate Attorney (Articles of Clerkship)",
     type: "Full-time · Pretoria",
     open: "2027 intake — applications reviewed on a rolling basis",
-    text: "Two-year articles across litigation, conveyancing and development packaging. We invest in candidates who want exposure to institutional mandates, court attendance and deeds office practice from year one.",
+    text: "Two-year articles across litigation, conveyancing, and real estate development, packaging and advisory. We invest in candidates who want exposure to institutional mandates, court attendance and deeds office practice from year one.",
     tags: ["LLB completed", "Admission exams preparation", "Mentorship"],
   },
   {
     title: "Associate — Commercial Litigation",
     type: "Full-time · Pretoria",
     open: "Open",
-    text: "Two to five years' post-admission experience in commercial litigation or arbitration. High Court drafting, urgent applications and AFSA proceedings; development and finance sector exposure advantageous.",
-    tags: ["High Court advocacy", "AFSA", "Drafting-intensive"],
+    text: "Two to five years' post-admission experience in commercial litigation or arbitration. Court drafting, urgent applications and formal arbitration proceedings; development and finance sector exposure advantageous.",
+    tags: ["Court and forum advocacy", "Formal arbitration", "Drafting-intensive"],
   },
   {
     title: "Conveyancing Paralegal / Secretary",
@@ -1049,7 +1099,7 @@ export const TESTIMONIALS = [
       "The development packaging was underwriting-grade from day one. Our credit committee had every question answered before it was asked — that is rare.",
     name: "Head of Development Finance",
     org: "National banking institution",
-    practice: "Real Estate Development Packaging",
+    practice: "Real Estate Development, Packaging & Advisory",
   },
   {
     quote:

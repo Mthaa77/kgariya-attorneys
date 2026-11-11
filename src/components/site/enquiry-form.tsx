@@ -81,7 +81,7 @@ export function EnquiryForm({
         });
         return;
       }
-      setDone(json.routed ?? "your enquiry has been routed to the relevant practice lead");
+      setDone(json.reviewNote ?? "we have recorded your enquiry for initial review");
       toast({
         title: "Enquiry received",
         description: "Thank you — we will respond within one business day.",
@@ -150,8 +150,8 @@ export function EnquiryForm({
       {kind === "enquiry" && (
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5 sm:col-span-2">
-            <Label className="text-[12.5px] font-semibold text-navy-900">
-              Route to practice area
+            <Label htmlFor="ef-practice" className="text-[12.5px] font-semibold text-navy-900">
+              Practice area
             </Label>
             <Select
               value={practice}
@@ -159,6 +159,7 @@ export function EnquiryForm({
               disabled={lockPractice}
             >
               <SelectTrigger
+                id="ef-practice"
                 className={cn(
                   "h-11 rounded-xl border-navy-100 bg-white",
                   lockPractice && "opacity-90"
@@ -182,6 +183,9 @@ export function EnquiryForm({
             </Label>
             <Input
               id="ef-name"
+              name="name"
+              autoComplete="name"
+              maxLength={120}
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -195,6 +199,9 @@ export function EnquiryForm({
             </Label>
             <Input
               id="ef-company"
+              name="company"
+              autoComplete="organization"
+              maxLength={160}
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               placeholder="Optional"
@@ -207,7 +214,10 @@ export function EnquiryForm({
             </Label>
             <Input
               id="ef-email"
+              name="email"
               type="email"
+              autoComplete="email"
+              maxLength={160}
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -221,7 +231,10 @@ export function EnquiryForm({
             </Label>
             <Input
               id="ef-phone"
+              name="phone"
               type="tel"
+              autoComplete="tel"
+              maxLength={40}
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="+27 ..."

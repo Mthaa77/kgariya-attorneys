@@ -122,7 +122,7 @@ export function CourtsMarquee({
   const { data: cmsCourts } = useSWR<Array<{ name: string; note?: string }>>("/api/cms?type=courtForums", cmsFetcher);
   const courts = cmsCourts?.length
     ? cmsCourts.map((court) => ({ name: court.name, note: court.note || "" }))
-    : (COURTS_FORUMS as readonly { name: string; note: string }[]);
+    : COURTS_FORUMS.map((court) => ({ name: court.name, note: court.note }));
   return (
     <div
       className={`relative overflow-hidden ${

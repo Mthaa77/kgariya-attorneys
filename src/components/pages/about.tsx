@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
-import { BADGES, FIRM, TRUST_PILLARS } from "@/lib/site-data";
+import { BADGES, TRUST_PILLARS } from "@/lib/site-data";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";
 import { Icon } from "@/components/site/icon";
@@ -12,8 +12,6 @@ import { Counter } from "@/components/site/counter";
 import { Button } from "@/components/ui/button";
 import { COUNTERS } from "@/lib/site-data";
 import useSWR from "swr";
-
-const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 import {
   CredentialWall,
   CourtsMarquee,
@@ -21,6 +19,7 @@ import {
   RegulationBoard,
   SAFlagChip,
 } from "@/components/site/sa-legal";
+import { OfficeDirectory } from "@/components/site/office-directory";
 
 const TIMELINE = [
   {
@@ -36,7 +35,7 @@ const TIMELINE = [
   {
     era: "Today",
     title: "Litigation-led, development-anchored",
-    text: "A Pretoria commercial disputes and finance practice: High Court and AFSA work, end-to-end development packaging, and panel-ready banking, agri-finance and conveyancing capacity.",
+    text: "A Pretoria commercial, property and finance practice: representation in all courts, formal arbitration and other appropriate legal forums, real estate development, packaging and advisory, banking, agri-finance and conveyancing.",
   },
   {
     era: "Next",
@@ -44,6 +43,8 @@ const TIMELINE = [
     text: "The “Joining the Firm” model scales the practice by merging the mandates of retiring practitioners — continuity for their clients, careers for their staff.",
   },
 ];
+
+const cmsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
 
 export function AboutPage() {
   const { data: cmsAbout } = useSWR<{
@@ -57,7 +58,7 @@ export function AboutPage() {
   const timeline = cmsAbout?.timeline?.length ? cmsAbout.timeline : TIMELINE;
   const aboutParagraphs = cmsAbout?.body
     ?.map((block) => block.children?.map((child) => child.text || "").join(""))
-    .filter(Boolean);
+    .filter((paragraph): paragraph is string => Boolean(paragraph));
 
   return (
     <div>
@@ -65,7 +66,7 @@ export function AboutPage() {
         eyebrow="About the firm"
         title={cmsAbout?.heroTitle || "Built on evidence. Structured for institutions."}
         lead={cmsAbout?.heroLead || "Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."}
-        image="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Create_law_firm_background_designs_a8b9e172_2K-LjPpOWYJuddWOeVOGnA2ublwBIPvtc.jpg"
+        image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "About the Firm" }]}
       >
         <div className="flex flex-wrap gap-3">
@@ -128,8 +129,9 @@ export function AboutPage() {
                     </Reveal>
                     <Reveal delay={0.08}>
                       <p className="text-[15px] leading-relaxed text-muted-foreground">
-                        The firm operates from Walker Creek Office Park in Pretoria with
-                        the strategic support of the broader Kgariya &amp; Co Group —
+                        The firm operates from its Pretoria head office, with additional offices in
+                        Middelburg and Cape Town. It also benefits from the strategic
+                        support of the broader Kgariya &amp; Co Group —
                         real-world development, construction and advisory capability that
                         keeps our legal work anchored to project cash flows and commercial
                         risk, not abstractions.
@@ -242,71 +244,26 @@ export function AboutPage() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionHeading
-              eyebrow="Visit us"
+              eyebrow="Our offices"
               title={
                 <>
-                  Walker Creek Office Park,{" "}
-                  <span className="gold-text italic">Pretoria</span>.
+                  A connected presence in{" "}
+                  <span className="gold-text italic">three centres</span>.
                 </>
               }
+              lead="Our Pretoria, Middelburg and Cape Town offices support a connected practice serving clients across South Africa."
             />
             <Reveal delay={0.08}>
-              <div className="mt-8 rounded-3xl border border-navy-100 bg-white p-7 shadow-luxe">
-                <div className="flex gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-navy-950 text-gold-400">
-                    <MapPin className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <p className="font-display text-[16.5px] font-semibold text-navy-900">
-                      Physical office
-                    </p>
-                    <p className="mt-1.5 text-[14px] leading-relaxed text-muted-foreground">
-                      {FIRM.address.line1}
-                      <br />
-                      {FIRM.address.line2}
-                      <br />
-                      {FIRM.address.city}, {FIRM.address.province} {FIRM.address.postal}
-                      <br />
-                      {FIRM.address.country}
-                    </p>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(FIRM.mapsQuery)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link-underline mt-3 inline-block text-[13px] font-bold text-gold-700"
-                    >
-                      Open in Google Maps
-                    </a>
-                  </div>
-                </div>
-                <div className="mt-6 grid grid-cols-2 gap-4 border-t border-navy-100 pt-6">
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-700">
-                      Telephone
-                    </p>
-                    <a
-                      href={FIRM.phoneHref}
-                      className="mt-1 block text-[14px] font-semibold text-navy-900"
-                    >
-                      {FIRM.phone}
-                    </a>
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold-700">
-                      Office hours
-                    </p>
-                    <p className="mt-1 text-[14px] font-semibold text-navy-900">
-                      {FIRM.hours}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-6 border-t border-navy-100 pt-6">
-                  <SAFlagChip />
-                  <p className="mt-3 text-[12px] text-muted-foreground">
-                    Serving clients across Gauteng and nationwide — consultations
-                    by video, telephone or in person.
-                  </p>
-                </div>
+              <div className="mt-8">
+                <OfficeDirectory />
+              </div>
+              <div className="mt-6 rounded-2xl border border-navy-100 bg-white p-5">
+                <SAFlagChip />
+                <p className="mt-3 text-[12px] leading-relaxed text-muted-foreground">
+                  Consultations are available by video, telephone or in person by
+                  arrangement. Contact the firm to confirm branch directions and
+                  appointment details.
+                </p>
               </div>
             </Reveal>
           </div>

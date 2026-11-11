@@ -52,6 +52,11 @@ import Image from "next/image";
 /** Chambers gallery — the firm at work (SA counsel, consultation, library). */
 const GALLERY = [
   {
+    src: "/images/sa-team-boardroom.png",
+    alt: "Kgariya attorneys in consultation around a boardroom table at golden hour",
+    caption: "In consultation — a development, packaging and advisory session",
+  },
+  {
     src: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Create_law_firm_background_designs_a8b9e172_2K-LjPpOWYJuddWOeVOGnA2ublwBIPvtc.jpg",
     alt: "Kgariya Attorneys identity displayed in the firm’s modern, softly lit Pretoria office",
     caption: "A considered place for consequential work",
@@ -76,10 +81,10 @@ export function HomePage() {
   return (
     <div>
       <HeroSlider />
-      <WelcomeFilm />
 
       {/* ——— Premium live ticker ——— */}
       <LiveTicker />
+      <WelcomeFilm />
 
       <TrustStrip />
 
@@ -105,7 +110,7 @@ export function HomePage() {
                   <span className="gold-text italic">institutional</span> mandate.
                 </>
               }
-              lead="Kgariya Attorneys Incorporated evolved deliberately from a broad general practice into a specialist commercial litigation, real estate development packaging and development finance firm. We retired more than forty sub-services to concentrate on six practices where we hold genuine depth."
+              lead="Kgariya Attorneys Incorporated evolved deliberately from a broad general practice into a specialist commercial disputes, real estate development, packaging and advisory, and finance firm. We retired more than forty sub-services to concentrate on six practices where we hold genuine depth."
             />
             <Reveal delay={0.15}>
               <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">

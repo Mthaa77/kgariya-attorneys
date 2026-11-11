@@ -6,21 +6,16 @@ import {
   FileCheck,
   Landmark,
   Lock,
-  Mail,
-  MapPin,
-  Phone,
   Scale,
   ShieldCheck,
 } from "lucide-react";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import { BADGES, FIRM, PRACTICE_AREAS } from "@/lib/site-data";
-import useSWR from "swr";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { ActsStrip, SAFlag } from "@/components/site/sa-legal";
-
-const cmsSettingsFetcher = (url: string) => fetch(url).then((res) => (res.ok ? res.json() : null));
+import { OfficeDirectory } from "@/components/site/office-directory";
 
 /** Distinct premium icon per compliance badge — mirrors the TrustStrip. */
 const BADGE_ICONS = [Landmark, Award, ShieldCheck, FileCheck, Scale];
@@ -43,22 +38,7 @@ const LEGAL_LINKS = [
   { label: "LPC Disclosures", tab: "lpc" },
 ];
 
-type CmsSiteSettings = {
-  firmName?: string;
-  tagline?: string;
-  phone?: string;
-  email?: string;
-  hours?: string;
-  hoursShort?: string;
-};
-
 export function Footer() {
-
-  const { data: cmsSettings } = useSWR<CmsSiteSettings>("/api/cms?type=siteSettings", cmsSettingsFetcher);
-  const contactPhone = cmsSettings?.phone || FIRM.phone;
-  const contactEmail = cmsSettings?.email || FIRM.email;
-  const contactHours = cmsSettings?.hours || FIRM.hours;
-  const phoneHref = cmsSettings?.phone ? `tel:${cmsSettings.phone.replace(/[^+0-9]/g, "")}` : FIRM.phoneHref;
   return (
     <footer className="relative mt-auto overflow-hidden bg-navy-950 text-white">
       <div className="texture-grid-dark pointer-events-none absolute inset-0 opacity-60" />
@@ -72,7 +52,7 @@ export function Footer() {
               Next step
             </p>
             <h2 className="mt-3 max-w-xl font-display text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              Book a consultation — video, telephone, or in person in Pretoria.
+              Book a consultation — by video, telephone or in person at one of our offices, by arrangement.
             </h2>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -100,10 +80,10 @@ export function Footer() {
       {/* Main footer */}
       <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <Logo dark />
+          <Logo dark size="lg" />
           <p className="mt-5 max-w-sm text-[14px] leading-relaxed text-white/65">
-            A Pretoria commercial disputes and finance practice with deep property
-            and real estate development packaging expertise. We prove capability
+            A Pretoria commercial, property and finance practice with real estate
+            development, packaging and advisory expertise. We prove capability
             through matters, credentials and people — evidence over slogans.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -178,41 +158,24 @@ export function Footer() {
           <h3 className="text-[11px] font-bold uppercase tracking-[0.24em] text-gold-400">
             Office Directory
           </h3>
-          <ul className="mt-5 space-y-4 text-[13.5px] text-white/70">
-            <li className="flex gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" />
-              <span>
-                {FIRM.address.line1}
-                <br />
-                {FIRM.address.line2}
-                <br />
-                {FIRM.address.city} {FIRM.address.postal}
-              </span>
-            </li>
-            <li>
-              <a
-                href={phoneHref}
-                className="flex items-center gap-3 transition-colors hover:text-gold-300"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-gold-400" />
-                {contactPhone}
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${contactEmail}`}
-                className="flex items-center gap-3 transition-colors hover:text-gold-300"
-              >
-                <Mail className="h-4 w-4 shrink-0 text-gold-400" />
-                {contactEmail}
-              </a>
-            </li>
-          </ul>
+          <OfficeDirectory variant="footer" showContactDetails={false} />
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-[12px] font-semibold text-gold-300">Office hours</p>
-            <p className="mt-1 text-[12.5px] text-white/60">{contactHours}</p>
-            <p className="mt-2 text-[12px] text-white/50">
-              Consultations by video, telephone or in person.
+            <p className="text-[12px] font-semibold text-gold-300">Central contact</p>
+            <a
+              href={FIRM.phoneHref}
+              className="mt-2 flex items-center gap-2 text-[12.5px] text-white/75 transition-colors hover:text-gold-300"
+            >
+              {FIRM.phone}
+            </a>
+            <a
+              href={"mailto:" + FIRM.email}
+              className="mt-2 block break-all text-[12px] text-white/60 transition-colors hover:text-gold-300"
+            >
+              {FIRM.email}
+            </a>
+            <p className="mt-3 text-[12px] text-white/50">{FIRM.hours}</p>
+            <p className="mt-2 text-[11.5px] leading-relaxed text-white/45">
+              Consultations by video, telephone or in person by arrangement.
             </p>
           </div>
         </div>
@@ -254,7 +217,7 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-center sm:flex-row sm:text-left">
           <div>
             <p className="text-[12px] text-white/50">
-              © {new Date().getFullYear()} {cmsSettings?.firmName || FIRM.name}. All rights reserved. Attorneys,
+              © {new Date().getFullYear()} {FIRM.name}. All rights reserved. Attorneys,
               Notaries & Conveyancers — registered with the Legal Practice Council.
             </p>
             <p className="mt-1.5 text-[11px] leading-relaxed text-white/40">
@@ -266,7 +229,7 @@ export function Footer() {
           </div>
           <div className="text-center sm:text-right">
             <p className="font-display text-[12.5px] italic text-gold-400">
-              {cmsSettings?.tagline || FIRM.tagline}
+              {FIRM.tagline}
             </p>
             <p className="mt-1.5 text-[9.5px] font-bold uppercase tracking-[0.24em] text-white/35">
               Website © Carter Digitals · All rights reserved

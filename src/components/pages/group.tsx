@@ -167,7 +167,7 @@ export function GroupPage() {
                   onClick={() => navigate("#/practice/real-estate-development")}
                 >
                   <Building2 className="h-4 w-4" />
-                  Development packaging practice
+                  Development, packaging & advisory practice
                 </Button>
                 <Button
                   size="lg"
