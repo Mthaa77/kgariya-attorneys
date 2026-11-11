@@ -412,7 +412,30 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
             lead="Selected anonymised matter profiles illustrate the type of work undertaken. They are not a promise that another matter will produce the same result."
           />
           <div className="mt-12">
-            <MatterDeck matters={area.matters} ctaLabel="Discuss a similar matter" />
+            {area.matters.length > 0 ? (
+              <MatterDeck matters={area.matters} ctaLabel="Discuss a similar matter" />
+            ) : (
+              <div className="rounded-[1.8rem] border border-navy-100 bg-white p-8 shadow-sm sm:p-10">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-700">
+                  New service offering
+                </p>
+                <h3 className="mt-3 max-w-2xl font-display text-2xl font-semibold leading-tight text-navy-950">
+                  Discuss a business transaction with the firm.
+                </h3>
+                <p className="mt-4 max-w-3xl text-[13.5px] leading-relaxed text-muted-foreground">
+                  Representative matter profiles are not published for this service at present.
+                  A short, non-confidential enquiry can help establish the transaction scope.
+                  The firm will complete conflict screening before requesting confidential material.
+                </p>
+                <Button
+                  className="mt-6 h-11 w-fit rounded-full bg-navy-950 px-6 font-bold text-white hover:bg-navy-800"
+                  onClick={() => scrollToSection("enquire")}
+                >
+                  Discuss this service
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </section>
