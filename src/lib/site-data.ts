@@ -659,7 +659,7 @@ export const SECTORS: Sector[] = [
     tagline: "Land, services and delivery — made lawful.",
     need: "Land-use approvals, township establishment oversight, infrastructure packaging and regulatory disputes.",
     response: "Land assembly legal packaging, municipal regulatory navigation and PPP structuring.",
-    practices: ["real-estate-development", "conveyancing-property"],
+    practices: ["real-estate-development"],
     fileRef: ["real-estate-development", 0],
   },
   {
@@ -668,8 +668,8 @@ export const SECTORS: Sector[] = [
     tagline: "Portfolios managed like endowments.",
     need: "Commercial property portfolio management, high-value transfer packaging and institutional dispute resolution.",
     response: "Dedicated conveyancing infrastructure, portfolio management and commercial contract advisory.",
-    practices: ["conveyancing-property", "commercial-litigation"],
-    fileRef: ["conveyancing-property", 1],
+    practices: ["real-estate-development", "commercial-litigation"],
+    fileRef: ["real-estate-development", 4],
   },
   {
     name: "Banks & DFIs",
@@ -677,7 +677,7 @@ export const SECTORS: Sector[] = [
     tagline: "Security packages that survive enforcement.",
     need: "Complex loan and security documentation, mortgage bond registrations and workout management.",
     response: "Specialised banking and development finance practice with complete panel-readiness.",
-    practices: ["banking-finance", "conveyancing-property"],
+    practices: ["banking-finance", "real-estate-development"],
     fileRef: ["banking-finance", 1],
   },
   {
@@ -695,8 +695,8 @@ export const SECTORS: Sector[] = [
     tagline: "Succession without disruption.",
     need: "Confidential practice succession, seamless client handovers, staff retention and firm continuity.",
     response: "The structured “Joining the Firm” succession model with discreet, multi-phase transitions.",
-    practices: ["conveyancing-property", "commercial-litigation"],
-    fileRef: ["conveyancing-property", 2],
+    practices: ["real-estate-development", "commercial-litigation"],
+    fileRef: ["real-estate-development", 5],
   },
 ];
 
