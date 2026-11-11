@@ -54,7 +54,8 @@ type NeedId =
   | "mining"
   | "agri"
   | "finance"
-  | "property";
+  | "property"
+  | "mergers";
 type TimelineId = "urgent" | "weeks" | "planning";
 
 type Option<T extends string> = { id: T; label: string; hint: string; icon: LucideIcon };
@@ -74,7 +75,8 @@ const NEEDS: Option<NeedId>[] = [
   { id: "mining", label: "A mining-adjacent matter", hint: "Surface rights, SLPs, mineral rights", icon: Mountain },
   { id: "agri", label: "Farm or agricultural finance", hint: "Land Bank, farm bonds, movables", icon: Wheat },
   { id: "finance", label: "Banking, finance or security", hint: "Facilities, workouts, restructuring", icon: Banknote },
-  { id: "property", label: "A transfer, bond or sectional title", hint: "Conveyancing and registration", icon: KeyRound },
+  { id: "property", label: "A transfer, bond or sectional title", hint: "Property development, conveyancing and registration", icon: KeyRound },
+  { id: "mergers", label: "Buying, selling or restructuring a business", hint: "Acquisitions, disposals, due diligence and transaction documents", icon: Handshake },
 ];
 
 const NEED_PRACTICE: Record<NeedId, string> = {
@@ -83,7 +85,8 @@ const NEED_PRACTICE: Record<NeedId, string> = {
   mining: "mining-resources",
   agri: "agricultural-finance",
   finance: "banking-finance",
-  property: "conveyancing-property",
+  property: "real-estate-development",
+  mergers: "mergers-acquisitions",
 };
 
 const TIMELINES: Option<TimelineId>[] = [
