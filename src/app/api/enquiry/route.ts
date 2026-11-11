@@ -33,11 +33,11 @@ export async function POST(req: Request) {
         consent: data.consent,
       },
     });
-    const routed =
+    const reviewNote =
       data.practiceArea && data.practiceArea !== "general"
-        ? `your enquiry has been routed to the ${data.practiceArea} practice lead`
-        : "your enquiry has been routed to the relevant practice lead";
-    return ok({ id: saved.id, routed });
+        ? "we have recorded your enquiry under " + data.practiceArea + " for initial review"
+        : "we have recorded your enquiry for initial review";
+    return ok({ id: saved.id, reviewNote });
   } catch (e) {
     if (e instanceof Error && e.name === "ZodError") {
       const msg =
