@@ -303,9 +303,11 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
                       {forum.name} · {forum.note}
                     </span>
                   )}
-                  <span className="rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-semibold text-white/75 backdrop-blur-sm">
-                    {active.matters.length} representative matters
-                  </span>
+                  {active.matters.length > 0 && (
+                    <span className="rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-semibold text-white/75 backdrop-blur-sm">
+                      {active.matters.length} representative matters
+                    </span>
+                  )}
                   <span className="rounded-full border border-gold-500/30 bg-gold-500/10 px-2.5 py-1 text-[10.5px] font-semibold text-gold-300 backdrop-blur-sm">
                     {active.stat.value}
                     {active.stat.suffix} {active.stat.label}
