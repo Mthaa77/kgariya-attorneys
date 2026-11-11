@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * FloatingContact — the floating email + phone quick-contact icons.
+ * FloatingContact — the floating WhatsApp, email and phone quick-contact icons.
  * A bottom-right dock (mirroring the Carter Digitals banner on the left)
- * with two circular glass buttons: a navy email orb and a gold call orb
+ * with three circular buttons: a WhatsApp orb, navy email orb and gold call orb
  * that carries a soft live pulse so visitors spot the tap-to-call action.
  * Hovering or keyboard-focusing a button slides out a premium label chip
  * with the firm's number / address. Buttons drift on a calm float loop
@@ -17,8 +17,11 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Mail, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone } from "lucide-react";
 import { FIRM } from "@/lib/site-data";
+
+const WHATSAPP_NUMBER = "+27 76 619 5179";
+const WHATSAPP_URL = "https://wa.me/27766195179?text=Hello%20Kgariya%20Attorneys%2C%20I%20would%20like%20to%20make%20an%20enquiry.";
 
 /** Slide-out label chip shown on hover / keyboard focus. */
 function DockLabel({ title, sub }: { title: string; sub: string }) {
@@ -57,9 +60,25 @@ export function FloatingContact() {
   return (
     <div
       role="group"
-      aria-label="Quick contact — call or email the firm"
+      aria-label="Quick contact — WhatsApp, call or email the firm"
       className="fixed bottom-24 right-4 z-[46] flex flex-col items-end gap-3 sm:bottom-[5.75rem] sm:right-7"
     >
+      {/* ——— WhatsApp orb (primary quick contact) ——— */}
+      <motion.span {...entrance(0.6)}>
+        <span className="animate-floaty-soft block" style={{ animationDelay: "-1.8s" }}>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={"Chat with Kgariya Attorneys on WhatsApp at " + WHATSAPP_NUMBER}
+            className="group relative flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-[#25D366] text-white shadow-[0_10px_28px_rgba(37,211,102,0.28)] ring-1 ring-[#25D366]/60 transition-all duration-300 hover:scale-105 hover:bg-[#1fbd5b] hover:shadow-[0_12px_34px_rgba(37,211,102,0.38)] focus-visible:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          >
+            <DockLabel title="Chat on WhatsApp" sub={WHATSAPP_NUMBER} />
+            <MessageCircle className="h-[19px] w-[19px]" strokeWidth={2.1} />
+          </a>
+        </span>
+      </motion.span>
+
       {/* ——— Email orb ——— */}
       <motion.span {...entrance(0.9)}>
         <span className="animate-floaty-soft block">
