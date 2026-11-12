@@ -56,7 +56,7 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
   );
 }
 
-/** Brand mark: the full supplied logo everywhere, with a dedicated horizontal crop for the navbar. */
+/** The navbar uses the standalone emblem; all other placements use the complete company lockup. */
 export function Logo({
   dark = false,
   className,
@@ -69,7 +69,7 @@ export function Logo({
   navbar?: boolean;
 }) {
   const frameSize = navbar
-    ? "h-[40px] w-[99px] sm:h-[46px] sm:w-[114px]"
+    ? "h-[44px] w-[44px] sm:h-[48px] sm:w-[48px]"
     : size === "lg"
       ? "h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]"
       : "h-[148px] w-[148px] sm:h-[170px] sm:w-[170px]";
@@ -80,20 +80,20 @@ export function Logo({
       className={cn(
         "inline-flex min-w-0 shrink-0 items-center justify-center overflow-hidden",
         navbar
-          ? "rounded-md"
+          ? "rounded-xl border border-white/25 bg-[#f4f2eb] shadow-[0_3px_14px_rgba(0,0,0,0.24)]"
           : "rounded-2xl border border-black/[0.04] bg-[#f5f4ef] shadow-[0_8px_28px_rgba(7,18,33,0.10)]",
         frameSize,
         className
       )}
     >
       <Image
-        src={navbar ? "/images/kgariya-navbar-logo.webp" : "/images/kgariya-full-logo.webp"}
-        alt="Kgariya Attorneys"
-        width={navbar ? 400 : 400}
-        height={navbar ? 162 : 400}
+        src={navbar ? "/images/kgariya-navbar-emblem.webp" : "/images/kgariya-full-logo.webp"}
+        alt={navbar ? "Kgariya Attorneys emblem" : "Kgariya Attorneys"}
+        width={navbar ? 256 : 400}
+        height={navbar ? 256 : 400}
         sizes={
           navbar
-            ? "(max-width: 640px) 99px, 114px"
+            ? "(max-width: 640px) 44px, 48px"
             : size === "lg"
               ? "(max-width: 640px) 190px, 220px"
               : "(max-width: 640px) 148px, 170px"

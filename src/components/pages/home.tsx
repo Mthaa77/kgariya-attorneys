@@ -17,6 +17,7 @@ import { TrustStrip } from "@/components/site/trust-strip";
 import { Counter } from "@/components/site/counter";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";
 import { PracticeCard } from "@/components/site/practice-card";
+import { Logo } from "@/components/site/logo";
 import { Icon } from "@/components/site/icon";
 import { JourneyStepper } from "@/components/site/journey";
 import { FaqAccordion } from "@/components/site/faq";
@@ -220,25 +221,35 @@ export function HomePage() {
       {/* ——— Practice areas ——— */}
       <section id="practice-areas" className="scroll-mt-24 bg-ivory py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <SectionHeading
-              eyebrow="Practice hierarchy"
-              title={
-                <>
-                  Six practices. <span className="gold-text italic">Deliberate depth.</span>
-                </>
-              }
-              lead="A specialist hierarchy, ordered by priority — each practice a full-service line with its own scope, clients and representative matters."
-            />
-            <Reveal delay={0.1} className="shrink-0">
-              <button
-                onClick={() => useSite.getState().openDialog("questions")}
-                className="group flex items-center gap-2 rounded-full border border-navy-200 bg-white px-5 py-3 text-[13px] font-bold text-navy-900 transition-all hover:border-gold-500 hover:shadow-gold"
-              >
-                Not sure? Answer three questions
-                <ArrowRight className="h-4 w-4 text-gold-600 transition-transform group-hover:translate-x-1" />
-              </button>
+          {/* Full company lockup introduces the practice hierarchy. */}
+          <div className="mb-10 grid gap-6 rounded-[2rem] border border-navy-100/90 bg-gradient-to-br from-white via-white to-[#f3f1eb] p-5 shadow-[0_18px_55px_rgba(10,27,51,0.08)] ring-1 ring-white sm:p-7 lg:grid-cols-[190px_minmax(0,1fr)] lg:items-center lg:gap-8">
+            <Reveal className="mx-auto flex h-[168px] w-[168px] items-center justify-center rounded-[1.6rem] border border-navy-100/80 bg-[#f5f4ef] shadow-[0_10px_28px_rgba(10,27,51,0.10)] sm:h-[188px] sm:w-[188px] lg:mx-0">
+              <Logo
+                size="lg"
+                className="!h-[158px] !w-[158px] border-0 shadow-none sm:!h-[178px] sm:!w-[178px]"
+              />
             </Reveal>
+            <div className="flex min-w-0 flex-col justify-between gap-6 lg:flex-row lg:items-end">
+              <SectionHeading
+                eyebrow="Practice hierarchy"
+                title={
+                  <>
+                    Six practices. <span className="gold-text italic">Deliberate depth.</span>
+                  </>
+                }
+                lead="A specialist hierarchy, ordered by priority — each practice a full-service line with its own scope, clients and representative matters."
+                className="max-w-2xl"
+              />
+              <Reveal delay={0.1} className="shrink-0">
+                <button
+                  onClick={() => useSite.getState().openDialog("questions")}
+                  className="group flex items-center justify-center gap-2 rounded-full border border-navy-200 bg-white px-5 py-3 text-[13px] font-bold text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:shadow-gold"
+                >
+                  Not sure? Answer three questions
+                  <ArrowRight className="h-4 w-4 text-gold-600 transition-transform group-hover:translate-x-1" />
+                </button>
+              </Reveal>
+            </div>
           </div>
 
           {/* Animated courthouse ornament — the courts above the practice */}
