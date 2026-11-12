@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 // Keep the social image on the live Vercel host until the firm's custom
 // domain is connected during the official handover.
 const socialPreviewImage =
-  "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261111-brand-refresh-v2";
+  "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261112-full-logo";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kgariya-attorneyzz.vercel.app"),
