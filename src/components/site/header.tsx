@@ -535,7 +535,7 @@ export function Header() {
           aria-describedby={undefined}
           className="w-full max-w-[400px] gap-0 overflow-y-auto border-white/10 bg-navy-950 p-0 sm:max-w-[430px] [&>button]:right-4 [&>button]:top-4 [&>button]:z-30 [&>button]:rounded-full [&>button]:bg-navy-950/70 [&>button]:p-1.5 [&>button]:text-white [&>button]:opacity-100 [&>button]:backdrop-blur-md"
         >
-          <SheetTitle className="sr-only">Site menu — Kgariya Attorneys Incorporated</SheetTitle>
+          <SheetTitle className="sr-only">Site menu — Kgariya Attorneys</SheetTitle>
           {/* image header band */}
           <div className="relative h-44 shrink-0 overflow-hidden">
             <Image
