@@ -69,7 +69,7 @@ export function WelcomeFilm() {
               muted
               loop
               playsInline
-              poster="/images/kgariya-mark.webp"
+              poster="/images/kgariya-full-logo.webp"
               preload="metadata"
               aria-label="Animated Kgariya Attorneys logo"
             >
