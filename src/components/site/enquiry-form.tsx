@@ -359,7 +359,7 @@ export function EnquiryForm({
           htmlFor="ef-consent"
           className="text-[12px] leading-relaxed text-navy-900/80"
         >
-          I consent to Kgariya Attorneys Incorporated processing these details under
+          I consent to Kgariya Attorneys processing these details under
           its POPIA privacy notice, for the sole purpose of responding to this
           enquiry and conducting conflict screening. *
         </Label>
