@@ -418,7 +418,7 @@ export function Header() {
                 aria-label="Kgariya Attorneys — home"
                 className="min-w-0 shrink-0 transition-transform duration-300 hover:scale-[1.02]"
               >
-                <Logo dark compact={scrolled} className="max-w-full" />
+                <Logo dark navbar className="max-w-full" />
               </button>
 
               {/* Desktop nav */}
