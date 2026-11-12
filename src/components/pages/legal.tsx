@@ -56,8 +56,8 @@ function PrivacyPolicy() {
     <div>
       <H>1. Who we are</H>
       <P>
-        {FIRM.name} (“the firm”, “we”, “us”) is a firm of attorneys incorporated in
-        South Africa, with offices at {FIRM.address.line1}, {FIRM.address.line2},{" "}
+        {FIRM.name} (“the firm”, “we”, “us”) is a South African firm of attorneys
+        with offices at {FIRM.address.line1}, {FIRM.address.line2},{" "}
         {FIRM.address.city} {FIRM.address.postal}. We are the responsible party for
         personal information processed through this website and our practice, as
         defined in the Protection of Personal Information Act 4 of 2013 (“POPIA”).
@@ -267,7 +267,7 @@ function LpcDisclosures() {
     <div>
       <H>1. Firm particulars</H>
       <P>
-        {FIRM.name} (referred to as “Kgariya Inc.”) is a firm of attorneys,
+        {FIRM.name} is a firm of attorneys,
         notaries and conveyancers duly registered and in good standing with the
         Legal Practice Council (“LPC”) of South Africa, with its principal office
         at {FIRM.address.line1}, {FIRM.address.line2}, {FIRM.address.city}{" "}
