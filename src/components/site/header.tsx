@@ -548,7 +548,7 @@ export function Header() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/35 to-navy-950/10" />
             <div className="absolute left-5 top-5">
-              <Logo dark />
+              <Logo dark navbar />
             </div>
             <div className="absolute inset-x-5 bottom-4">
               <motion.p
