@@ -1,11 +1,11 @@
 /* ————————————————————————————————————————————————
-   Kgariya Attorneys Incorporated — site content model
+   Kgariya Attorneys — site content model
    Single source of truth for all pages.
 ———————————————————————————————————————————————— */
 
 export const FIRM = {
-  name: "Kgariya Attorneys Incorporated",
-  shortName: "Kgariya Inc.",
+  name: "Kgariya Attorneys",
+  shortName: "Kgariya Attorneys",
   tagline: "Evidence over slogans.",
   phone: "(+27) 12 786 0920",
   phoneHref: "tel:+27127860920",
@@ -271,7 +271,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     image: "/images/hero-litigation.png",
     icon: "scale",
     overview: [
-      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
+      "Commercial disputes are won long before argument is heard. Kgariya Attorneys approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
       "The division drafts specialised pleadings, manages urgent court applications, runs interlocutory proceedings, conducts formal arbitration hearings and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
       "We act for blue-chip companies, banks and lenders, construction and engineering firms, insurers, and franchisors across Gauteng. Institutional clients receive structured reporting at every stage, so boards and panels always know where a matter stands and what it is costing.",
     ],
@@ -417,7 +417,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     image: "/images/hero-development.png",
     icon: "building",
     overview: [
-      "Development projects fail in the gaps — between the town planner and the lender, between the NHBRC enrolment and the bond registration, between the JV heads of terms and the shareholders' agreement. Kgariya Inc. was built to close those gaps.",
+      "Development projects fail in the gaps — between the town planner and the lender, between the NHBRC enrolment and the bond registration, between the JV heads of terms and the shareholders' agreement. Kgariya Attorneys was built to close those gaps.",
       "We run the full legal arc of a project: land acquisition contracts and joint-venture frameworks, legal feasibility assessments and cost modelling, township establishment and rezoning, land-use rights, NHBRC enrolment, SHRA and subsidised housing schemes, bank and DFI finance applications, and end-user mortgage packaging.",
       "The result is a development file that a credit committee can underwrite. Because our director has run a property company as CEO — commercial portfolios, residential developments, mixed-use schemes and SHRA housing — every document is drafted with project cash flows and construction risk in mind, not in the abstract.",
       "Conveyancing is where transactions land — or don't. The practice executes commercial and residential property transfers, registers mortgage bonds for major banking panels, opens sectional title registers, manages township conveyancing registers and performs notarial acts.",
@@ -759,7 +759,7 @@ export const FEE_MODELS = [
 
 export const FAQS = [
   {
-    q: "How do I start a mandate with Kgariya Inc.?",
+    q: "How do I start a mandate with Kgariya Attorneys?",
     a: "Begin with a practice-routed enquiry via any form on this site, by telephone, or by email. We complete conflict screening first; once it clears, we schedule a scoping consultation and confirm the fee model in writing before any work starts.",
   },
   {
