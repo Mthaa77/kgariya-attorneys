@@ -28,7 +28,7 @@ export type PracticePageContent = {
 };
 
 export const PRACTICE_PAGE_CONTENT: Record<string, PracticePageContent> = {
-  "commercial-litigation": {
+"commercial-litigation": {
     heroLead:
       "Representation in all courts, formal arbitration and other appropriate legal forums, with strategy shaped around the commercial objective behind the dispute.",
     overviewHeading: "A clear strategy for consequential disputes.",
@@ -89,19 +89,22 @@ export const PRACTICE_PAGE_CONTENT: Record<string, PracticePageContent> = {
 
   "real-estate-development": {
     heroLead:
-      "Legal development, packaging and advisory support across the project life cycle, from land acquisition and land-use strategy to structuring, approvals, finance and delivery.",
-    overviewHeading: "Bring the legal parts of a development together.",
+      "Integrated legal support for property development and conveyancing, from land assembly, acquisition and due diligence through approvals, finance, transfers, bond registrations and final registration.",
+    overviewHeading: "A property project needs sound structure and a reliable route to registration.",
     overview: [
       "A development is shaped by a series of connected decisions: the land being acquired, the rights attached to it, the ownership and delivery structure, the approvals required and the funding available. A weakness in one part can affect the viability of the whole project.",
       "The practice works across these legal workstreams to help developers, landowners, housing institutions and public bodies build a coherent project package. This includes acquisition agreements, joint-venture frameworks, feasibility assessments, land-use processes, housing-related requirements and development finance documentation.",
       "The work is informed by the firm's stated property-development and finance experience. Legal documentation is approached with attention to project structure, delivery responsibilities, funding conditions and the practical requirements of implementation.",
+      "Property transactions depend on clear title, correctly prepared documents and coordinated steps between the parties, financiers, relevant authorities and the deeds registry. The details matter, particularly where a transaction involves an institution, a development or a complex property interest.",
+      "The practice handles commercial and residential transfers, mortgage bond registrations, sectional title and township registers, institutional portfolio conveyancing and notarial work. Its processes are designed to support matter-level visibility, proactive correspondence and accurate registration documentation.",
+      "The practice also advises on acquisitions involving schools, parcels or premises, hospitals and places of religious worship. Its broader property work includes land audits, land-rights due diligence and town-planning advisory to help clients understand property and land-use considerations before committing to a transaction.",
     ],
     principle:
-      "A development file should connect land rights, project structure, approvals and finance into one coherent legal framework.",
+      "Property decisions and development structures should be grounded in the rights, approvals, documents and registration steps that carry them through.",
     capabilityIntro:
-      "Development mandates can begin at different points. Select a workstream to explore the legal support available across the project life cycle.",
+      "Explore development packaging, conveyancing execution, institutional property portfolios and pre-acquisition advisory in one integrated practice.",
     capabilityGroups: [
-      {
+{
         label: "Land & feasibility",
         summary: "Understand the site, the rights and the project proposition.",
         items: [
@@ -129,20 +132,54 @@ export const PRACTICE_PAGE_CONTENT: Record<string, PracticePageContent> = {
           { title: "Real estate development advisory", detail: "Ongoing legal input across acquisition, structuring, approvals, financing and project delivery as the mandate requires." },
         ],
       },
+{
+        label: "Transfers & registration",
+        summary: "Move property transactions through the required legal steps.",
+        items: [
+          { title: "Commercial and residential property transfers", detail: "Conveyancing work for the transfer of commercial and residential properties, from transaction documentation through registration." },
+          { title: "Mortgage bond registrations for banking panels", detail: "Preparation and registration of mortgage bonds in accordance with the relevant lender and deeds-registry requirements." },
+          { title: "Sectional title register openings", detail: "Legal and conveyancing work connected to the opening of sectional title registers for qualifying developments." },
+          { title: "Township conveyancing registers", detail: "Conveyancing support for township registers and the related registration requirements." },
+          { title: "Notarial executions and notarial bonds", detail: "Preparation and execution of notarial documents and bonds as required by the transaction." },
+        ],
+      },
+      {
+        label: "Institutional portfolios",
+        summary: "Coordinate property instructions that involve multiple assets or stakeholders.",
+        items: [
+          { title: "Institutional property portfolio conveyancing", detail: "Coordinated conveyancing for institutional property holdings and portfolio transactions." },
+          { title: "High-volume bond registration capacity", detail: "Matter tracking and registration workflows designed for volume while retaining visibility over individual instructions." },
+          { title: "Deeds office performance tracking", detail: "Progress monitoring and communication around lodgement, requisitions and registration milestones." },
+        ],
+      },
+      {
+        label: "Acquisition & due diligence",
+        summary: "Understand the property and its rights before a transaction proceeds.",
+        items: [
+          { title: "Advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship", detail: "Property acquisition advice for the identified institutional and community-use categories, with scope shaped by the asset and transaction." },
+          { title: "Land audits and land-rights due diligence", detail: "Review of land records, rights and relevant property information to support informed acquisition and development decisions." },
+          { title: "Town-planning advisory", detail: "Legal advisory on town-planning and land-use considerations relevant to a property or proposed transaction." },
+        ],
+      },
     ],
     journeyIntro:
-      "The project's stage determines where legal input is most useful. These four lenses help frame the work from early land decisions through to implementation.",
+      "The practice connects early land and transaction investigation with project structuring, approvals, finance, conveyancing and final registration.",
     journey: [
-      { title: "Test the proposition", description: "Consider the site, land rights, acquisition terms and legal or regulatory factors that may influence project feasibility.", focus: "Land & viability" },
-      { title: "Structure the project", description: "Document ownership, joint-venture relationships, roles, obligations and the legal framework for delivery.", focus: "Ownership & roles" },
-      { title: "Coordinate approvals", description: "Identify the relevant land-use, municipal, housing and sector requirements and organise the supporting legal workstreams.", focus: "Rights & approvals" },
-      { title: "Align finance & delivery", description: "Bring funding documentation, project obligations and implementation requirements into a coordinated legal package.", focus: "Funding & delivery" },
+      { title: "Investigate the land and transaction", description: "Clarify ownership, title, land rights, parties, due-diligence questions and the commercial purpose of the project or property transaction.", focus: "Title & due diligence" },
+      { title: "Structure the project", description: "Identify the acquisition, development, joint venture and property agreements required for the agreed commercial structure.", focus: "Structure & agreements" },
+      { title: "Secure approvals and finance", description: "Coordinate relevant land-use, municipal, housing, lender and other approvals or finance requirements for the transaction.", focus: "Approvals & capital" },
+      { title: "Prepare and register", description: "Prepare the conveyancing, bond, notarial and supporting documents and coordinate lodgement and registration steps.", focus: "Documents & registration" },
+      { title: "Track delivery and completion", description: "Monitor milestones, address outstanding requirements and keep the relevant parties informed through completion and handover.", focus: "Delivery & reporting" },
     ],
     faqs: [
-      { question: "At what stage can the practice become involved in a development?", answer: "The practice's stated scope spans acquisition, feasibility, project structuring, land-use rights, approvals, development finance and delivery. The appropriate starting point depends on the project's stage and the assistance required." },
+{ question: "At what stage can the practice become involved in a development?", answer: "The practice's stated scope spans acquisition, feasibility, project structuring, land-use rights, approvals, development finance and delivery. The appropriate starting point depends on the project's stage and the assistance required." },
       { question: "Can the firm assist with joint ventures between landowners and developers?", answer: "Joint-venture legal frameworks form part of the practice's stated services. The scope may include documenting the parties' roles, obligations, governance and agreed commercial arrangements." },
       { question: "Does the practice assist with housing-related development requirements?", answer: "The stated services include NHBRC enrolment, SHRA and subsidised housing schemes, as well as bank and DFI development finance applications. The specific requirements depend on the project and relevant institutions." },
       { question: "What information is useful for an initial development discussion?", answer: "A short, non-confidential project summary, the property's general location, the current project stage and the type of legal support being considered are useful starting points. Do not send confidential transaction documents before conflict screening and the firm's instructions." },
+{ question: "Does the practice only handle property transfers?", answer: "No. Its stated scope also includes mortgage bond registrations, sectional title and township registers, institutional portfolio conveyancing, notarial work, acquisition advisory, land audits, land-rights due diligence and town-planning advisory." },
+      { question: "Can the firm advise on acquiring a school, hospital or place of religious worship?", answer: "The practice's updated scope expressly includes advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship. The work required will depend on the property and proposed transaction." },
+      { question: "What is included in land-rights due diligence?", answer: "The practice can consider land records, rights and relevant property information as part of an agreed review. The scope and documents required depend on the specific land and the questions the client needs answered." },
+      { question: "Can the firm give a guaranteed registration date?", answer: "Registration timing depends on the transaction, the documents, the parties and the relevant registry processes. The practice can explain the expected steps and provide progress communication, but should not promise a date before the matter has been assessed." },
     ],
   },
 
@@ -317,63 +354,69 @@ export const PRACTICE_PAGE_CONTENT: Record<string, PracticePageContent> = {
     ],
   },
 
-  "conveyancing-property": {
+  "mergers-acquisitions": {
     heroLead:
-      "Property transfers, mortgage bond registrations and acquisition advisory supported by land audits, land-rights due diligence and town-planning insight.",
-    overviewHeading: "Careful property work, from investigation to registration.",
+      "Legal support for business acquisitions and disposals, transaction structuring, due diligence, negotiation, documentation and completion.",
+    overviewHeading: "A clear legal structure for a consequential business transaction.",
     overview: [
-      "Property transactions depend on clear title, correctly prepared documents and coordinated steps between the parties, financiers, relevant authorities and the deeds registry. The details matter, particularly where a transaction involves an institution, a development or a complex property interest.",
-      "The practice handles commercial and residential transfers, mortgage bond registrations, sectional title and township registers, institutional portfolio conveyancing and notarial work. Its processes are designed to support matter-level visibility, proactive correspondence and accurate registration documentation.",
-      "The practice also advises on acquisitions involving schools, parcels or premises, hospitals and places of religious worship. Its broader property work includes land audits, land-rights due diligence and town-planning advisory to help clients understand property and land-use considerations before committing to a transaction.",
+      "An acquisition or disposal brings commercial decisions, legal rights, liabilities, approvals and implementation obligations into one transaction. The legal work should make those moving parts visible before the parties commit.",
+      "The practice's Mergers & Acquisitions service supports share and asset transactions, sale of shares and business agreements, legal due diligence, shareholder and joint venture arrangements, and the negotiation of transaction terms.",
+      "The transaction plan can also address conditions precedent, corporate approvals, competition or other regulatory considerations where applicable, completion mechanics and post-completion documentation. The scope is tailored to the deal structure and the parties' objectives.",
     ],
     principle:
-      "A sound property decision begins with understanding the rights, restrictions and registration steps attached to the land or property.",
+      "A well-structured transaction makes the bargain, the risks, the approvals and the route to completion clear to the parties.",
     capabilityIntro:
-      "Explore the practice's work across conveyancing execution, institutional property portfolios and pre-acquisition advisory.",
+      "Explore the legal workstreams that can support a business acquisition, disposal or strategic transaction.",
     capabilityGroups: [
       {
-        label: "Transfers & registration",
-        summary: "Move property transactions through the required legal steps.",
+        label: "Deal structure",
+        summary: "Choose and document a transaction structure that reflects the commercial objective.",
         items: [
-          { title: "Commercial and residential property transfers", detail: "Conveyancing work for the transfer of commercial and residential properties, from transaction documentation through registration." },
-          { title: "Mortgage bond registrations for banking panels", detail: "Preparation and registration of mortgage bonds in accordance with the relevant lender and deeds-registry requirements." },
-          { title: "Sectional title register openings", detail: "Legal and conveyancing work connected to the opening of sectional title registers for qualifying developments." },
-          { title: "Township conveyancing registers", detail: "Conveyancing support for township registers and the related registration requirements." },
-          { title: "Notarial executions and notarial bonds", detail: "Preparation and execution of notarial documents and bonds as required by the transaction." },
+          { title: "Share and asset transactions", detail: "Legal support for the proposed purchase or disposal of shares, a business or selected business assets." },
+          { title: "Transaction structuring", detail: "Review of the proposed structure, parties, assets and key legal steps before documents are finalised." },
+          { title: "Shareholder and joint venture arrangements", detail: "Documentation of shareholder rights, governance and agreed arrangements between transaction participants." },
         ],
       },
       {
-        label: "Institutional portfolios",
-        summary: "Coordinate property instructions that involve multiple assets or stakeholders.",
+        label: "Due diligence",
+        summary: "Identify legal issues that may affect value, risk allocation or completion.",
         items: [
-          { title: "Institutional property portfolio conveyancing", detail: "Coordinated conveyancing for institutional property holdings and portfolio transactions." },
-          { title: "High-volume bond registration capacity", detail: "Matter tracking and registration workflows designed for volume while retaining visibility over individual instructions." },
-          { title: "Deeds office performance tracking", detail: "Progress monitoring and communication around lodgement, requisitions and registration milestones." },
+          { title: "Legal due diligence", detail: "Review of relevant corporate, contractual, property, employment, litigation and regulatory records within the agreed scope." },
+          { title: "Risk allocation", detail: "Identification of issues that may need to be addressed through warranties, indemnities, conditions or transaction terms." },
         ],
       },
       {
-        label: "Acquisition & due diligence",
-        summary: "Understand the property and its rights before a transaction proceeds.",
+        label: "Negotiation & documentation",
+        summary: "Translate the commercial bargain into workable transaction documents.",
         items: [
-          { title: "Advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship", detail: "Property acquisition advice for the identified institutional and community-use categories, with scope shaped by the asset and transaction." },
-          { title: "Land audits and land-rights due diligence", detail: "Review of land records, rights and relevant property information to support informed acquisition and development decisions." },
-          { title: "Town-planning advisory", detail: "Legal advisory on town-planning and land-use considerations relevant to a property or proposed transaction." },
+          { title: "Sale of shares and sale of business agreements", detail: "Preparation, review and negotiation of the principal transaction agreements." },
+          { title: "Conditions precedent and approvals", detail: "Identification and coordination of agreed pre-completion obligations, corporate approvals and regulatory steps where applicable." },
+          { title: "Ancillary transaction documents", detail: "Supporting resolutions, shareholder arrangements, disclosure schedules and completion documents as required by the deal." },
+        ],
+      },
+      {
+        label: "Completion & transition",
+        summary: "Coordinate the legal steps required to complete and implement the transaction.",
+        items: [
+          { title: "Completion mechanics", detail: "Coordination of deliverables, payment and transfer steps against the transaction agreement." },
+          { title: "Post-completion documentation", detail: "Assistance with agreed handover, filings and post-completion obligations." },
         ],
       },
     ],
     journeyIntro:
-      "A well-managed property instruction connects the initial investigation with the final registration and reporting steps.",
+      "Each deal has its own timetable and requirements. These stages provide a practical framework for managing the legal work.",
     journey: [
-      { title: "Investigate the property", description: "Clarify the property, parties, title position, land rights and any due-diligence questions relevant to the instruction.", focus: "Title & rights" },
-      { title: "Plan the transaction", description: "Identify the transaction documents, approvals, finance requirements and registration steps that may apply.", focus: "Structure & approvals" },
-      { title: "Prepare & lodge", description: "Coordinate the conveyancing and notarial documentation required for the agreed transaction and lodgement process.", focus: "Documents & lodgement" },
-      { title: "Track & report", description: "Monitor milestones, address registration requirements and keep relevant parties informed through to completion.", focus: "Registration & reporting" },
+      { title: "Understand the transaction", description: "Clarify the commercial objective, parties, proposed structure, key assets and intended timetable.", focus: "Objective & structure" },
+      { title: "Review the risks", description: "Agree the scope of legal due diligence and identify issues that may affect price, warranties, indemnities or conditions.", focus: "Due diligence" },
+      { title: "Document the bargain", description: "Prepare and negotiate the principal agreement and supporting shareholder, corporate and transaction documents.", focus: "Negotiation & documents" },
+      { title: "Complete and implement", description: "Track approvals, conditions precedent, closing deliverables and post-completion obligations.", focus: "Approvals & completion" },
     ],
     faqs: [
-      { question: "Does the practice only handle property transfers?", answer: "No. Its stated scope also includes mortgage bond registrations, sectional title and township registers, institutional portfolio conveyancing, notarial work, acquisition advisory, land audits, land-rights due diligence and town-planning advisory." },
-      { question: "Can the firm advise on acquiring a school, hospital or place of religious worship?", answer: "The practice's updated scope expressly includes advisory on acquisitions of schools, parcels or premises, hospitals and places of religious worship. The work required will depend on the property and proposed transaction." },
-      { question: "What is included in land-rights due diligence?", answer: "The practice can consider land records, rights and relevant property information as part of an agreed review. The scope and documents required depend on the specific land and the questions the client needs answered." },
-      { question: "Can the firm give a guaranteed registration date?", answer: "Registration timing depends on the transaction, the documents, the parties and the relevant registry processes. The practice can explain the expected steps and provide progress communication, but should not promise a date before the matter has been assessed." },
+      { question: "Does the service cover share purchases as well as asset purchases?", answer: "The stated service scope includes both share and asset acquisition and disposal structures. The appropriate structure depends on the transaction, parties and assets involved." },
+      { question: "Can the firm assist with legal due diligence?", answer: "Legal due diligence is included in the service scope. The review areas, documents and reporting format are agreed for each instruction." },
+      { question: "Will every transaction require Competition Commission approval?", answer: "No. Competition or other regulatory steps depend on the nature and size of the transaction and the applicable legal requirements. The need for any filing should be assessed for the specific deal." },
+      { question: "What should be shared for an initial enquiry?", answer: "A brief, non-confidential outline of the parties, transaction type and intended timetable is a useful starting point. Please do not share confidential documents or commercially sensitive information before conflict screening." },
     ],
-  },
+  }
+
 };

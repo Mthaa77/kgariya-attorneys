@@ -128,7 +128,7 @@ export function CareersPage() {
             <div className="mx-auto flex max-w-2xl items-start gap-3.5 rounded-2xl border border-gold-500/30 bg-gold-500/10 p-5">
               <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" />
               <p className="text-[13px] leading-relaxed text-gold-100">
-                Articles of clerkship at Kgariya Inc. are structured for admission:
+                Articles of clerkship at Kgariya Attorneys are structured for admission:
                 supervised court exposure, deeds office practice, and rotation
                 across litigation, conveyancing, and real estate development, packaging & advisory — with
                 protected study time before board exams.

@@ -128,10 +128,10 @@ const TRAY_MEDIA: Record<string, { src: string; caption: string; alt: string }> 
     caption: "Counsel on the move — between forums",
     alt: "South African counsel and attorney walking through the firm's offices",
   },
-  "conveyancing-property": {
-    src: "/images/sa-judge-bench.png",
-    caption: "Officers of the court — Deeds Office & Master's alignments",
-    alt: "A South African judicial officer in robes presiding at the bench",
+  "mergers-acquisitions": {
+    src: "/images/sa-team-boardroom.png",
+    caption: "At the table — transaction strategy and documentation",
+    alt: "South African legal professionals reviewing corporate transaction documents in a boardroom",
   },
 };
 
@@ -303,9 +303,11 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
                       {forum.name} · {forum.note}
                     </span>
                   )}
-                  <span className="rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-semibold text-white/75 backdrop-blur-sm">
-                    {active.matters.length} representative matters
-                  </span>
+                  {active.matters.length > 0 && (
+                    <span className="rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[10.5px] font-semibold text-white/75 backdrop-blur-sm">
+                      {active.matters.length} representative matters
+                    </span>
+                  )}
                   <span className="rounded-full border border-gold-500/30 bg-gold-500/10 px-2.5 py-1 text-[10.5px] font-semibold text-gold-300 backdrop-blur-sm">
                     {active.stat.value}
                     {active.stat.suffix} {active.stat.label}
@@ -533,7 +535,7 @@ export function Header() {
           aria-describedby={undefined}
           className="w-full max-w-[400px] gap-0 overflow-y-auto border-white/10 bg-navy-950 p-0 sm:max-w-[430px] [&>button]:right-4 [&>button]:top-4 [&>button]:z-30 [&>button]:rounded-full [&>button]:bg-navy-950/70 [&>button]:p-1.5 [&>button]:text-white [&>button]:opacity-100 [&>button]:backdrop-blur-md"
         >
-          <SheetTitle className="sr-only">Site menu — Kgariya Attorneys Incorporated</SheetTitle>
+          <SheetTitle className="sr-only">Site menu — Kgariya Attorneys</SheetTitle>
           {/* image header band */}
           <div className="relative h-44 shrink-0 overflow-hidden">
             <Image

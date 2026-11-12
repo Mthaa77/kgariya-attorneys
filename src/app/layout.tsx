@@ -13,11 +13,11 @@ export const metadata: Metadata = {
     canonical: "https://www.kgariyainc.co.za",
   },
   title: {
-    default: "Kgariya Attorneys Incorporated | Commercial, Property & Finance Attorneys, Pretoria",
-    template: "%s | Kgariya Attorneys Incorporated",
+    default: "Kgariya Attorneys | Commercial, Property & Finance Attorneys, Pretoria",
+    template: "%s | Kgariya Attorneys",
   },
   description:
-    "Kgariya Attorneys Incorporated is a South African commercial, property and finance practice providing representation in all courts, formal arbitration and other appropriate legal forums, alongside real estate development, packaging and advisory, banking and finance, and conveyancing services.",
+    "Kgariya Attorneys is a South African legal practice focused on agricultural finance, banking and finance, commercial litigation and arbitration, mining-adjacent matters, real estate development and conveyancing, and mergers and acquisitions.",
   keywords: [
     "commercial litigation Pretoria",
     "arbitration attorneys Gauteng",
@@ -30,27 +30,28 @@ export const metadata: Metadata = {
     "town-planning advisory",
     "development finance attorneys",
     "conveyancing Pretoria",
+    "mergers and acquisitions attorneys Pretoria",
     "mining law attorneys",
     "Land Bank legal panel",
     "banking and finance attorneys",
-    "Kgariya Attorneys Incorporated",
+    "Kgariya Attorneys",
   ],
-  authors: [{ name: "Kgariya Attorneys Incorporated" }],
+  authors: [{ name: "Kgariya Attorneys" }],
   icons: {
     icon: "/images/kgariya-mark.webp",
   },
   openGraph: {
-    title: "Kgariya Attorneys Incorporated",
+    title: "Kgariya Attorneys",
     description:
-      "A South African commercial, property and finance practice offering court representation, formal arbitration, real estate development advisory and conveyancing. Evidence over slogans.",
+      "A South African legal practice offering agricultural finance, banking and finance, commercial litigation and arbitration, mining-adjacent legal services, real estate development and conveyancing, and mergers and acquisitions. Evidence over slogans.",
     url: "https://www.kgariyainc.co.za",
-    siteName: "Kgariya Attorneys Incorporated",
+    siteName: "Kgariya Attorneys",
     images: [
       {
         url: socialPreviewImage,
         width: 1200,
         height: 630,
-        alt: "Kgariya Attorneys Incorporated premium navy-and-gold logo",
+        alt: "Kgariya Attorneys premium navy-and-gold logo",
       },
     ],
     locale: "en_ZA",
@@ -58,9 +59,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kgariya Attorneys Incorporated",
+    title: "Kgariya Attorneys",
     description:
-      "Commercial, property and finance law: court representation, formal arbitration, real estate development advisory and conveyancing — Pretoria, South Africa.",
+      "Agricultural finance, banking and finance, commercial litigation, mining-adjacent services, real estate development, conveyancing, and mergers and acquisitions — Pretoria, South Africa.",
     images: [socialPreviewImage],
   },
   robots: { index: true, follow: true },

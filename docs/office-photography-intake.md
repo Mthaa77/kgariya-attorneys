@@ -15,7 +15,7 @@ JPEG and PNG originals are suitable. Please do not send images copied from Whats
 
 ## Publication and privacy checks
 
-Before publication, please confirm that Kgariya Attorneys Incorporated has permission to use each photograph on its public website.
+Before publication, please confirm that Kgariya Attorneys has permission to use each photograph on its public website.
 
 Photographs should not reveal client names, matter files, privileged documents, confidential correspondence, access codes, computer screens containing personal information, visitor registers or other restricted information. Avoid identifiable people unless the firm has obtained their permission for public use.
 

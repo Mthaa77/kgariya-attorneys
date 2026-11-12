@@ -1,11 +1,11 @@
 /* ————————————————————————————————————————————————
-   Kgariya Attorneys Incorporated — site content model
+   Kgariya Attorneys — site content model
    Single source of truth for all pages.
 ———————————————————————————————————————————————— */
 
 export const FIRM = {
-  name: "Kgariya Attorneys Incorporated",
-  shortName: "Kgariya Inc.",
+  name: "Kgariya Attorneys",
+  shortName: "Kgariya Attorneys",
   tagline: "Evidence over slogans.",
   phone: "(+27) 12 786 0920",
   phoneHref: "tel:+27127860920",
@@ -114,229 +114,8 @@ export type PracticeArea = {
 
 export const PRACTICE_AREAS: PracticeArea[] = [
   {
-    slug: "commercial-litigation",
-    number: "01",
-    name: "Commercial Litigation & Arbitration",
-    shortName: "Litigation & Arbitration",
-    menuLabel: "Commercial Litigation & Arbitration",
-    tagline: "High-stakes disputes, fought with strategy.",
-    intro:
-      "We represent corporates, financial institutions and public bodies in all courts, formal arbitration and other appropriate legal forums in relation to banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
-    accent: "#16315c",
-    accentSoft: "#eef2f8",
-    image: "/images/hero-litigation.png",
-    icon: "scale",
-    overview: [
-      "Commercial disputes are won long before argument is heard. Kgariya Inc. approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
-      "The division drafts specialised pleadings, manages urgent court applications, runs interlocutory proceedings, conducts formal arbitration hearings and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
-      "We act for blue-chip companies, banks and lenders, construction and engineering firms, insurers, and franchisors across Gauteng. Institutional clients receive structured reporting at every stage, so boards and panels always know where a matter stands and what it is costing.",
-    ],
-    scope: [
-      "Representation in all courts and appropriate legal forums",
-      "Formal arbitration proceedings",
-      "Urgent and interlocutory applications",
-      "Banking and financial disputes",
-      "Construction and engineering claims",
-      "Commercial contract enforcement",
-      "Insurance coverage litigation",
-      "Shareholder and joint-venture disputes",
-      "Franchise agreement disputes",
-      "Complex commercial settlements",
-    ],
-    delivery: [
-      "Structured dispute strategy and forum selection",
-      "Specialised pleadings and motion drafting",
-      "Multi-day arbitration trial management",
-      "Court, arbitration and other appropriate forum advocacy",
-      "Settlement negotiation and workout-linked dispute resolution",
-    ],
-    clients: [
-      "Blue-chip companies",
-      "Banks and commercial lenders",
-      "Construction and engineering firms",
-      "Insurers",
-      "Franchisors",
-      "Public bodies",
-    ],
-    matters: [
-      {
-        title: "Facility enforcement for a commercial lender",
-        sector: "Banking & Finance",
-        outcome: "Settled on favourable terms",
-        forum: "High Court — Gauteng Division",
-        scale: "R180m defaulted facility",
-        detail:
-          "Acted for a commercial lender in High Court enforcement proceedings arising from a defaulted R180 million facility. Negotiated a structured settlement securing full capital recovery with costs.",
-      },
-      {
-        title: "Construction dispute referred to AFSA",
-        sector: "Construction & Engineering",
-        outcome: "Award granted",
-        forum: "AFSA arbitration tribunal",
-        scale: "Multi-day arbitral hearing",
-        detail:
-          "Represented a contractor in a multi-day AFSA arbitration against a developer over variation claims and final account disputes. Award granted substantially in the client's favour.",
-      },
-      {
-        title: "Urgent interdict for a national franchisor",
-        sector: "Franchising",
-        outcome: "Interdict granted",
-        forum: "Urgent High Court roll",
-        scale: "National brand network",
-        detail:
-          "Obtained urgent interim relief protecting a franchisor's brand and supply network against a former franchisee, followed by negotiated final relief.",
-      },
-    ],
-    stat: { value: 300, suffix: "+", label: "Matters handled" },
-  },
-  {
-    slug: "real-estate-development",
-    number: "02",
-    name: "Real Estate Development, Packaging & Advisory",
-    shortName: "Development, Packaging & Advisory",
-    menuLabel: "Real Estate Development & Advisory",
-    tagline: "From acquisition strategy to project delivery — advised end to end.",
-    intro:
-      "We provide real estate development, packaging and advisory services across the legal life cycle of a project, from acquisition and land-use strategy through structuring, approvals, financing and delivery.",
-    accent: "#1e4076",
-    accentSoft: "#eaf0fa",
-    image: "/images/hero-development.png",
-    icon: "building",
-    overview: [
-      "Development projects fail in the gaps — between the town planner and the lender, between the NHBRC enrolment and the bond registration, between the JV heads of terms and the shareholders' agreement. Kgariya Inc. was built to close those gaps.",
-      "We run the full legal arc of a project: land acquisition contracts and joint-venture frameworks, legal feasibility assessments and cost modelling, township establishment and rezoning, land-use rights, NHBRC enrolment, SHRA and subsidised housing schemes, bank and DFI finance applications, and end-user mortgage packaging.",
-      "The result is a development file that a credit committee can underwrite. Because our director has run a property company as CEO — commercial portfolios, residential developments, mixed-use schemes and SHRA housing — every document is drafted with project cash flows and construction risk in mind, not in the abstract.",
-    ],
-    scope: [
-      "Land assembly and acquisition agreements",
-      "Joint venture legal frameworks",
-      "Legal feasibility assessments and cost modelling",
-      "Real estate development advisory",
-      "Township establishment, rezoning and land-use rights",
-      "NHBRC enrolment",
-      "SHRA and subsidised housing schemes",
-      "Bank and DFI development finance applications",
-      "End-user mortgage packaging",
-      "Municipal infrastructure packaging",
-    ],
-    delivery: [
-      "End-to-end project legal packaging",
-      "Developer-side feasibility legal modelling",
-      "Regulatory approval management (municipal and provincial)",
-      "Capital-close documentation for banks and DFIs",
-      "PP structuring with group development expertise",
-    ],
-    clients: [
-      "Property developers",
-      "Housing funds and SHRA accredited institutions",
-      "Development Finance Institutions",
-      "Municipalities",
-      "Joint ventures and landowners",
-    ],
-    matters: [
-      {
-        title: "1,200-unit township development packaging",
-        sector: "Residential Development",
-        outcome: "Finance approved & registered",
-        forum: "Municipal · NHBRC · Lender credit",
-        scale: "1,200 residential units",
-        detail:
-          "Packaged the complete legal file for a large residential township — land assembly, rezoning, services agreements, NHBRC enrolment and development finance application. Bond registrations completed on programme.",
-      },
-      {
-        title: "SHRA social housing scheme",
-        sector: "Social Housing",
-        outcome: "Scheme packaged",
-        forum: "SHRA · Provincial regulatory",
-        scale: "Accredited housing institution",
-        detail:
-          "Structured the legal package for an accredited social housing institution — land use rights, SHRA compliance, funding applications and construction contract frameworks.",
-      },
-      {
-        title: "Mixed-use JV restructuring",
-        sector: "Mixed-Use Development",
-        outcome: "JV concluded",
-        forum: "Negotiated transaction",
-        scale: "Landowner–developer JV",
-        detail:
-          "Negotiated and documented a joint venture between a landowner and a developer for a mixed-use scheme, including profit-share waterfalls and township obligations.",
-      },
-    ],
-    stat: { value: 40, suffix: "+", label: "Development mandates packaged" },
-  },
-  {
-    slug: "mining-resources",
-    number: "03",
-    name: "Mining & Resources (Mining-Adjacent)",
-    shortName: "Mining-Adjacent",
-    menuLabel: "Mining & Resources (Mining-Adjacent)",
-    tagline: "Mining-adjacent deals, done lawfully and fast.",
-    intro:
-      "Specialised legal support for the transactional, land access and regulatory requirements around mining operations — mining finance and security, mineral rights transfers, surface rights, community agreements and SLP frameworks.",
-    accent: "#8d6e3f",
-    accentSoft: "#f6efe3",
-    image: "/images/mining.png",
-    icon: "pickaxe",
-    overview: [
-      "We do not run mining houses — we make mining-adjacent deals work. Our focus is the commercial and land layer around mining operations: financing structures and debt security, mineral rights transfers and registrations, surface rights access, and the community agreements that keep operations social licence-compliant.",
-      "The practice negotiates surface rights access and land-use agreements with landowners and local communities, drafts Community and Social Labour Plan (SLP) agreements, and resolves mining-adjacent contract disputes before they stop machines.",
-      "The director holds mining law and resources certificates from Wits, giving the practice technical fluency in the regulatory framework that governs mineral rights, prospecting and mining rights, and the interfaces with land tenure.",
-    ],
-    scope: [
-      "Mining finance and debt security instruments",
-      "Mineral rights transfers and registrations",
-      "Surface rights access and land-use agreements",
-      "Community and Social Labour Plan (SLP) agreements",
-      "Mining-adjacent contract disputes",
-      "Mine development financing structures",
-    ],
-    delivery: [
-      "Transaction structuring for mining-adjacent commerce",
-      "Security packaging acceptable to resource lenders",
-      "Community negotiation frameworks",
-      "Regulatory interface management",
-    ],
-    clients: [
-      "Mining houses",
-      "Resource investors and financiers",
-      "Landowners",
-      "Mining communities and trusts",
-      "Contractors to the mining sector",
-    ],
-    matters: [
-      {
-        title: "Surface rights access for a mining-adjacent operation",
-        sector: "Mining Services",
-        outcome: "Agreement concluded",
-        forum: "Landowner & community negotiation",
-        scale: "Multi-year access rights",
-        detail:
-          "Negotiated a multi-year surface access and land-use agreement with landowners and a community trust, enabling an expansion programme without disruption.",
-      },
-      {
-        title: "SLP legal framework",
-        sector: "Mining Compliance",
-        outcome: "Framework adopted",
-        forum: "Mining right regulatory interface",
-        scale: "Social & Labour Plan commitments",
-        detail:
-          "Drafted the legal framework for community commitments under a Social and Labour Plan, aligned with the client's mining right obligations.",
-      },
-      {
-        title: "Mineral rights conveyancing",
-        sector: "Resources Transactions",
-        outcome: "Transfer registered",
-        forum: "Deeds Registry · Notarial",
-        scale: "Mining-adjacent disposal",
-        detail:
-          "Executed the transfer and registration of mineral rights incidental to a disposal of a mining-adjacent business, including notarial execution.",
-      },
-    ],
-    stat: { value: 25, suffix: "+", label: "Mining-adjacent mandates" },
-  },
-  {
     slug: "agricultural-finance",
-    number: "04",
+    number: "01",
     name: "Agricultural & Development Finance",
     shortName: "Agricultural Finance",
     menuLabel: "Agricultural & Development Finance",
@@ -406,7 +185,7 @@ export const PRACTICE_AREAS: PracticeArea[] = [
   },
   {
     slug: "banking-finance",
-    number: "05",
+    number: "02",
     name: "Banking & Finance",
     shortName: "Banking & Finance",
     menuLabel: "Banking & Finance",
@@ -479,25 +258,184 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     stat: { value: 80, suffix: "+", label: "Facilities & security packages" },
   },
   {
-    slug: "conveyancing-property",
-    number: "06",
-    name: "Conveyancing & Property",
-    shortName: "Conveyancing",
-    menuLabel: "Conveyancing & Property",
-    tagline: "High-capacity transfers, registers opened right.",
+    slug: "commercial-litigation",
+    number: "03",
+    name: "Commercial Litigation & Arbitration",
+    shortName: "Litigation & Arbitration",
+    menuLabel: "Commercial Litigation & Arbitration",
+    tagline: "High-stakes disputes, fought with strategy.",
     intro:
-      "A high-capacity conveyancing and property practice for institutional land transfers, bank panel bond registrations, sectional title schemes and formal notarial executions.",
-    accent: "#9c5a3c",
-    accentSoft: "#f8efe9",
-    image: "/images/conveyancing.png",
-    icon: "key",
+      "We represent corporates, financial institutions and public bodies in all courts, formal arbitration and other appropriate legal forums in relation to banking and finance disputes, construction claims, insurance coverage, contract enforcement, shareholder conflicts and franchise disputes.",
+    accent: "#16315c",
+    accentSoft: "#eef2f8",
+    image: "/images/hero-litigation.png",
+    icon: "scale",
     overview: [
+      "Commercial disputes are won long before argument is heard. Kgariya Attorneys approaches every mandate as a strategy exercise first: we map the dispute against the client's commercial objectives, quantify exposure early, and select the appropriate forum, whether court proceedings, formal arbitration or another suitable legal process, in pursuit of a commercially sound outcome.",
+      "The division drafts specialised pleadings, manages urgent court applications, runs interlocutory proceedings, conducts formal arbitration hearings and negotiates complex commercial settlements. Because the firm sits inside a wider group with real development and finance experience, our litigators read the underlying transaction — not just the papers.",
+      "We act for blue-chip companies, banks and lenders, construction and engineering firms, insurers, and franchisors across Gauteng. Institutional clients receive structured reporting at every stage, so boards and panels always know where a matter stands and what it is costing.",
+    ],
+    scope: [
+      "Representation in all courts and appropriate legal forums",
+      "Formal arbitration proceedings",
+      "Urgent and interlocutory applications",
+      "Banking and financial disputes",
+      "Construction and engineering claims",
+      "Commercial contract enforcement",
+      "Insurance coverage litigation",
+      "Shareholder and joint-venture disputes",
+      "Franchise agreement disputes",
+      "Complex commercial settlements",
+    ],
+    delivery: [
+      "Structured dispute strategy and forum selection",
+      "Specialised pleadings and motion drafting",
+      "Multi-day arbitration trial management",
+      "Court, arbitration and other appropriate forum advocacy",
+      "Settlement negotiation and workout-linked dispute resolution",
+    ],
+    clients: [
+      "Blue-chip companies",
+      "Banks and commercial lenders",
+      "Construction and engineering firms",
+      "Insurers",
+      "Franchisors",
+      "Public bodies",
+    ],
+    matters: [
+      {
+        title: "Facility enforcement for a commercial lender",
+        sector: "Banking & Finance",
+        outcome: "Settled on favourable terms",
+        forum: "High Court — Gauteng Division",
+        scale: "R180m defaulted facility",
+        detail:
+          "Acted for a commercial lender in High Court enforcement proceedings arising from a defaulted R180 million facility. Negotiated a structured settlement securing full capital recovery with costs.",
+      },
+      {
+        title: "Construction dispute referred to AFSA",
+        sector: "Construction & Engineering",
+        outcome: "Award granted",
+        forum: "AFSA arbitration tribunal",
+        scale: "Multi-day arbitral hearing",
+        detail:
+          "Represented a contractor in a multi-day AFSA arbitration against a developer over variation claims and final account disputes. Award granted substantially in the client's favour.",
+      },
+      {
+        title: "Urgent interdict for a national franchisor",
+        sector: "Franchising",
+        outcome: "Interdict granted",
+        forum: "Urgent High Court roll",
+        scale: "National brand network",
+        detail:
+          "Obtained urgent interim relief protecting a franchisor's brand and supply network against a former franchisee, followed by negotiated final relief.",
+      },
+    ],
+    stat: { value: 300, suffix: "+", label: "Matters handled" },
+  },
+  {
+    slug: "mining-resources",
+    number: "04",
+    name: "Mining & Resources (Mining-Adjacent)",
+    shortName: "Mining-Adjacent",
+    menuLabel: "Mining & Resources (Mining-Adjacent)",
+    tagline: "Mining-adjacent deals, done lawfully and fast.",
+    intro:
+      "Specialised legal support for the transactional, land access and regulatory requirements around mining operations — mining finance and security, mineral rights transfers, surface rights, community agreements and SLP frameworks.",
+    accent: "#8d6e3f",
+    accentSoft: "#f6efe3",
+    image: "/images/mining.png",
+    icon: "pickaxe",
+    overview: [
+      "We do not run mining houses — we make mining-adjacent deals work. Our focus is the commercial and land layer around mining operations: financing structures and debt security, mineral rights transfers and registrations, surface rights access, and the community agreements that keep operations social licence-compliant.",
+      "The practice negotiates surface rights access and land-use agreements with landowners and local communities, drafts Community and Social Labour Plan (SLP) agreements, and resolves mining-adjacent contract disputes before they stop machines.",
+      "The director holds mining law and resources certificates from Wits, giving the practice technical fluency in the regulatory framework that governs mineral rights, prospecting and mining rights, and the interfaces with land tenure.",
+    ],
+    scope: [
+      "Mining finance and debt security instruments",
+      "Mineral rights transfers and registrations",
+      "Surface rights access and land-use agreements",
+      "Community and Social Labour Plan (SLP) agreements",
+      "Mining-adjacent contract disputes",
+      "Mine development financing structures",
+    ],
+    delivery: [
+      "Transaction structuring for mining-adjacent commerce",
+      "Security packaging acceptable to resource lenders",
+      "Community negotiation frameworks",
+      "Regulatory interface management",
+    ],
+    clients: [
+      "Mining houses",
+      "Resource investors and financiers",
+      "Landowners",
+      "Mining communities and trusts",
+      "Contractors to the mining sector",
+    ],
+    matters: [
+      {
+        title: "Surface rights access for a mining-adjacent operation",
+        sector: "Mining Services",
+        outcome: "Agreement concluded",
+        forum: "Landowner & community negotiation",
+        scale: "Multi-year access rights",
+        detail:
+          "Negotiated a multi-year surface access and land-use agreement with landowners and a community trust, enabling an expansion programme without disruption.",
+      },
+      {
+        title: "SLP legal framework",
+        sector: "Mining Compliance",
+        outcome: "Framework adopted",
+        forum: "Mining right regulatory interface",
+        scale: "Social & Labour Plan commitments",
+        detail:
+          "Drafted the legal framework for community commitments under a Social and Labour Plan, aligned with the client's mining right obligations.",
+      },
+      {
+        title: "Mineral rights conveyancing",
+        sector: "Resources Transactions",
+        outcome: "Transfer registered",
+        forum: "Deeds Registry · Notarial",
+        scale: "Mining-adjacent disposal",
+        detail:
+          "Executed the transfer and registration of mineral rights incidental to a disposal of a mining-adjacent business, including notarial execution.",
+      },
+    ],
+    stat: { value: 25, suffix: "+", label: "Mining-adjacent mandates" },
+  },
+  {
+    slug: "real-estate-development",
+    number: "05",
+    name: "Real Estate Development, Conveyancing & Advisory",
+    shortName: "Real Estate & Conveyancing",
+    menuLabel: "Real Estate Development & Conveyancing",
+    tagline: "From land strategy and project delivery to transfer and registration.",
+    intro:
+      "Integrated real estate development, conveyancing and property advisory across the life cycle of a project or transaction — from acquisition strategy, land assembly and approvals through finance, transfers, bond registration and delivery.",
+    accent: "#1e4076",
+    accentSoft: "#eaf0fa",
+    image: "/images/hero-development.png",
+    icon: "building",
+    overview: [
+      "Development projects fail in the gaps — between the town planner and the lender, between the NHBRC enrolment and the bond registration, between the JV heads of terms and the shareholders' agreement. Kgariya Attorneys was built to close those gaps.",
+      "We run the full legal arc of a project: land acquisition contracts and joint-venture frameworks, legal feasibility assessments and cost modelling, township establishment and rezoning, land-use rights, NHBRC enrolment, SHRA and subsidised housing schemes, bank and DFI finance applications, and end-user mortgage packaging.",
+      "The result is a development file that a credit committee can underwrite. Because our director has run a property company as CEO — commercial portfolios, residential developments, mixed-use schemes and SHRA housing — every document is drafted with project cash flows and construction risk in mind, not in the abstract.",
       "Conveyancing is where transactions land — or don't. The practice executes commercial and residential property transfers, registers mortgage bonds for major banking panels, opens sectional title registers, manages township conveyancing registers and performs notarial acts.",
       "Our pipelines are built for volume without losing matter-level care: milestone tracking, proactive correspondence, and clean deeds office performance. Institutional clients — banks, property funds, educational institutions — get predictable registration timelines and honest reporting.",
       "In addition to conveyancing execution, the practice advises on acquisitions involving schools, parcels or premises, hospitals and places of religious worship. Our property work also includes land audits, land-rights due diligence and town-planning advisory to support informed acquisition, development and registration decisions.",
       "As panel attorneys we understand what lender checklists actually require, and we design our instruction flows to pass them the first time.",
     ],
     scope: [
+      "Land assembly and acquisition agreements",
+      "Joint venture legal frameworks",
+      "Legal feasibility assessments and cost modelling",
+      "Real estate development advisory",
+      "Township establishment, rezoning and land-use rights",
+      "NHBRC enrolment",
+      "SHRA and subsidised housing schemes",
+      "Bank and DFI development finance applications",
+      "End-user mortgage packaging",
+      "Municipal infrastructure packaging",
       "Commercial and residential property transfers",
       "Mortgage bond registrations for banking panels",
       "Sectional title register openings",
@@ -509,20 +447,56 @@ export const PRACTICE_AREAS: PracticeArea[] = [
       "Notarial executions and notarial bonds",
     ],
     delivery: [
+      "End-to-end project legal packaging",
+      "Developer-side feasibility legal modelling",
+      "Regulatory approval management (municipal and provincial)",
+      "Capital-close documentation for banks and DFIs",
+      "PP structuring with group development expertise",
       "High-volume bond registration capacity",
       "Deeds office performance tracking",
       "Sectional title and township register management",
       "Notarial services",
     ],
     clients: [
+      "Property developers",
+      "Housing funds and SHRA accredited institutions",
+      "Development Finance Institutions",
+      "Municipalities",
+      "Joint ventures and landowners",
       "Banking panels",
       "Property funds",
-      "Property developers",
       "Educational institutions",
       "Private buyers and sellers",
     ],
     matters: [
+{
+        title: "1,200-unit township development packaging",
+        sector: "Residential Development",
+        outcome: "Finance approved & registered",
+        forum: "Municipal · NHBRC · Lender credit",
+        scale: "1,200 residential units",
+        detail:
+          "Packaged the complete legal file for a large residential township — land assembly, rezoning, services agreements, NHBRC enrolment and development finance application. Bond registrations completed on programme.",
+      },
       {
+        title: "SHRA social housing scheme",
+        sector: "Social Housing",
+        outcome: "Scheme packaged",
+        forum: "SHRA · Provincial regulatory",
+        scale: "Accredited housing institution",
+        detail:
+          "Structured the legal package for an accredited social housing institution — land use rights, SHRA compliance, funding applications and construction contract frameworks.",
+      },
+      {
+        title: "Mixed-use JV restructuring",
+        sector: "Mixed-Use Development",
+        outcome: "JV concluded",
+        forum: "Negotiated transaction",
+        scale: "Landowner–developer JV",
+        detail:
+          "Negotiated and documented a joint venture between a landowner and a developer for a mixed-use scheme, including profit-share waterfalls and township obligations.",
+      },
+{
         title: "National bank panel registrations",
         sector: "Banking Panel",
         outcome: "1,000+ bonds registered",
@@ -550,8 +524,53 @@ export const PRACTICE_AREAS: PracticeArea[] = [
           "Opened sectional title registers for a residential scheme, coordinating with the developer, body corporate and lender panels.",
       },
     ],
-    stat: { value: 1000, suffix: "+", label: "Bonds registered" },
+    stat: { value: 40, suffix: "+", label: "Development mandates packaged" },
   },
+  {
+    slug: "mergers-acquisitions",
+    number: "06",
+    name: "Mergers & Acquisitions",
+    shortName: "Mergers & Acquisitions",
+    menuLabel: "Mergers & Acquisitions",
+    tagline: "Clear transaction strategy. Carefully documented execution.",
+    intro:
+      "Legal support for business acquisitions, disposals and strategic transactions — from initial structuring and due diligence through negotiation, transaction documentation, approvals and completion.",
+    accent: "#6f6248",
+    accentSoft: "#f4f0e8",
+    image: "/images/sa-team-boardroom.png",
+    icon: "handshake",
+    overview: [
+      "A business transaction needs more than a signed agreement. The parties, assets, liabilities, approvals, warranties, conditions and implementation steps must fit together so that the commercial bargain can be completed on a clear legal footing.",
+      "The practice's Mergers & Acquisitions service is focused on legal support for share and asset acquisitions and disposals, transaction structuring, due diligence, negotiation and the preparation of transaction documents. The work is scoped to the parties, the proposed deal structure and the relevant legal and regulatory requirements.",
+      "Where a transaction involves shareholders, joint venture partners, financing or regulatory considerations, the legal work can include the related agreements, corporate approvals, conditions precedent and completion arrangements needed to move the transaction forward.",
+    ],
+    scope: [
+      "Share and asset acquisition and disposal structuring",
+      "Legal due diligence and risk identification",
+      "Sale of shares and sale of business agreements",
+      "Shareholder and joint venture arrangements",
+      "Transaction negotiation and document review",
+      "Conditions precedent and completion mechanics",
+      "Corporate approvals and implementation documentation",
+      "Competition and regulatory considerations where applicable",
+    ],
+    delivery: [
+      "Transaction scoping and structure review",
+      "Due-diligence coordination and issue identification",
+      "Preparation and negotiation of transaction documents",
+      "Conditions precedent and approval tracking",
+      "Completion, handover and post-completion documentation",
+    ],
+    clients: [
+      "Businesses and corporate groups",
+      "Buyers and sellers",
+      "Shareholders and business owners",
+      "Investors and joint venture partners",
+    ],
+    matters: [],
+    stat: { value: 4, suffix: "", label: "Core legal workstreams" },
+  }
+
 ];
 
 export const getPractice = (slug: string) =>
@@ -640,7 +659,7 @@ export const SECTORS: Sector[] = [
     tagline: "Land, services and delivery — made lawful.",
     need: "Land-use approvals, township establishment oversight, infrastructure packaging and regulatory disputes.",
     response: "Land assembly legal packaging, municipal regulatory navigation and PPP structuring.",
-    practices: ["real-estate-development", "conveyancing-property"],
+    practices: ["real-estate-development"],
     fileRef: ["real-estate-development", 0],
   },
   {
@@ -649,8 +668,8 @@ export const SECTORS: Sector[] = [
     tagline: "Portfolios managed like endowments.",
     need: "Commercial property portfolio management, high-value transfer packaging and institutional dispute resolution.",
     response: "Dedicated conveyancing infrastructure, portfolio management and commercial contract advisory.",
-    practices: ["conveyancing-property", "commercial-litigation"],
-    fileRef: ["conveyancing-property", 1],
+    practices: ["real-estate-development", "commercial-litigation"],
+    fileRef: ["real-estate-development", 4],
   },
   {
     name: "Banks & DFIs",
@@ -658,7 +677,7 @@ export const SECTORS: Sector[] = [
     tagline: "Security packages that survive enforcement.",
     need: "Complex loan and security documentation, mortgage bond registrations and workout management.",
     response: "Specialised banking and development finance practice with complete panel-readiness.",
-    practices: ["banking-finance", "conveyancing-property"],
+    practices: ["banking-finance", "real-estate-development"],
     fileRef: ["banking-finance", 1],
   },
   {
@@ -676,8 +695,8 @@ export const SECTORS: Sector[] = [
     tagline: "Succession without disruption.",
     need: "Confidential practice succession, seamless client handovers, staff retention and firm continuity.",
     response: "The structured “Joining the Firm” succession model with discreet, multi-phase transitions.",
-    practices: ["conveyancing-property", "commercial-litigation"],
-    fileRef: ["conveyancing-property", 2],
+    practices: ["real-estate-development", "commercial-litigation"],
+    fileRef: ["real-estate-development", 5],
   },
 ];
 
@@ -740,7 +759,7 @@ export const FEE_MODELS = [
 
 export const FAQS = [
   {
-    q: "How do I start a mandate with Kgariya Inc.?",
+    q: "How do I start a mandate with Kgariya Attorneys?",
     a: "Begin with a practice-routed enquiry via any form on this site, by telephone, or by email. We complete conflict screening first; once it clears, we schedule a scoping consultation and confirm the fee model in writing before any work starts.",
   },
   {
@@ -1021,26 +1040,6 @@ export const CREDENTIALS = [
 
 /** Courts, forums & regulators per practice (practice pages). */
 export const PRACTICE_FORUMS: Record<string, { name: string; note: string }[]> = {
-  "commercial-litigation": [
-    { name: "Gauteng Division, Pretoria", note: "High Court" },
-    { name: "Gauteng Local Division, Johannesburg", note: "High Court" },
-    { name: "Supreme Court of Appeal", note: "Bloemfontein" },
-    { name: "AFSA", note: "Arbitration" },
-    { name: "Magistrates' Courts", note: "Nationwide" },
-  ],
-  "real-estate-development": [
-    { name: "Municipal councils", note: "Approvals & rezoning" },
-    { name: "Gauteng planning tribunals", note: "Land use" },
-    { name: "NHBRC", note: "Enrolment" },
-    { name: "SHRA", note: "Social housing" },
-    { name: "Pretoria Deeds Registry", note: "Registrations" },
-  ],
-  "mining-resources": [
-    { name: "DMRE", note: "Mineral rights & rights conversions" },
-    { name: "Mining Titles Office", note: "Title deeds & cession" },
-    { name: "High Court", note: "Judicial review" },
-    { name: "Land Claims Court", note: "Restitution" },
-  ],
   "agricultural-finance": [
     { name: "Land & Agricultural Development Bank", note: "DFI finance" },
     { name: "National Credit Regulator", note: "Credit compliance" },
@@ -1053,12 +1052,33 @@ export const PRACTICE_FORUMS: Record<string, { name: string; note: string }[]> =
     { name: "National Credit Regulator", note: "Credit registration" },
     { name: "CIPC", note: "Company & security filings" },
   ],
-  "conveyancing-property": [
-    { name: "Pretoria Deeds Registry", note: "Transfers & bonds" },
+  "commercial-litigation": [
+    { name: "Gauteng Division, Pretoria", note: "High Court" },
+    { name: "Gauteng Local Division, Johannesburg", note: "High Court" },
+    { name: "Supreme Court of Appeal", note: "Bloemfontein" },
+    { name: "AFSA", note: "Arbitration" },
+    { name: "Magistrates' Courts", note: "Nationwide" },
+  ],
+  "mining-resources": [
+    { name: "DMRE", note: "Mineral rights & rights conversions" },
+    { name: "Mining Titles Office", note: "Title deeds & cession" },
+    { name: "High Court", note: "Judicial review" },
+    { name: "Land Claims Court", note: "Restitution" },
+  ],
+  "real-estate-development": [
+    { name: "Municipal councils", note: "Approvals & rezoning" },
+    { name: "Gauteng planning tribunals", note: "Land use" },
+    { name: "NHBRC", note: "Enrolment" },
+    { name: "SHRA", note: "Social housing" },
+    { name: "Pretoria Deeds Registry", note: "Transfers, bonds & registrations" },
     { name: "Master of the High Court", note: "Estates & endorsements" },
     { name: "PPRA", note: "Property practitioners" },
     { name: "SARS", note: "Transfer duty & clearance" },
     { name: "Municipalities", note: "Rates clearance" },
+  ],
+  "mergers-acquisitions": [
+    { name: "Competition Commission", note: "Merger control where applicable" },
+    { name: "CIPC", note: "Company filings" },
   ],
 };
 
