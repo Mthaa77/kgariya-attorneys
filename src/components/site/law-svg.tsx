@@ -127,7 +127,7 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
   const svgRef = useSvgEntrance();
   const goldId = useSvgId("ksvg-gold");
   return (
-    <svg ref={svgRef} viewBox="0 0 340 320" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 340 320" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* ambient glow */}
       <motion.circle
@@ -200,7 +200,7 @@ export function GavelStrikeArt({ className = "" }: { className?: string }) {
   const svgRef = useSvgEntrance();
   const goldId = useSvgId("kgav-gold");
   return (
-    <svg viewBox="0 0 260 240" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 260 240" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       <motion.circle
         cx="130" cy="140" r="100" fill={`url(#${goldId})`}
@@ -278,7 +278,7 @@ export function CourthouseColumnsArt({
   const dentils = Array.from({ length: 23 }, (_, i) => `M${124 + i * 14} 132 V148`).join(" ");
   const cols = [120, 200, 280, 360, 440];
   return (
-    <svg viewBox="0 0 560 330" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 560 330" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* rising sun over the pediment */}
       <motion.circle
@@ -329,7 +329,7 @@ export function ProteaEmblem({ className = "" }: { className?: string }) {
   const svgRef = useSvgEntrance();
   const goldId = useSvgId("kpro-gold");
   return (
-    <svg viewBox="0 0 200 200" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 200 200" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* outer dashed ring — slow rotate */}
       <Fade duration={1.4}>
@@ -424,7 +424,7 @@ export function SAMandateMap({ className = "" }: { className?: string }) {
   const svgRef = useSvgEntrance();
   const goldId = useSvgId("kmap-gold");
   return (
-    <svg viewBox="0 0 460 400" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 460 400" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* graticule */}
       <Fade duration={1.2}>
@@ -532,7 +532,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
   const svgRef = useSvgEntrance();
   const goldId = useSvgId("ksig-gold");
   return (
-    <svg viewBox="0 0 280 240" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 280 240" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* document */}
       <motion.g initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEW} transition={{ duration: 0.8, ease: EASE }}>
@@ -602,7 +602,7 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
   const goldId = useSvgId("kseal-gold");
   const arcId = useSvgId("kseal-arc");
   return (
-    <svg viewBox="0 0 200 200" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 200 200" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       <defs>
         <path id={arcId} d="M100 24 a76 76 0 1 1 -0.01 0" fill="none" />
@@ -729,7 +729,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
     transformOrigin: `${CODEX_CX}px ${CODEX_CY}px`,
   };
   return (
-    <svg viewBox="0 0 760 470" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 760 470" fill="none" className={`svg-art ${className}`} aria-hidden="true">
       <GoldDefs id={goldId} />
       <defs>
         <radialGradient id={haloId} cx="0.5" cy="0.5" r="0.5">
