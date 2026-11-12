@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Kgariya Attorneys Incorporated premium navy-and-gold brand mark";
+export const alt = "Kgariya Attorneys premium navy-and-gold brand mark";
 export const size = {
   width: 1200,
   height: 630,
@@ -150,7 +150,7 @@ export default function OpenGraphImage() {
                   display: "flex",
                 }}
               >
-                ATTORNEYS INCORPORATED
+                ATTORNEYS
               </div>
               <div
                 style={{
