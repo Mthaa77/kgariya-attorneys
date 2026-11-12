@@ -57,7 +57,7 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
 }
 
 /** Full horizontal lockup: crest + wordmark. */
-/** Official brand lockup supplied by Kgariya Attorneys Incorporated. */
+/** Official brand lockup supplied by Kgariya Attorneys. */
 /** Official Kgariya Attorneys lockup: emblem plus legible firm name. */
 export function Logo({
   dark = false,
@@ -122,7 +122,7 @@ export function Logo({
             dark ? "text-gold-300" : "text-gold-700"
           )}
         >
-          ATTORNEYS INCORPORATED
+          ATTORNEYS
         </span>
       </span>
     </span>
