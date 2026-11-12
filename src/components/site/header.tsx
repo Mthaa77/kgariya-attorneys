@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import {
   ArrowRight,
   Building2,
@@ -136,6 +136,7 @@ const TRAY_MEDIA: Record<string, { src: string; caption: string; alt: string }> 
 };
 
 function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
+  const reduceMotion = useReducedMotion();
   const [activeSlug, setActiveSlug] = useState(PRACTICE_AREAS[0].slug);
   const active = getPractice(activeSlug) ?? PRACTICE_AREAS[0];
   const media = TRAY_MEDIA[active.slug];
@@ -174,9 +175,11 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
               return (
                 <motion.button
                   key={p.slug}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.34, delay: 0.06 + i * 0.045, ease: EASE }}
+                  initial={reduceMotion ? false : { opacity: 0, x: -12, scale: 0.985 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  whileHover={reduceMotion ? undefined : { x: 3 }}
+                  whileTap={reduceMotion ? undefined : { scale: 0.985 }}
+                  transition={reduceMotion ? { duration: 0.01 } : { duration: 0.36, delay: 0.045 + i * 0.035, ease: EASE }}
                   onMouseEnter={() => setActiveSlug(p.slug)}
                   onFocus={() => setActiveSlug(p.slug)}
                   onClick={() => {
@@ -184,7 +187,7 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
                     onNavigate?.();
                   }}
                   aria-current={isActive}
-                  className="relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left outline-none"
+                  className="relative flex w-full items-center gap-3 rounded-xl border border-transparent px-3 py-2.5 text-left outline-none transition-colors duration-300 hover:border-white/10 hover:bg-white/[0.035] focus-visible:ring-2 focus-visible:ring-gold-400/70"
                 >
                   {isActive && (
                     <motion.span
@@ -201,7 +204,7 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
                     />
                   )}
                   <span
-                    className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white shadow-sm transition-transform duration-300"
+                    className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-white shadow-sm transition-transform duration-500 group-hover:scale-105"
                     style={{ backgroundColor: p.accent }}
                   >
                     <Icon name={p.icon} className="h-4 w-4" />
@@ -346,6 +349,7 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export function Header() {
+  const reduceMotion = useReducedMotion();
   const route = useRoute();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -416,9 +420,17 @@ export function Header() {
               <button
                 onClick={() => navigate("#/")}
                 aria-label="Kgariya Attorneys — home"
-                className="min-w-0 shrink-0 transition-transform duration-300 hover:scale-[1.02]"
+                className="group flex min-w-0 shrink-0 items-center gap-2.5 rounded-full text-left outline-none transition-transform duration-500 hover:scale-[1.015] focus-visible:ring-2 focus-visible:ring-gold-400/70 focus-visible:ring-offset-4 focus-visible:ring-offset-navy-950 sm:gap-3"
               >
-                <Logo dark navbar className="max-w-full" />
+                <Logo dark navbar className="transition-shadow duration-500 group-hover:shadow-gold" />
+                <span className="flex min-w-0 flex-col justify-center leading-none">
+                  <span className="font-display text-[13.5px] font-bold uppercase tracking-[0.16em] text-white sm:text-[15px]">
+                    Kgariya
+                  </span>
+                  <span className="mt-1.5 text-[8px] font-extrabold uppercase tracking-[0.34em] text-gold-300 sm:text-[8.5px]">
+                    Attorneys
+                  </span>
+                </span>
               </button>
 
               {/* Desktop nav */}
@@ -433,15 +445,18 @@ export function Header() {
                     onMouseEnter={() => setPaHover(true)}
                     aria-haspopup="true"
                     aria-expanded={paHover}
+                    onFocus={() => setPaHover(true)}
+                    aria-current={practiceActive ? "page" : undefined}
                     className={cn(
-                      "relative flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2 text-[13px] font-semibold transition-colors duration-300",
-                      practiceActive || paHover ? "text-gold-300" : "text-white/80 hover:text-white"
+                      "relative flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2 text-[13px] font-semibold outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-gold-400/70",
+                      practiceActive || paHover ? "text-gold-200" : "text-white/75 hover:text-white"
                     )}
                   >
-                    {paHover && (
+                    {(practiceActive || paHover) && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full bg-white/10"
+                        initial={false}
+                        className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.14] to-white/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-white/10"
                         transition={SPRING}
                       />
                     )}
@@ -462,15 +477,18 @@ export function Header() {
                       key={item.route}
                       onClick={() => navigate(item.route)}
                       onMouseEnter={() => setHovered(item.route)}
+                      onFocus={() => setHovered(item.route)}
+                      aria-current={active ? "page" : undefined}
                       className={cn(
-                        "relative whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-semibold transition-colors duration-300",
-                        active ? "text-gold-300" : "text-white/80 hover:text-white"
+                        "relative whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-semibold outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-gold-400/70",
+                        active || hovered === item.route ? "text-gold-200" : "text-white/75 hover:text-white"
                       )}
                     >
-                      {hovered === item.route && (
+                      {(active || hovered === item.route) && (
                         <motion.span
                           layoutId="nav-pill"
-                          className="absolute inset-0 rounded-full bg-white/10"
+                          initial={false}
+                          className="absolute inset-0 rounded-full bg-gradient-to-b from-white/[0.14] to-white/[0.055] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-white/10"
                           transition={SPRING}
                         />
                       )}
@@ -493,9 +511,10 @@ export function Header() {
                 <button
                   onClick={() => setMobileOpen(true)}
                   aria-label="Open menu"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-500 text-navy-950 shadow-gold transition-transform duration-300 hover:scale-105 xl:hidden"
+                  aria-expanded={mobileOpen}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold-200/35 bg-gradient-to-br from-gold-300 via-gold-500 to-gold-600 text-navy-950 shadow-[0_5px_18px_rgba(198,165,92,0.28)] outline-none transition-[transform,box-shadow] duration-500 hover:scale-[1.06] hover:shadow-[0_8px_24px_rgba(198,165,92,0.36)] focus-visible:ring-2 focus-visible:ring-gold-200/80 focus-visible:ring-offset-4 focus-visible:ring-offset-navy-950 active:scale-95 xl:hidden"
                 >
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-[18px] w-[18px]" />
                 </button>
               </div>
 
@@ -510,13 +529,13 @@ export function Header() {
               />
 
               {/* ——— The practice tray, anchored to the capsule ——— */}
-              <AnimatePresence>
+              <AnimatePresence initial={false}>
                 {paHover && (
                   <motion.div
-                    initial={{ opacity: 0, y: 16, scale: 0.96, filter: "blur(8px)" }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.975, filter: "blur(7px)" }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: 10, scale: 0.98, filter: "blur(5px)" }}
-                    transition={{ duration: 0.34, ease: EASE }}
+                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 9, scale: 0.99, filter: "blur(4px)" }}
+                    transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, ease: EASE }}
                     className="absolute left-2 top-full z-50 origin-top sm:left-4"
                   >
                     <PracticeMenu />
@@ -547,8 +566,16 @@ export function Header() {
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/35 to-navy-950/10" />
-            <div className="absolute left-5 top-5">
-              <Logo dark navbar />
+            <div className="absolute left-5 top-5 flex items-center gap-2.5 rounded-full border border-white/15 bg-navy-950/60 py-1.5 pl-1.5 pr-4 shadow-luxe backdrop-blur-xl">
+              <Logo dark navbar className="!h-10 !w-10 border-white/25" />
+              <span className="flex flex-col leading-none">
+                <span className="font-display text-[13px] font-bold uppercase tracking-[0.14em] text-white">
+                  Kgariya
+                </span>
+                <span className="mt-1.5 text-[8px] font-extrabold uppercase tracking-[0.32em] text-gold-300">
+                  Attorneys
+                </span>
+              </span>
             </div>
             <div className="absolute inset-x-5 bottom-4">
               <motion.p
@@ -586,7 +613,8 @@ export function Header() {
             {/* Practice areas accordion */}
             <button
               onClick={() => setPaOpen((v) => !v)}
-              className="flex w-full items-center justify-between rounded-xl bg-white/[0.06] px-4 py-3.5 text-[15px] font-bold text-white ring-1 ring-white/10 transition-colors hover:bg-white/[0.09]"
+              aria-expanded={paOpen}
+              className="flex w-full items-center justify-between rounded-xl border border-white/10 bg-gradient-to-r from-white/[0.085] to-white/[0.035] px-4 py-3.5 text-[15px] font-bold text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-[background,border-color,transform] duration-300 hover:border-gold-400/25 hover:from-white/[0.11] hover:to-white/[0.05] active:scale-[0.99]"
             >
               <span className="flex items-center gap-3">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gold-500/15 text-gold-300">
@@ -614,9 +642,11 @@ export function Header() {
                     {PRACTICE_AREAS.map((p, i) => (
                       <motion.button
                         key={p.slug}
-                        initial={{ opacity: 0, x: -14 }}
+                        initial={reduceMotion ? false : { opacity: 0, x: -14 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.32, delay: i * 0.045, ease: EASE }}
+                        whileHover={reduceMotion ? undefined : { x: 3 }}
+                        whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+                        transition={reduceMotion ? { duration: 0.01 } : { duration: 0.34, delay: i * 0.035, ease: EASE }}
                         onClick={() => {
                           navigate(`#/practice/${p.slug}`);
                           setMobileOpen(false);
@@ -653,10 +683,15 @@ export function Header() {
                 return (
                   <motion.button
                     key={item.route}
-                    initial={{ opacity: 0, x: -14 }}
+                    initial={reduceMotion ? false : { opacity: 0, x: -14 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.32, delay: 0.05 + i * 0.04, ease: EASE }}
-                    onClick={() => navigate(item.route)}
+                    whileHover={reduceMotion ? undefined : { x: 3 }}
+                    whileTap={reduceMotion ? undefined : { scale: 0.99 }}
+                    transition={reduceMotion ? { duration: 0.01 } : { duration: 0.34, delay: 0.045 + i * 0.035, ease: EASE }}
+                    onClick={() => {
+                      navigate(item.route);
+                      setMobileOpen(false);
+                    }}
                     className={cn(
                       "flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-[15px] font-semibold transition-colors",
                       active
