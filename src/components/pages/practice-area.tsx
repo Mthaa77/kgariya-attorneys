@@ -95,7 +95,7 @@ function PracticeHero({
                 Practice area {area.number}
               </span>
               <span className="text-[11px] font-semibold tracking-[0.08em] text-white/45">
-                KGARIYA ATTORNEYS INCORPORATED
+                KGARIYA ATTORNEYS
               </span>
             </motion.div>
 
@@ -272,7 +272,7 @@ export function PracticeAreaPage({ slug }: { slug: string }) {
                 </p>
                 <span className="mt-5 block h-px w-12 bg-gold-500" />
                 <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
-                  Kgariya Attorneys Incorporated
+                  Kgariya Attorneys
                 </p>
               </div>
             </Reveal>
