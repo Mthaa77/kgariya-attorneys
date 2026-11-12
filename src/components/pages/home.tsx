@@ -105,7 +105,7 @@ export function HomePage() {
                   <span className="gold-text italic">institutional</span> mandate.
                 </>
               }
-              lead="Kgariya Attorneys Incorporated has evolved into a focused commercial practice spanning agricultural finance, banking and finance, litigation and arbitration, mining-adjacent legal work, real estate development and conveyancing, and mergers and acquisitions. The firm concentrates on six specialist practices where it can bring focused legal attention to complex mandates."
+              lead="Kgariya Attorneys has evolved into a focused commercial practice spanning agricultural finance, banking and finance, litigation and arbitration, mining-adjacent legal work, real estate development and conveyancing, and mergers and acquisitions. The firm concentrates on six specialist practices where it can bring focused legal attention to complex mandates."
             />
             <Reveal delay={0.15}>
               <p className="mt-5 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">
@@ -515,7 +515,7 @@ export function HomePage() {
               <div className="relative h-[520px] w-full overflow-hidden rounded-[2rem] shadow-luxe-lg">
                 <ImageReveal
                   src={DIRECTOR.photo}
-                  alt="Portrait of the Founding Director of Kgariya Attorneys Incorporated"
+                  alt="Portrait of the Founding Director of Kgariya Attorneys"
                   className="h-full w-full"
                   imgClassName="object-top"
                 />
