@@ -71,7 +71,7 @@ export function WelcomeFilm() {
               playsInline
               poster="/images/kgariya-mark.webp"
               preload="metadata"
-              aria-label="Animated Kgariya Attorneys Incorporated logo"
+              aria-label="Animated Kgariya Attorneys logo"
             >
               <source src="/videos/kgariya-welcome-film.mp4" type="video/mp4" />
               Your browser does not support the video element.
@@ -89,7 +89,7 @@ export function WelcomeFilm() {
 
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-navy-950/35 via-transparent to-gold-200/10" />
             <div className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-navy-950/55 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-gold-200 backdrop-blur-md">
-              Kgariya Attorneys Incorporated
+              Kgariya Attorneys
             </div>
           </div>
 
@@ -118,7 +118,7 @@ export function WelcomeFilm() {
           </h2>
           <div className="mt-6 h-px w-24 bg-gold-500" />
           <p className="mt-7 text-[15px] leading-relaxed text-white/65">
-            Kgariya Attorneys Incorporated brings together commercial judgement,
+            Kgariya Attorneys brings together commercial judgement,
             disciplined legal craft and a clear understanding of how institutions
             make decisions. Every matter begins with listening, then moves with purpose.
           </p>
