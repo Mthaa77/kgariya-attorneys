@@ -93,13 +93,14 @@ export function WelcomeFilm() {
             </div>
           </div>
 
-          <div className="absolute -bottom-7 -right-4 hidden w-36 rotate-3 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-luxe-lg sm:block lg:-right-8">
+          <div className="absolute -bottom-7 -right-4 hidden w-40 rotate-3 overflow-hidden rounded-2xl border-4 border-white bg-[#f5f4ef] shadow-luxe-lg sm:block lg:-right-8">
             <Image
-              src="/images/kgariya-mark.webp"
-              alt="Official Kgariya Attorneys emblem"
-              width={384}
-              height={358}
-              className="aspect-[4/5] object-contain"
+              src="/images/kgariya-full-logo.webp"
+              alt="Kgariya Attorneys full company logo"
+              width={400}
+              height={400}
+              sizes="160px"
+              className="aspect-square w-full object-contain"
               unoptimized
             />
           </div>
