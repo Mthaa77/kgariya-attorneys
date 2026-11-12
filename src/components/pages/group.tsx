@@ -31,7 +31,7 @@ export function GroupPage() {
       <PageHero
         eyebrow="Kgariya & Co Group"
         title="Legal advice anchored to real projects."
-        lead="Kgariya Attorneys Inc. operates with the strategic support of the broader Kgariya & Co Group — complementary capability across real estate development, construction management, and property & financial advisory."
+        lead="Kgariya Attorneys operates with the strategic support of the broader Kgariya & Co Group — complementary capability across real estate development, construction management, and property & financial advisory."
         image="/images/group-construction.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "Kgariya & Co Group" }]}
       />
@@ -96,7 +96,7 @@ export function GroupPage() {
                   insight.
                 </>
               }
-              lead="By observing and participating in the practical mechanics of project cost modelling, construction risk mitigation and property financing across group projects, Kgariya Inc. delivers legal advisory work that accounts for operational realities, project cash flows and commercial risk parameters."
+              lead="By observing and participating in the practical mechanics of project cost modelling, construction risk mitigation and property financing across group projects, Kgariya Attorneys delivers legal advisory work that accounts for operational realities, project cash flows and commercial risk parameters."
             />
             <Reveal delay={0.15}>
               <div className="mt-8 rounded-3xl border border-gold-500/30 bg-gold-500/10 p-6">
