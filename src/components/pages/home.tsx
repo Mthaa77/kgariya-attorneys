@@ -253,8 +253,8 @@ export function HomePage() {
           </div>
 
           {/* Animated courthouse ornament — the courts above the practice */}
-          <Reveal className="mt-12 hidden justify-center lg:flex">
-            <CourthouseColumnsArt className="w-[440px] opacity-55" />
+          <Reveal className="mt-8 flex justify-center sm:mt-12">
+            <CourthouseColumnsArt className="w-full max-w-[260px] opacity-40 sm:max-w-[360px] sm:opacity-45 lg:max-w-[440px] lg:opacity-55" />
           </Reveal>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -311,7 +311,7 @@ export function HomePage() {
  />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Animated scales ghost — the showpiece behind the heading */}
-          <ScalesOfJusticeArt className="pointer-events-none absolute left-1/2 top-0 hidden w-[520px] -translate-x-1/2 -translate-y-[38%] opacity-[0.16] md:block" />
+          <ScalesOfJusticeArt className="pointer-events-none absolute left-1/2 top-0 block w-[300px] -translate-x-1/2 -translate-y-[38%] opacity-[0.07] sm:w-[420px] sm:opacity-[0.11] md:w-[520px] md:opacity-[0.16]" />
           <SectionHeading
             dark
             align="center"
@@ -629,7 +629,7 @@ export function HomePage() {
         <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Animated gavel — strikes at matter close */}
-          <GavelStrikeArt className="pointer-events-none absolute -top-6 right-2 hidden w-[210px] opacity-85 xl:block" />
+          <GavelStrikeArt className="pointer-events-none absolute -top-5 right-2 hidden w-[120px] opacity-40 md:block md:w-[145px] md:opacity-50 lg:w-[175px] lg:opacity-65 xl:w-[210px] xl:opacity-85" />
           <SectionHeading
             dark
             eyebrow="How we engage"
@@ -656,7 +656,7 @@ export function HomePage() {
         />
         <div className="relative mx-auto max-w-7xl px-6">
           {/* Animated contract signing — agreed in writing */}
-          <ContractSigningArt className="pointer-events-none absolute -top-8 right-0 hidden w-[240px] lg:block" />
+          <ContractSigningArt className="pointer-events-none absolute -top-8 right-0 hidden w-[140px] opacity-40 md:block md:w-[170px] md:opacity-45 lg:w-[200px] lg:opacity-60 xl:w-[240px]" />
           <SectionHeading
             eyebrow="Fee transparency"
             title={
@@ -718,7 +718,7 @@ export function HomePage() {
             <div className="animate-aurora pointer-events-none absolute -right-20 -top-24 h-80 w-96 rounded-full bg-gold-500/15 blur-[100px]" />
             <div className="pointer-events-none absolute -bottom-28 -left-16 h-72 w-72 rounded-full bg-gold-400/10 blur-[90px]" />
             {/* Rotating justice seal watermark */}
-            <JusticeSeal className="pointer-events-none absolute -right-12 -top-12 hidden w-52 opacity-25 md:block" />
+            <JusticeSeal className="pointer-events-none absolute -right-7 -top-7 hidden w-32 opacity-15 sm:block sm:w-40 sm:opacity-20 md:-right-12 md:-top-12 md:w-52 md:opacity-25" />
             <div className="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
               <div>
                 <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-gold-300">
@@ -903,8 +903,8 @@ export function HomePage() {
               </Button>
             </Reveal>
             {/* King protea — national flower emblem */}
-            <Reveal delay={0.2} className="mt-12 hidden sm:block">
-              <ProteaEmblem className="w-36" />
+            <Reveal delay={0.2} className="mt-10 flex flex-col items-center text-center sm:mt-12">
+              <ProteaEmblem className="w-24 sm:w-36" />
               <p className="mt-3 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/60">
                 King protea · South Africa’s national flower
               </p>

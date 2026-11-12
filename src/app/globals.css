@@ -563,7 +563,10 @@
   .animate-marquee,
   .animate-marquee-slow,
   .animate-light-sweep,
-  .animate-scroll-cue {
+  .animate-scroll-cue,
+  .animate-shimmer,
+  .gold-text-shine,
+  .gradient-ring::before {
     animation: none !important;
   }
 
@@ -571,5 +574,251 @@
   *::before,
   *::after {
     scroll-behavior: auto !important;
+  }
+}
+
+
+/* ————————————————— Kgariya native SVG motion —————————————————
+   The SVG artwork uses native CSS animation so it remains reliable across
+   browsers, independently of JS motion scheduling. SVG strokes are revealed
+   by the IntersectionObserver in law-svg.tsx. */
+
+.svg-art [data-svg-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+
+.svg-art [data-svg-fade] {
+  opacity: 0;
+}
+
+.svg-art.is-inview [data-svg-draw] {
+  animation: kg-svg-draw var(--svg-draw-duration, 1.2s) cubic-bezier(0.22, 1, 0.36, 1) var(--svg-draw-delay, 0s) both;
+}
+
+.svg-art.is-inview [data-svg-fade] {
+  animation: kg-svg-fade var(--svg-draw-duration, 0.9s) ease-out var(--svg-draw-delay, 0s) both;
+}
+
+@keyframes kg-svg-draw {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+
+@keyframes kg-svg-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scales: counter-phase pendulum pans */
+.svg-loop-pan-left,
+.svg-loop-codex-pan-left {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: kg-svg-pan-left 6.4s ease-in-out infinite;
+}
+
+.svg-loop-pan-right,
+.svg-loop-codex-pan-right {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: kg-svg-pan-right 6.4s ease-in-out 0.35s infinite;
+}
+
+@keyframes kg-svg-pan-left {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2.4deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+@keyframes kg-svg-pan-right {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2.4deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(2deg); }
+}
+
+/* Gavel: measured strike, followed by a quiet reset */
+.svg-loop-gavel {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: kg-svg-gavel 3.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes kg-svg-gavel {
+  0%, 100% { transform: rotate(-18deg); }
+  30% { transform: rotate(4deg); }
+  45% { transform: rotate(4deg); }
+}
+
+.svg-gavel-impact {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-impact 3.6s ease-out infinite;
+}
+.svg-gavel-impact-0 { animation-delay: 1.3s; }
+.svg-gavel-impact-1 { animation-delay: 1.5s; }
+
+@keyframes kg-svg-impact {
+  0%, 16% { opacity: 0; transform: scale(0.8); }
+  23% { opacity: 0.75; transform: scale(1); }
+  100% { opacity: 0; transform: scale(5.2); }
+}
+
+.svg-gavel-spark-a,
+.svg-gavel-spark-b {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-spark 3.6s ease-out infinite;
+}
+.svg-gavel-spark-a { animation-delay: 1.32s; }
+.svg-gavel-spark-b { animation-delay: 1.38s; }
+
+@keyframes kg-svg-spark {
+  0%, 18% { opacity: 0; transform: translate(0, 0); }
+  24% { opacity: 1; transform: translate(0, 0); }
+  34%, 100% { opacity: 0; transform: translate(6px, -5px); }
+}
+
+/* Courthouse halo and protea breathing/ring */
+.svg-loop-courthouse-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-spin 70s linear infinite;
+}
+.svg-loop-protea-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-spin 90s linear infinite;
+}
+.svg-loop-protea-bloom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-breathe 5s ease-in-out infinite;
+}
+
+@keyframes kg-svg-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes kg-svg-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* South Africa map: travelling mandate comets and Gauteng pulse */
+.svg-map-comet {
+  animation: kg-svg-comet 2.8s linear infinite;
+}
+@keyframes kg-svg-comet {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1; }
+}
+.svg-map-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-ripple 2.2s ease-out infinite;
+}
+.svg-map-ripple-0 { animation-delay: 3s; }
+.svg-map-ripple-1 { animation-delay: 4.1s; }
+@keyframes kg-svg-ripple {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(4.35); }
+}
+
+/* Contract signing: pen travels the signature; wax seal breathes */
+.svg-contract-pen {
+  animation: kg-svg-pen 1.5s ease-in-out 1.3s both;
+}
+@keyframes kg-svg-pen {
+  0% { translate: 0 0; opacity: 0; }
+  15% { opacity: 1; }
+  25% { translate: 26px -9px; opacity: 1; }
+  50% { translate: 52px 0; opacity: 1; }
+  75% { translate: 78px -8px; opacity: 1; }
+  100% { translate: 100px -14px; opacity: 1; }
+}
+.svg-contract-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-contract-glow 2.4s ease-out 3.4s infinite;
+}
+@keyframes kg-svg-contract-glow {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+
+/* Rotating justice seal and codex orbit system */
+.svg-loop-justice-text,
+.svg-loop-codex-inner,
+.svg-loop-codex-rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-spin 90s linear infinite;
+}
+.svg-loop-justice-ring,
+.svg-loop-codex-outer,
+.svg-loop-codex-orbit {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kg-svg-spin-reverse 70s linear infinite;
+}
+.svg-loop-codex-inner { animation-duration: 80s; }
+.svg-loop-codex-outer { animation-duration: 110s; }
+.svg-loop-codex-rays { animation-duration: 120s; }
+.svg-loop-codex-orbit { animation-duration: 55s; }
+.svg-loop-justice-text { animation-duration: 90s; }
+.svg-loop-justice-ring { animation-duration: 60s; }
+
+@keyframes kg-svg-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+.svg-loop-codex-float {
+  animation: kg-svg-codex-float 7s ease-in-out infinite;
+}
+@keyframes kg-svg-codex-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+/* Reduced-motion users still receive the complete, readable illustrations. */
+@media (prefers-reduced-motion: reduce) {
+  .svg-art .svg-draw,
+  .svg-art [data-svg-draw] {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+  }
+
+  .svg-art [data-svg-fade] {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .svg-art .svg-loop-pan-left,
+  .svg-art .svg-loop-pan-right,
+  .svg-art .svg-loop-codex-pan-left,
+  .svg-art .svg-loop-codex-pan-right,
+  .svg-art .svg-loop-gavel,
+  .svg-art .svg-gavel-impact,
+  .svg-art .svg-gavel-spark-a,
+  .svg-art .svg-gavel-spark-b,
+  .svg-art .svg-loop-courthouse-halo,
+  .svg-art .svg-loop-protea-ring,
+  .svg-art .svg-loop-protea-bloom,
+  .svg-art .svg-map-comet,
+  .svg-art .svg-map-ripple,
+  .svg-art .svg-contract-pen,
+  .svg-art .svg-contract-glow,
+  .svg-art .svg-loop-justice-text,
+  .svg-art .svg-loop-justice-ring,
+  .svg-art .svg-loop-codex-inner,
+  .svg-art .svg-loop-codex-outer,
+  .svg-art .svg-loop-codex-rays,
+  .svg-art .svg-loop-codex-orbit,
+  .svg-art .svg-loop-codex-float {
+    animation: none !important;
   }
 }
