@@ -10,13 +10,58 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useId } from "react";
+import { useEffect, useId, useRef } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const VIEW = { once: true, margin: "80px" } as const;
 
 function useSvgId(prefix: string) {
   return `${prefix}-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+}
+
+/**
+ * Native browser observer for SVG entrance choreography.
+ * We avoid the stalled SVG animation runtime and use CSS keyframes instead.
+ */
+function useSvgEntrance() {
+  const ref = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    const svg = ref.current;
+    if (!svg) return;
+
+    const prepare = () => {
+      svg.querySelectorAll<SVGElement>("[data-svg-draw], [data-svg-fade]").forEach((element) => {
+        const delay = Number(element.getAttribute("data-svg-delay") ?? 0);
+        const duration = Number(element.getAttribute("data-svg-duration") ?? 1);
+        element.style.setProperty("--svg-draw-delay", `${Number.isFinite(delay) ? delay : 0}s`);
+        element.style.setProperty("--svg-draw-duration", `${Number.isFinite(duration) && duration > 0 ? duration : 1}s`);
+      });
+    };
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    prepare();
+
+    if (reduced) {
+      svg.classList.add("is-inview");
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          svg.classList.add("is-inview");
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "80px 0px" },
+    );
+
+    observer.observe(svg);
+    return () => observer.disconnect();
+  }, []);
+
+  return ref;
 }
 
 /* Brand palette (matches globals.css tokens) */
@@ -40,15 +85,12 @@ function GoldDefs({ id }: { id: string }) {
 }
 
 /** Draw-on stroke: pathLength 0 → 1 when scrolled into view (once). */
-function draw(reduced: boolean | null, delay = 0, duration = 1.2) {
+function draw(_reduced: boolean | null, delay = 0, duration = 1.2) {
   return {
-    initial: { pathLength: reduced ? 1 : 0, opacity: reduced ? 1 : 0 },
-    whileInView: { pathLength: 1, opacity: 1 },
-    viewport: VIEW,
-    transition: {
-      pathLength: { delay, duration, ease: EASE },
-      opacity: { delay, duration: 0.3, ease: "easeOut" as const },
-    },
+    pathLength: 1,
+    "data-svg-draw": "",
+    "data-svg-delay": delay,
+    "data-svg-duration": duration,
   };
 }
 
@@ -64,17 +106,15 @@ function Fade({
   duration?: number;
   className?: string;
 }) {
-  const reduced = useReducedMotion();
   return (
-    <motion.g
-      initial={reduced ? false : { opacity: 0 }}
-      whileInView={reduced ? undefined : { opacity: 1 }}
-      viewport={VIEW}
-      transition={{ delay, duration, ease: "easeOut" }}
+    <g
+      data-svg-fade=""
+      data-svg-delay={delay}
+      data-svg-duration={duration}
       className={className}
     >
       {children}
-    </motion.g>
+    </g>
   );
 }
 
@@ -84,9 +124,10 @@ function Fade({
 
 export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("ksvg-gold");
   return (
-    <svg viewBox="0 0 340 320" fill="none" className={className} aria-hidden="true">
+    <svg ref={svgRef} viewBox="0 0 340 320" fill="none" className={className} aria-hidden="true">
       <GoldDefs id={goldId} />
       {/* ambient glow */}
       <motion.circle
@@ -114,6 +155,7 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
       />
       {/* left pan — pendulum sway */}
       <motion.g
+        className="svg-loop-pan-left"
         style={{ transformBox: "fill-box", transformOrigin: "top center" }}
         animate={reduced ? undefined : { rotate: [0, 2.4, 0, -2, 0] }}
         transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
@@ -124,6 +166,7 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
       </motion.g>
       {/* right pan — opposite phase */}
       <motion.g
+        className="svg-loop-pan-right"
         style={{ transformBox: "fill-box", transformOrigin: "top center" }}
         animate={reduced ? undefined : { rotate: [0, -2.4, 0, 2, 0] }}
         transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
@@ -154,6 +197,7 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
 
 export function GavelStrikeArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kgav-gold");
   return (
     <svg viewBox="0 0 260 240" fill="none" className={className} aria-hidden="true">
@@ -169,7 +213,7 @@ export function GavelStrikeArt({ className = "" }: { className?: string }) {
       {/* impact rings — synced to the strike */}
       {[0, 1].map((i) => (
         <motion.circle
-          key={i} cx="168" cy="174" r="5" fill="none" stroke={`url(#${goldId})`} strokeWidth="1.8"
+          key={i} className={`svg-gavel-impact svg-gavel-impact-${i}`} cx="168" cy="174" r="5" fill="none" stroke={`url(#${goldId})`} strokeWidth="1.8"
           initial={{ opacity: 0 }}
           animate={reduced ? { opacity: 0 } : { opacity: [0, 0.75, 0], r: [4, 26] }}
           transition={{ duration: 0.85, times: [0, 0.25, 1], repeat: Infinity, repeatDelay: 2.75, delay: 1.3 + i * 0.2, ease: "easeOut" }}
@@ -177,19 +221,20 @@ export function GavelStrikeArt({ className = "" }: { className?: string }) {
       ))}
       {/* sparks */}
       <motion.path
-        d="M196 160 L206 150" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
+        d="M196 160 L206 150" className="svg-gavel-spark-a" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
         initial={{ opacity: 0 }}
         animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], x: [0, 5], y: [0, -5] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3.1, delay: 1.32, ease: "easeOut" }}
       />
       <motion.path
-        d="M204 174 L217 170" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
+        d="M204 174 L217 170" className="svg-gavel-spark-b" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
         initial={{ opacity: 0 }}
         animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], x: [0, 6] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3.1, delay: 1.38, ease: "easeOut" }}
       />
       {/* gavel — pivot at handle end */}
       <motion.g
+        className="svg-loop-gavel"
         style={{ transformBox: "fill-box", transformOrigin: "0% 100%" }}
         animate={reduced ? undefined : { rotate: [-18, 4, 4, -18] }}
         transition={{ duration: 3.6, times: [0, 0.3, 0.45, 1], repeat: Infinity, ease: ["easeIn", "easeOut", "easeInOut"] }}
@@ -227,6 +272,7 @@ export function CourthouseColumnsArt({
   tone?: "light" | "dark";
 }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kcol-gold");
   const line = tone === "dark" ? IVORY : NAVY;
   const dentils = Array.from({ length: 23 }, (_, i) => `M${124 + i * 14} 132 V148`).join(" ");
@@ -242,6 +288,7 @@ export function CourthouseColumnsArt({
       />
       <Fade delay={0.9} duration={1.2}>
         <motion.g
+          className="svg-loop-courthouse-halo"
           style={{ transformBox: "fill-box", transformOrigin: "center" }}
           animate={reduced ? undefined : { rotate: 360 }}
           transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
@@ -279,6 +326,7 @@ const PETAL_IN = "M100 54 C108 66 110 82 100 94 C90 82 92 66 100 54 Z";
 
 export function ProteaEmblem({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kpro-gold");
   return (
     <svg viewBox="0 0 200 200" fill="none" className={className} aria-hidden="true">
@@ -286,6 +334,7 @@ export function ProteaEmblem({ className = "" }: { className?: string }) {
       {/* outer dashed ring — slow rotate */}
       <Fade duration={1.4}>
         <motion.g
+          className="svg-loop-protea-ring"
           style={{ transformBox: "fill-box", transformOrigin: "center" }}
           animate={reduced ? undefined : { rotate: 360 }}
           transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
@@ -296,6 +345,7 @@ export function ProteaEmblem({ className = "" }: { className?: string }) {
       <motion.circle cx="100" cy="100" r="78" stroke={NAVY} strokeOpacity="0.1" strokeWidth="1" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={VIEW} transition={{ duration: 1.2, delay: 0.2 }} />
       {/* breathing petals */}
       <motion.g
+        className="svg-loop-protea-bloom"
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         animate={reduced ? undefined : { scale: [1, 1.03, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -371,6 +421,7 @@ const MAP_ARCS: { d: string; delay: number }[] = [
 
 export function SAMandateMap({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kmap-gold");
   return (
     <svg viewBox="0 0 460 400" fill="none" className={className} aria-hidden="true">
@@ -422,8 +473,9 @@ export function SAMandateMap({ className = "" }: { className?: string }) {
         <g key={a.d}>
           <motion.path d={a.d} stroke="#d9bd7c" strokeOpacity="0.55" strokeWidth="1.4" fill="none" {...draw(reduced, a.delay, 1)} />
           {!reduced && (
-            <motion.g initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={VIEW} transition={{ delay: a.delay + 0.9, duration: 0.4 }}>
+            <motion.g className="svg-map-comet-wrap" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={VIEW} transition={{ delay: a.delay + 0.9, duration: 0.4 }}>
               <motion.path
+                className="svg-map-comet"
                 d={a.d} pathLength={1} strokeDasharray="0.06 0.94" stroke={GOLD_SOFT} strokeWidth="1.7" strokeLinecap="round" fill="none"
                 animate={{ strokeDashoffset: [0, -1] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: "linear", delay: a.delay + 0.9 }}
@@ -446,7 +498,7 @@ export function SAMandateMap({ className = "" }: { className?: string }) {
         <g>
           {[0, 1].map((i) => (
             <motion.circle
-              key={i} cx="330" cy="134" r="6" fill="none" stroke={GOLD_LIGHT} strokeWidth="1.4"
+              key={i} className={`svg-map-ripple svg-map-ripple-${i}`} cx="330" cy="134" r="6" fill="none" stroke={GOLD_LIGHT} strokeWidth="1.4"
               animate={reduced ? undefined : { r: [6, 26], opacity: [0.6, 0] }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 3 + i * 1.1 }}
             />
@@ -477,6 +529,7 @@ const SIGNATURE = "M86 188 C96 172 104 196 114 182 C122 170 128 194 140 180 C148
 
 export function ContractSigningArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("ksig-gold");
   return (
     <svg viewBox="0 0 280 240" fill="none" className={className} aria-hidden="true">
@@ -505,6 +558,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
       <motion.path d={SIGNATURE} stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round" fill="none" {...draw(reduced, 1.3, 1.5)} />
       {/* fountain pen */}
       <motion.g
+        className="svg-contract-pen"
         transform="translate(86 178) rotate(-42)"
         initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={VIEW}
         transition={{ opacity: { delay: 1.25, duration: 0.3 }, default: { delay: 1.3, duration: 1.5, ease: "easeInOut" } }}
@@ -529,7 +583,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
       {/* seal glow pulse */}
       <Fade delay={3.4} duration={0.6}>
         <motion.circle
-          cx="212" cy="196" r="20" fill="none" stroke={GOLD} strokeWidth="1.2"
+          cx="212" cy="196" r="20" fill="none" stroke={GOLD} strokeWidth="1.2" className="svg-contract-glow"
           animate={reduced ? undefined : { r: [20, 27], opacity: [0.5, 0] }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
         />
@@ -544,6 +598,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
 
 export function JusticeSeal({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kseal-gold");
   const arcId = useSvgId("kseal-arc");
   return (
@@ -554,6 +609,7 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
       </defs>
       {/* rotating inscription */}
       <motion.g
+        className="svg-loop-justice-text"
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         animate={reduced ? undefined : { rotate: 360 }}
         transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
@@ -564,6 +620,7 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
       </motion.g>
       {/* counter-rotating dashed ring */}
       <motion.g
+        className="svg-loop-justice-ring"
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         animate={reduced ? undefined : { rotate: -360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
@@ -664,6 +721,7 @@ function CodexLeaf({ x, y, r, delay }: { x: number; y: number; r: number; delay:
 
 export function ConstitutionCodexArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const svgRef = useSvgEntrance();
   const goldId = useSvgId("kcod-gold");
   const haloId = useSvgId("kcod-halo");
   const haloOrigin = {
@@ -696,21 +754,21 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
 
       {/* rotating dashed ring — inner */}
       <Fade delay={0.5} duration={1.1}>
-        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 80, repeat: Infinity, ease: "linear" }}>
+        <motion.g className="svg-loop-codex-inner" style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 80, repeat: Infinity, ease: "linear" }}>
           <circle cx={CODEX_CX} cy={CODEX_CY} r="172" stroke={GOLD} strokeWidth="1" strokeDasharray="2 9" opacity="0.42" fill="none" />
         </motion.g>
       </Fade>
 
       {/* counter-rotating dashed ring — outer */}
       <Fade delay={0.65} duration={1.1}>
-        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 110, repeat: Infinity, ease: "linear" }}>
+        <motion.g className="svg-loop-codex-outer" style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 110, repeat: Infinity, ease: "linear" }}>
           <circle cx={CODEX_CX} cy={CODEX_CY} r="202" stroke={GOLD} strokeWidth="1" strokeDasharray="1 16" opacity="0.3" fill="none" />
         </motion.g>
       </Fade>
 
       {/* slow-turning sun rays */}
       <Fade delay={0.75} duration={1.2}>
-        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }}>
+        <motion.g className="svg-loop-codex-rays" style={haloOrigin} animate={reduced ? undefined : { rotate: 360 }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }}>
           {CODEX_RAYS.map((p, i) => (
             <line key={i} x1={p.x1} y1={p.y1} x2={p.x2} y2={p.y2} stroke={GOLD} strokeOpacity="0.42" strokeWidth="1.2" strokeLinecap="round" />
           ))}
@@ -719,7 +777,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
 
       {/* orbiting gold particles */}
       <Fade delay={0.85} duration={1.2}>
-        <motion.g style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 55, repeat: Infinity, ease: "linear" }}>
+        <motion.g className="svg-loop-codex-orbit" style={haloOrigin} animate={reduced ? undefined : { rotate: -360 }} transition={{ duration: 55, repeat: Infinity, ease: "linear" }}>
           {CODEX_ORBITS.map((p, i) => (
             <circle key={i} cx={p.x} cy={p.y} r={p.r} fill={GOLD} opacity={0.4 + (i % 3) * 0.22} />
           ))}
@@ -728,7 +786,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
 
       {/* ——— scales of justice rising from the codex (entrance → float loop → sway loops) ——— */}
       <Fade delay={0.1}>
-        <motion.g animate={reduced ? undefined : { y: [0, -5, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
+        <motion.g className="svg-loop-codex-float" animate={reduced ? undefined : { y: [0, -5, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
           {/* finial · orb · capital · stem · beam — solid gold on straight lines:
               objectBoundingBox gradients never paint on zero-height bboxes */}
           <motion.path d="M380 84 L387 96 L380 108 L373 96 Z" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0.15, 0.6)} />
@@ -748,6 +806,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
           />
           {/* left pan — pendulum sway */}
           <motion.g
+            className="svg-loop-codex-pan-left"
             style={{ transformBox: "fill-box", transformOrigin: "top center" }}
             animate={reduced ? undefined : { rotate: [0, 2.2, 0, -1.8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -758,6 +817,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
           </motion.g>
           {/* right pan — opposite phase */}
           <motion.g
+            className="svg-loop-codex-pan-right"
             style={{ transformBox: "fill-box", transformOrigin: "top center" }}
             animate={reduced ? undefined : { rotate: [0, -2.2, 0, 1.8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
