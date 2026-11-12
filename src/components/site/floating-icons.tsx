@@ -151,7 +151,7 @@ export function FloatingLawIcons({
               : { opacity: 0, scale: 0.45, y: 18, rotate: -10 }
           }
           whileInView={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-          viewport={{ once: true, margin: "-30px" }}
+          viewport={{ once: true, margin: "80px" }}
           transition={{
             duration: 0.85,
             delay: 0.15 + (chip.delay ?? i * 0.15),
@@ -161,7 +161,7 @@ export function FloatingLawIcons({
         >
           <span
             className={cn(
-              "animate-floaty flex h-11 w-11 items-center justify-center rounded-2xl backdrop-blur-md",
+              "animate-floaty flex h-11 w-11 will-change-transform items-center justify-center rounded-2xl backdrop-blur-md",
               variant === "dark"
                 ? "border border-white/12 bg-white/[0.06] text-gold-300 shadow-luxe ring-1 ring-gold-500/25"
                 : "border border-navy-100 bg-white/90 text-gold-700 shadow-luxe ring-1 ring-gold-500/30"
