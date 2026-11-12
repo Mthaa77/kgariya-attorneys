@@ -10,9 +10,14 @@
  */
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useId } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const VIEW = { once: true, margin: "-60px" } as const;
+const VIEW = { once: true, margin: "80px" } as const;
+
+function useSvgId(prefix: string) {
+  return `${prefix}-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
+}
 
 /* Brand palette (matches globals.css tokens) */
 const NAVY = "#060f1f";
@@ -59,10 +64,11 @@ function Fade({
   duration?: number;
   className?: string;
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.g
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={reduced ? false : { opacity: 0 }}
+      whileInView={reduced ? undefined : { opacity: 1 }}
       viewport={VIEW}
       transition={{ delay, duration, ease: "easeOut" }}
       className={className}
@@ -78,30 +84,31 @@ function Fade({
 
 export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("ksvg-gold");
   return (
     <svg viewBox="0 0 340 320" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="ksvg-gold" />
+      <GoldDefs id={goldId} />
       {/* ambient glow */}
       <motion.circle
-        cx="170" cy="152" r="126" fill="url(#ksvg-gold)"
+        cx="170" cy="152" r="126" fill={`url(#${goldId})`}
         initial={{ opacity: 0 }} whileInView={{ opacity: 0.07 }} viewport={VIEW}
         transition={{ duration: 2, delay: 0.8 }}
       />
       {/* finial diamond + orb */}
-      <motion.path d="M170 26 L177 38 L170 50 L163 38 Z" stroke="url(#ksvg-gold)" strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0, 0.7)} />
-      <motion.circle cx="170" cy="66" r="7" stroke="url(#ksvg-gold)" strokeWidth="2" {...draw(reduced, 0.15, 0.6)} />
+      <motion.path d="M170 26 L177 38 L170 50 L163 38 Z" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0, 0.7)} />
+      <motion.circle cx="170" cy="66" r="7" stroke={`url(#${goldId})`} strokeWidth="2" {...draw(reduced, 0.15, 0.6)} />
       {/* capital + column — solid gold: objectBoundingBox gradients don't paint on straight H/V lines */}
       <motion.path d="M148 84 H192" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.35, 0.6)} />
       <motion.path d="M170 73 V250" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.3, 0.9)} />
       {/* beam */}
       <motion.path d="M86 96 H254" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.55, 1)} />
       <motion.circle
-        cx="86" cy="96" r="4" fill="url(#ksvg-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        cx="86" cy="96" r="4" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
         transition={{ delay: 1.35, type: "spring", stiffness: 260, damping: 14 }}
       />
       <motion.circle
-        cx="254" cy="96" r="4" fill="url(#ksvg-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        cx="254" cy="96" r="4" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
         transition={{ delay: 1.45, type: "spring", stiffness: 260, damping: 14 }}
       />
@@ -111,9 +118,9 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
         animate={reduced ? undefined : { rotate: [0, 2.4, 0, -2, 0] }}
         transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <motion.path d="M86 98 L68 146 M86 98 L104 146" stroke="url(#ksvg-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.05, 0.7)} />
-        <motion.path d="M64 148 Q86 170 108 148" stroke="url(#ksvg-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.25, 0.7)} />
-        <motion.path d="M64 148 Q86 158 108 148" stroke="url(#ksvg-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.35, 0.6)} />
+        <motion.path d="M86 98 L68 146 M86 98 L104 146" stroke={`url(#${goldId})`} strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.05, 0.7)} />
+        <motion.path d="M64 148 Q86 170 108 148" stroke={`url(#${goldId})`} strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.25, 0.7)} />
+        <motion.path d="M64 148 Q86 158 108 148" stroke={`url(#${goldId})`} strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.35, 0.6)} />
       </motion.g>
       {/* right pan — opposite phase */}
       <motion.g
@@ -121,18 +128,18 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
         animate={reduced ? undefined : { rotate: [0, -2.4, 0, 2, 0] }}
         transition={{ duration: 6.4, repeat: Infinity, ease: "easeInOut", delay: 0.35 }}
       >
-        <motion.path d="M254 98 L236 146 M254 98 L272 146" stroke="url(#ksvg-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.15, 0.7)} />
-        <motion.path d="M232 148 Q254 170 276 148" stroke="url(#ksvg-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.35, 0.7)} />
-        <motion.path d="M232 148 Q254 158 276 148" stroke="url(#ksvg-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.45, 0.6)} />
+        <motion.path d="M254 98 L236 146 M254 98 L272 146" stroke={`url(#${goldId})`} strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.15, 0.7)} />
+        <motion.path d="M232 148 Q254 170 276 148" stroke={`url(#${goldId})`} strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.35, 0.7)} />
+        <motion.path d="M232 148 Q254 158 276 148" stroke={`url(#${goldId})`} strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.45, 0.6)} />
       </motion.g>
       {/* base steps */}
-      <motion.path d="M146 250 H194 M130 264 H210 M112 280 H228" stroke="url(#ksvg-gold)" strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.75, 0.9)} />
+      <motion.path d="M146 250 H194 M130 264 H210 M112 280 H228" stroke={`url(#${goldId})`} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.75, 0.9)} />
       {/* laurel arcs */}
-      <motion.path d="M84 240 Q104 266 132 272" stroke="url(#ksvg-gold)" strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.6, 0.8)} />
-      <motion.path d="M256 240 Q236 266 208 272" stroke="url(#ksvg-gold)" strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.7, 0.8)} />
+      <motion.path d="M84 240 Q104 266 132 272" stroke={`url(#${goldId})`} strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.6, 0.8)} />
+      <motion.path d="M256 240 Q236 266 208 272" stroke={`url(#${goldId})`} strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.7, 0.8)} />
       {/* ground diamond */}
       <motion.path
-        d="M170 296 L174 301 L170 306 L166 301 Z" fill="url(#ksvg-gold)"
+        d="M170 296 L174 301 L170 306 L166 301 Z" fill={`url(#${goldId})`}
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 0.9 }} viewport={VIEW}
         transition={{ delay: 1.9, type: "spring", stiffness: 200, damping: 12 }}
@@ -147,21 +154,22 @@ export function ScalesOfJusticeArt({ className = "" }: { className?: string }) {
 
 export function GavelStrikeArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kgav-gold");
   return (
     <svg viewBox="0 0 260 240" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kgav-gold" />
+      <GoldDefs id={goldId} />
       <motion.circle
-        cx="130" cy="140" r="100" fill="url(#kgav-gold)"
+        cx="130" cy="140" r="100" fill={`url(#${goldId})`}
         initial={{ opacity: 0 }} whileInView={{ opacity: 0.06 }} viewport={VIEW}
         transition={{ duration: 2, delay: 0.5 }}
       />
       {/* sound block */}
-      <motion.ellipse cx="184" cy="178" rx="34" ry="8" stroke="url(#kgav-gold)" strokeWidth="2" {...draw(reduced, 0.15, 0.7)} />
-      <motion.path d="M150 178 V196 A34 8 0 0 0 218 196 V178" stroke="url(#kgav-gold)" strokeWidth="2" {...draw(reduced, 0.3, 0.7)} />
+      <motion.ellipse cx="184" cy="178" rx="34" ry="8" stroke={`url(#${goldId})`} strokeWidth="2" {...draw(reduced, 0.15, 0.7)} />
+      <motion.path d="M150 178 V196 A34 8 0 0 0 218 196 V178" stroke={`url(#${goldId})`} strokeWidth="2" {...draw(reduced, 0.3, 0.7)} />
       {/* impact rings — synced to the strike */}
       {[0, 1].map((i) => (
         <motion.circle
-          key={i} cx="168" cy="174" r="5" fill="none" stroke="url(#kgav-gold)" strokeWidth="1.8"
+          key={i} cx="168" cy="174" r="5" fill="none" stroke={`url(#${goldId})`} strokeWidth="1.8"
           initial={{ opacity: 0 }}
           animate={reduced ? { opacity: 0 } : { opacity: [0, 0.75, 0], r: [4, 26] }}
           transition={{ duration: 0.85, times: [0, 0.25, 1], repeat: Infinity, repeatDelay: 2.75, delay: 1.3 + i * 0.2, ease: "easeOut" }}
@@ -169,13 +177,13 @@ export function GavelStrikeArt({ className = "" }: { className?: string }) {
       ))}
       {/* sparks */}
       <motion.path
-        d="M196 160 L206 150" stroke="url(#kgav-gold)" strokeWidth="2" strokeLinecap="round"
+        d="M196 160 L206 150" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
         initial={{ opacity: 0 }}
         animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], x: [0, 5], y: [0, -5] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3.1, delay: 1.32, ease: "easeOut" }}
       />
       <motion.path
-        d="M204 174 L217 170" stroke="url(#kgav-gold)" strokeWidth="2" strokeLinecap="round"
+        d="M204 174 L217 170" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round"
         initial={{ opacity: 0 }}
         animate={reduced ? { opacity: 0 } : { opacity: [0, 1, 0], x: [0, 6] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3.1, delay: 1.38, ease: "easeOut" }}
@@ -186,17 +194,17 @@ export function GavelStrikeArt({ className = "" }: { className?: string }) {
         animate={reduced ? undefined : { rotate: [-18, 4, 4, -18] }}
         transition={{ duration: 3.6, times: [0, 0.3, 0.45, 1], repeat: Infinity, ease: ["easeIn", "easeOut", "easeInOut"] }}
       >
-        <motion.path d="M52 208 L148 132" stroke="url(#kgav-gold)" strokeWidth="4.5" strokeLinecap="round" {...draw(reduced, 0.5, 0.8)} />
+        <motion.path d="M52 208 L148 132" stroke={`url(#${goldId})`} strokeWidth="4.5" strokeLinecap="round" {...draw(reduced, 0.5, 0.8)} />
         <g transform="rotate(49 158 124)">
-          <motion.rect x="128" y="111" width="60" height="26" rx="10" stroke="url(#kgav-gold)" strokeWidth="2.5" fill="rgba(198,165,92,0.14)" {...draw(reduced, 0.7, 0.7)} />
+          <motion.rect x="128" y="111" width="60" height="26" rx="10" stroke={`url(#${goldId})`} strokeWidth="2.5" fill="rgba(198,165,92,0.14)" {...draw(reduced, 0.7, 0.7)} />
           <motion.rect
-            x="119" y="106" width="11" height="36" rx="4.5" fill="url(#kgav-gold)"
+            x="119" y="106" width="11" height="36" rx="4.5" fill={`url(#${goldId})`}
             style={{ transformBox: "fill-box", transformOrigin: "center" }}
             initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
             transition={{ delay: 1.15, type: "spring", stiffness: 240, damping: 14 }}
           />
           <motion.rect
-            x="186" y="106" width="11" height="36" rx="4.5" fill="url(#kgav-gold)"
+            x="186" y="106" width="11" height="36" rx="4.5" fill={`url(#${goldId})`}
             style={{ transformBox: "fill-box", transformOrigin: "center" }}
             initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
             transition={{ delay: 1.25, type: "spring", stiffness: 240, damping: 14 }}
@@ -219,15 +227,16 @@ export function CourthouseColumnsArt({
   tone?: "light" | "dark";
 }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kcol-gold");
   const line = tone === "dark" ? IVORY : NAVY;
   const dentils = Array.from({ length: 23 }, (_, i) => `M${124 + i * 14} 132 V148`).join(" ");
   const cols = [120, 200, 280, 360, 440];
   return (
     <svg viewBox="0 0 560 330" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kcol-gold" />
+      <GoldDefs id={goldId} />
       {/* rising sun over the pediment */}
       <motion.circle
-        cx="280" cy="118" r="64" fill="url(#kcol-gold)"
+        cx="280" cy="118" r="64" fill={`url(#${goldId})`}
         initial={{ opacity: 0 }} whileInView={{ opacity: 0.12 }} viewport={VIEW}
         transition={{ duration: 1.8, delay: 0.5 }}
       />
@@ -241,7 +250,7 @@ export function CourthouseColumnsArt({
         </motion.g>
       </Fade>
       {/* pediment */}
-      <motion.path d="M100 130 L280 42 L460 130" stroke="url(#kcol-gold)" strokeWidth="2.5" strokeLinejoin="round" {...draw(reduced, 0.1, 1.2)} />
+      <motion.path d="M100 130 L280 42 L460 130" stroke={`url(#${goldId})`} strokeWidth="2.5" strokeLinejoin="round" {...draw(reduced, 0.1, 1.2)} />
       <motion.path d="M136 126 L280 58 L424 126" stroke={line} strokeOpacity={tone === "dark" ? 0.22 : 0.25} strokeWidth="1.5" strokeLinejoin="round" {...draw(reduced, 0.35, 1)} />
       {/* entablature + dentils */}
       <motion.path d="M92 130 H468 M92 150 H468" stroke={line} strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" {...draw(reduced, 0.6, 0.9)} />
@@ -256,7 +265,7 @@ export function CourthouseColumnsArt({
       {/* steps */}
       <motion.path d="M76 288 H484 M62 302 H498 M48 316 H512" stroke={line} strokeOpacity="0.34" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.5, 1)} />
       {/* keystone diamond */}
-      <motion.path d="M280 88 L286 97 L280 106 L274 97 Z" stroke="url(#kcol-gold)" strokeWidth="1.8" strokeLinejoin="round" {...draw(reduced, 1.4, 0.6)} />
+      <motion.path d="M280 88 L286 97 L280 106 L274 97 Z" stroke={`url(#${goldId})`} strokeWidth="1.8" strokeLinejoin="round" {...draw(reduced, 1.4, 0.6)} />
     </svg>
   );
 }
@@ -270,9 +279,10 @@ const PETAL_IN = "M100 54 C108 66 110 82 100 94 C90 82 92 66 100 54 Z";
 
 export function ProteaEmblem({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kpro-gold");
   return (
     <svg viewBox="0 0 200 200" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kpro-gold" />
+      <GoldDefs id={goldId} />
       {/* outer dashed ring — slow rotate */}
       <Fade duration={1.4}>
         <motion.g
@@ -313,7 +323,7 @@ export function ProteaEmblem({ className = "" }: { className?: string }) {
       </motion.g>
       {/* heart */}
       <motion.circle
-        cx="100" cy="100" r="10" fill="url(#kpro-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        cx="100" cy="100" r="10" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={VIEW}
         transition={{ delay: 1.6, type: "spring", stiffness: 200, damping: 12 }}
       />
@@ -361,9 +371,10 @@ const MAP_ARCS: { d: string; delay: number }[] = [
 
 export function SAMandateMap({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kmap-gold");
   return (
     <svg viewBox="0 0 460 400" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kmap-gold" />
+      <GoldDefs id={goldId} />
       {/* graticule */}
       <Fade duration={1.2}>
         <g>
@@ -386,13 +397,13 @@ export function SAMandateMap({ className = "" }: { className?: string }) {
       <Fade delay={1.2} duration={1}>
         <g>
           <circle cx="52" cy="58" r="14" stroke={IVORY} strokeOpacity="0.18" strokeWidth="1" />
-          <path d="M52 49 L55.5 61 L52 58 L48.5 61 Z" fill="url(#kmap-gold)" />
+          <path d="M52 49 L55.5 61 L52 58 L48.5 61 Z" fill={`url(#${goldId})`} />
           <text x="52" y="44" textAnchor="middle" fontSize="7.5" fontWeight="700" letterSpacing="1" fill={IVORY} fillOpacity="0.45">N</text>
         </g>
       </Fade>
       {/* the Republic */}
       <motion.path
-        d={SA_OUTLINE} stroke="url(#kmap-gold)" strokeWidth="2.4" strokeLinejoin="round" fill="rgba(198,165,92,0.05)"
+        d={SA_OUTLINE} stroke={`url(#${goldId})`} strokeWidth="2.4" strokeLinejoin="round" fill="rgba(198,165,92,0.05)"
         {...draw(reduced, 0.2, 2.2)}
       />
       {/* Lesotho enclave */}
@@ -443,7 +454,7 @@ export function SAMandateMap({ className = "" }: { className?: string }) {
         </g>
       </Fade>
       <motion.circle
-        cx="330" cy="134" r="7" fill="url(#kmap-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+        cx="330" cy="134" r="7" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={VIEW}
         transition={{ delay: 3, type: "spring", stiffness: 260, damping: 12 }}
       />
@@ -466,13 +477,14 @@ const SIGNATURE = "M86 188 C96 172 104 196 114 182 C122 170 128 194 140 180 C148
 
 export function ContractSigningArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("ksig-gold");
   return (
     <svg viewBox="0 0 280 240" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="ksig-gold" />
+      <GoldDefs id={goldId} />
       {/* document */}
       <motion.g initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={VIEW} transition={{ duration: 0.8, ease: EASE }}>
         <rect x="64" y="22" width="150" height="192" rx="12" stroke={NAVY} strokeOpacity="0.3" strokeWidth="1.8" fill="#ffffff" />
-        <rect x="64" y="22" width="150" height="192" rx="12" stroke="url(#ksig-gold)" strokeWidth="1" fill="none" strokeOpacity="0.5" />
+        <rect x="64" y="22" width="150" height="192" rx="12" stroke={`url(#${goldId})`} strokeWidth="1" fill="none" strokeOpacity="0.5" />
       </motion.g>
       {/* typed lines */}
       {([
@@ -490,7 +502,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
         />
       ))}
       {/* signature */}
-      <motion.path d={SIGNATURE} stroke="url(#ksig-gold)" strokeWidth="2" strokeLinecap="round" fill="none" {...draw(reduced, 1.3, 1.5)} />
+      <motion.path d={SIGNATURE} stroke={`url(#${goldId})`} strokeWidth="2" strokeLinecap="round" fill="none" {...draw(reduced, 1.3, 1.5)} />
       {/* fountain pen */}
       <motion.g
         transform="translate(86 178) rotate(-42)"
@@ -499,8 +511,8 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
         animate={reduced ? undefined : { x: [0, 26, 52, 78, 100], y: [0, -9, 0, -8, -14] }}
       >
         <rect x="-4.5" y="-40" width="9" height="36" rx="4" fill={NAVY} fillOpacity="0.85" />
-        <rect x="-4.5" y="-40" width="9" height="7" rx="3" fill="url(#ksig-gold)" />
-        <path d="M-4.5 -4 L4.5 -4 L0 10 Z" fill="url(#ksig-gold)" />
+        <rect x="-4.5" y="-40" width="9" height="7" rx="3" fill={`url(#${goldId})`} />
+        <path d="M-4.5 -4 L4.5 -4 L0 10 Z" fill={`url(#${goldId})`} />
       </motion.g>
       {/* wax seal */}
       <motion.g
@@ -508,7 +520,7 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
         initial={{ scale: 0, opacity: 0, rotate: -14 }} whileInView={{ scale: 1, opacity: 1, rotate: 0 }} viewport={VIEW}
         transition={{ delay: 2.95, type: "spring", stiffness: 220, damping: 13 }}
       >
-        <circle cx="212" cy="196" r="20" fill="url(#ksig-gold)" />
+        <circle cx="212" cy="196" r="20" fill={`url(#${goldId})`} />
         <circle cx="212" cy="196" r="14.5" stroke={NAVY} strokeOpacity="0.35" strokeWidth="1.2" strokeDasharray="2 3" fill="none" />
         <g stroke={NAVY} strokeOpacity="0.75" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" fill="none">
           <path d="M204 194 H220 M212 187 V201 M204 194 L200 199 M204 194 L208 199 M220 194 L216 199 M220 194 L224 199 M206 201 H218" />
@@ -532,11 +544,13 @@ export function ContractSigningArt({ className = "" }: { className?: string }) {
 
 export function JusticeSeal({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kseal-gold");
+  const arcId = useSvgId("kseal-arc");
   return (
     <svg viewBox="0 0 200 200" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kseal-gold" />
+      <GoldDefs id={goldId} />
       <defs>
-        <path id="kseal-arc" d="M100 24 a76 76 0 1 1 -0.01 0" fill="none" />
+        <path id={arcId} d="M100 24 a76 76 0 1 1 -0.01 0" fill="none" />
       </defs>
       {/* rotating inscription */}
       <motion.g
@@ -545,7 +559,7 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
         transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
       >
         <text fontSize="10" letterSpacing="2.2" fontWeight="700" fill={GOLD} fillOpacity="0.7">
-          <textPath href="#kseal-arc">KGARIYA ATTORNEYS · REPUBLIC OF SOUTH AFRICA ·</textPath>
+          <textPath href={`#${arcId}`} xlinkHref={`#${arcId}`}>KGARIYA ATTORNEYS · REPUBLIC OF SOUTH AFRICA ·</textPath>
         </text>
       </motion.g>
       {/* counter-rotating dashed ring */}
@@ -560,7 +574,7 @@ export function JusticeSeal({ className = "" }: { className?: string }) {
       <motion.g
         initial={{ opacity: 0, scale: 0.92 }} whileInView={{ opacity: 1, scale: 1 }} viewport={VIEW}
         transition={{ duration: 1, ease: EASE }}
-        stroke="url(#kseal-gold)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"
+        stroke={`url(#${goldId})`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"
       >
         <path d="M100 62 L105 69 L100 76 L95 69 Z" />
         <path d="M100 78 V126" stroke={GOLD} />
@@ -639,8 +653,8 @@ function CodexLeaf({ x, y, r, delay }: { x: number; y: number; r: number; delay:
         strokeWidth="1.1"
         strokeLinejoin="round"
         style={{ transformBox: "fill-box", transformOrigin: "bottom center" }}
-        initial={{ scale: reduced ? 1 : 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
+        initial={reduced ? false : { scale: 0, opacity: 0 }}
+        whileInView={reduced ? undefined : { scale: 1, opacity: 1 }}
         viewport={VIEW}
         transition={{ delay, type: "spring", stiffness: 210, damping: 15 }}
       />
@@ -650,15 +664,17 @@ function CodexLeaf({ x, y, r, delay }: { x: number; y: number; r: number; delay:
 
 export function ConstitutionCodexArt({ className = "" }: { className?: string }) {
   const reduced = useReducedMotion();
+  const goldId = useSvgId("kcod-gold");
+  const haloId = useSvgId("kcod-halo");
   const haloOrigin = {
     transformBox: "view-box" as const,
     transformOrigin: `${CODEX_CX}px ${CODEX_CY}px`,
   };
   return (
     <svg viewBox="0 0 760 470" fill="none" className={className} aria-hidden="true">
-      <GoldDefs id="kcod-gold" />
+      <GoldDefs id={goldId} />
       <defs>
-        <radialGradient id="kcod-halo" cx="0.5" cy="0.5" r="0.5">
+        <radialGradient id={haloId} cx="0.5" cy="0.5" r="0.5">
           <stop offset="0%" stopColor={GOLD} stopOpacity="0.35" />
           <stop offset="62%" stopColor={GOLD} stopOpacity="0.09" />
           <stop offset="100%" stopColor={GOLD} stopOpacity="0" />
@@ -667,7 +683,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
 
       {/* ambient halo */}
       <motion.circle
-        cx={CODEX_CX} cy={CODEX_CY} r="170" fill="url(#kcod-halo)"
+        cx={CODEX_CX} cy={CODEX_CY} r="170" fill={`url(#${haloId})`}
         initial={{ opacity: 0 }} whileInView={{ opacity: 0.7 }} viewport={VIEW}
         transition={{ duration: 2, delay: 0.9 }}
       />
@@ -715,18 +731,18 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
         <motion.g animate={reduced ? undefined : { y: [0, -5, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
           {/* finial · orb · capital · stem · beam — solid gold on straight lines:
               objectBoundingBox gradients never paint on zero-height bboxes */}
-          <motion.path d="M380 84 L387 96 L380 108 L373 96 Z" stroke="url(#kcod-gold)" strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0.15, 0.6)} />
-          <motion.circle cx="380" cy="118" r="5.5" stroke="url(#kcod-gold)" strokeWidth="2" {...draw(reduced, 0.3, 0.5)} />
+          <motion.path d="M380 84 L387 96 L380 108 L373 96 Z" stroke={`url(#${goldId})`} strokeWidth="2" strokeLinejoin="round" {...draw(reduced, 0.15, 0.6)} />
+          <motion.circle cx="380" cy="118" r="5.5" stroke={`url(#${goldId})`} strokeWidth="2" {...draw(reduced, 0.3, 0.5)} />
           <motion.path d="M360 132 H400" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.45, 0.5)} />
           <motion.path d="M380 108 V236" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.4, 0.8)} />
           <motion.path d="M290 142 H470" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round" {...draw(reduced, 0.6, 0.9)} />
           <motion.circle
-            cx="290" cy="142" r="4" fill="url(#kcod-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+            cx="290" cy="142" r="4" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
             initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
             transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 14 }}
           />
           <motion.circle
-            cx="470" cy="142" r="4" fill="url(#kcod-gold)" style={{ transformBox: "fill-box", transformOrigin: "center" }}
+            cx="470" cy="142" r="4" fill={`url(#${goldId})`} style={{ transformBox: "fill-box", transformOrigin: "center" }}
             initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
             transition={{ delay: 1.3, type: "spring", stiffness: 260, damping: 14 }}
           />
@@ -736,9 +752,9 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
             animate={reduced ? undefined : { rotate: [0, 2.2, 0, -1.8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
-            <motion.path d="M290 144 L272 190 M290 144 L308 190" stroke="url(#kcod-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.0, 0.6)} />
-            <motion.path d="M268 192 Q290 214 312 192" stroke="url(#kcod-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.15, 0.6)} />
-            <motion.path d="M268 192 Q290 202 312 192" stroke="url(#kcod-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.25, 0.5)} />
+            <motion.path d="M290 144 L272 190 M290 144 L308 190" stroke={`url(#${goldId})`} strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.0, 0.6)} />
+            <motion.path d="M268 192 Q290 214 312 192" stroke={`url(#${goldId})`} strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.15, 0.6)} />
+            <motion.path d="M268 192 Q290 202 312 192" stroke={`url(#${goldId})`} strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.25, 0.5)} />
           </motion.g>
           {/* right pan — opposite phase */}
           <motion.g
@@ -746,9 +762,9 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
             animate={reduced ? undefined : { rotate: [0, -2.2, 0, 1.8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
           >
-            <motion.path d="M470 144 L452 190 M470 144 L488 190" stroke="url(#kcod-gold)" strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.08, 0.6)} />
-            <motion.path d="M448 192 Q470 214 492 192" stroke="url(#kcod-gold)" strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.23, 0.6)} />
-            <motion.path d="M448 192 Q470 202 492 192" stroke="url(#kcod-gold)" strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.33, 0.5)} />
+            <motion.path d="M470 144 L452 190 M470 144 L488 190" stroke={`url(#${goldId})`} strokeWidth="1.6" strokeLinecap="round" {...draw(reduced, 1.08, 0.6)} />
+            <motion.path d="M448 192 Q470 214 492 192" stroke={`url(#${goldId})`} strokeWidth="2.2" strokeLinecap="round" {...draw(reduced, 1.23, 0.6)} />
+            <motion.path d="M448 192 Q470 202 492 192" stroke={`url(#${goldId})`} strokeWidth="1.2" strokeOpacity="0.5" strokeLinecap="round" {...draw(reduced, 1.33, 0.5)} />
           </motion.g>
         </motion.g>
       </Fade>
@@ -767,14 +783,14 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
       {/* cover curve beneath */}
       <motion.path d="M250 322 Q380 362 510 322" stroke={NAVY} strokeOpacity="0.38" strokeWidth="2" strokeLinecap="round" {...draw(reduced, 0.95, 0.8)} />
       {/* gold spine edges */}
-      <motion.path d="M378 236 V308 M382 236 V308" stroke="url(#kcod-gold)" strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.05, 0.6)} />
+      <motion.path d="M378 236 V308 M382 236 V308" stroke={`url(#${goldId})`} strokeWidth="1.4" strokeLinecap="round" {...draw(reduced, 1.05, 0.6)} />
       {/* page rules */}
       <motion.path d="M288 254 L352 247 M288 268 L352 262 M288 282 L352 277 M288 296 L352 292" stroke={NAVY} strokeOpacity="0.3" strokeWidth="1.3" strokeLinecap="round" {...draw(reduced, 1.15, 0.7)} />
       <motion.path d="M408 247 L472 254 M408 262 L472 268 M408 277 L472 282 M408 292 L472 296" stroke={NAVY} strokeOpacity="0.3" strokeWidth="1.3" strokeLinecap="round" {...draw(reduced, 1.25, 0.7)} />
       {/* ribbon bookmark */}
       <motion.path
         d="M373 308 L387 308 L387 334 L380 326.5 L373 334 Z"
-        fill="url(#kcod-gold)" fillOpacity="0.9"
+        fill={`url(#${goldId})`} fillOpacity="0.9"
         style={{ transformBox: "fill-box", transformOrigin: "top center" }}
         initial={{ scale: reduced ? 1 : 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} viewport={VIEW}
         transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 14 }}
@@ -790,7 +806,7 @@ export function ConstitutionCodexArt({ className = "" }: { className?: string })
         <CodexLeaf key={`r-${i}`} x={l.x} y={l.y} r={l.r} delay={1.8 + i * 0.1} />
       ))}
       <motion.path
-        d="M380 393 L386 400 L380 407 L374 400 Z" fill="url(#kcod-gold)"
+        d="M380 393 L386 400 L380 407 L374 400 Z" fill={`url(#${goldId})`}
         style={{ transformBox: "fill-box", transformOrigin: "center" }}
         initial={{ scale: 0, opacity: 0 }} whileInView={{ scale: 1, opacity: 0.9 }} viewport={VIEW}
         transition={{ delay: 2.15, type: "spring", stiffness: 200, damping: 12 }}
