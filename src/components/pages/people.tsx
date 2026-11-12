@@ -23,7 +23,7 @@ export function PeoplePage() {
       <PageHero
         eyebrow="Our people"
         title="Counsel grounded in commercial reality."
-        lead="Kgariya Inc.'s execution capability stems from leadership that bridges legal strategy, financial modelling and hands-on operational experience in development and corporate management."
+        lead="Kgariya Attorneys's execution capability stems from leadership that bridges legal strategy, financial modelling and hands-on operational experience in development and corporate management."
         image="/images/library.png"
         breadcrumb={[
           { label: "Home", route: "#/" },
@@ -41,7 +41,7 @@ export function PeoplePage() {
                 <div className="relative overflow-hidden rounded-[2rem] shadow-luxe-lg">
                   <Image
                     src={DIRECTOR.photo}
-                    alt="Portrait of the Founding Director of Kgariya Attorneys Incorporated"
+                    alt="Portrait of the Founding Director of Kgariya Attorneys"
                     width={864}
                     height={1152}
                     priority
