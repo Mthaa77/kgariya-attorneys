@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { parseRoute, useRoute } from "@/lib/router";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
@@ -102,6 +102,7 @@ function PageContent({ route }: { route: string }) {
 }
 
 export default function Site() {
+  const reduceMotion = useReducedMotion();
   const route = useRoute();
 
   // Ensure we always have a hash route set
@@ -115,13 +116,14 @@ export default function Site() {
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
       <main className="flex-1">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={route.split("?")[0]}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.996 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.998 }}
+            transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: "50% 0%" }}
           >
             <PageContent route={route} />
           </motion.div>
