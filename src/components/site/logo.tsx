@@ -56,75 +56,51 @@ export function Crest({ className, dark = false }: { className?: string; dark?: 
   );
 }
 
-/** Full horizontal lockup: crest + wordmark. */
-/** Official brand lockup supplied by Kgariya Attorneys. */
-/** Official Kgariya Attorneys lockup: emblem plus legible firm name. */
+/** Brand mark: the full supplied logo everywhere, with a dedicated horizontal crop for the navbar. */
 export function Logo({
   dark = false,
   className,
-  compact = false,
   size = "md",
+  navbar = false,
 }: {
   dark?: boolean;
   className?: string;
-  compact?: boolean;
   size?: "md" | "lg";
+  navbar?: boolean;
 }) {
-  const markSize = compact
-    ? "h-9 w-10"
+  const frameSize = navbar
+    ? "h-[40px] w-[99px] sm:h-[46px] sm:w-[114px]"
     : size === "lg"
-      ? "h-[72px] w-[78px]"
-      : "h-[44px] w-[48px]";
-  const nameSize = compact
-    ? "text-[14px] sm:text-[15px]"
-    : size === "lg"
-      ? "text-[24px]"
-      : "text-[17px] sm:text-[18px]";
-  const subtitleSize = compact
-    ? "text-[6.5px] sm:text-[7px] tracking-[0.1em]"
-    : size === "lg"
-      ? "text-[10px] tracking-[0.17em]"
-      : "text-[7.5px] sm:text-[8px] tracking-[0.14em]";
+      ? "h-[190px] w-[190px] sm:h-[220px] sm:w-[220px]"
+      : "h-[148px] w-[148px] sm:h-[170px] sm:w-[170px]";
 
   return (
-    <span className={cn("inline-flex min-w-0 shrink-0 items-center gap-2.5 select-none sm:gap-3", className)}>
-      <span
-        className={cn(
-          "relative flex shrink-0 items-center justify-center overflow-hidden rounded-[10px] border border-[#d6bd7c]/55 bg-[#f7f5f0] shadow-[0_5px_15px_rgba(0,0,0,0.22)]",
-          markSize
-        )}
-      >
-        <Image
-          src="/images/kgariya-mark.webp"
-          alt=""
-          aria-hidden="true"
-          width={384}
-          height={358}
-          sizes={compact ? "40px" : size === "lg" ? "78px" : "48px"}
-          unoptimized
-          className="h-full w-full object-contain"
-        />
-      </span>
-      <span className="flex min-w-0 flex-col items-start justify-center gap-1 leading-none">
-        <span
-          className={cn(
-            "font-display font-bold uppercase leading-none tracking-[0.12em]",
-            nameSize,
-            dark ? "text-white" : "text-navy-950"
-          )}
-        >
-          KGARIYA
-        </span>
-        <span
-          className={cn(
-            "whitespace-nowrap font-sans font-bold uppercase leading-none",
-            subtitleSize,
-            dark ? "text-gold-300" : "text-gold-700"
-          )}
-        >
-          ATTORNEYS
-        </span>
-      </span>
+    <span
+      data-logo-surface={dark ? "dark" : "light"}
+      className={cn(
+        "inline-flex min-w-0 shrink-0 items-center justify-center overflow-hidden",
+        navbar
+          ? "rounded-md"
+          : "rounded-2xl border border-black/[0.04] bg-[#f5f4ef] shadow-[0_8px_28px_rgba(7,18,33,0.10)]",
+        frameSize,
+        className
+      )}
+    >
+      <Image
+        src={navbar ? "/images/kgariya-navbar-logo.webp" : "/images/kgariya-full-logo.webp"}
+        alt="Kgariya Attorneys"
+        width={navbar ? 400 : 400}
+        height={navbar ? 162 : 400}
+        sizes={
+          navbar
+            ? "(max-width: 640px) 99px, 114px"
+            : size === "lg"
+              ? "(max-width: 640px) 190px, 220px"
+              : "(max-width: 640px) 148px, 170px"
+        }
+        unoptimized
+        className="h-full w-full object-contain"
+      />
     </span>
   );
 }
