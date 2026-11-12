@@ -29,7 +29,7 @@ const TIMELINE = [
   {
     era: "The pivot",
     title: "Retiring 40 sub-services, by design",
-    text: "Kgariya Inc. formally retired non-core areas — competition, aviation, immigration among them — and concentrated its operational infrastructure on six prioritised competencies.",
+    text: "Kgariya Attorneys formally retired non-core areas — competition, aviation, immigration among them — and concentrated its operational infrastructure on six prioritised competencies.",
   },
   {
     era: "Today",
@@ -49,7 +49,7 @@ export function AboutPage() {
       <PageHero
         eyebrow="About the firm"
         title="Built on evidence. Structured for institutions."
-        lead="Kgariya Attorneys Incorporated occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."
+        lead="Kgariya Attorneys occupies a distinct, authoritative position in the South African legal market — specialised, compliant and commercially astute."
         image="/images/office.png"
         breadcrumb={[{ label: "Home", route: "#/" }, { label: "About the Firm" }]}
       >
@@ -87,7 +87,7 @@ export function AboutPage() {
                     <span className="gold-text italic">leap forward</span>.
                   </>
                 }
-                lead="To address the increasingly complex regulatory and commercial demands of Gauteng's public and private sectors, Kgariya Inc. undertook a deliberate strategic pivot away from generalized legal provision."
+                lead="To address the increasingly complex regulatory and commercial demands of Gauteng's public and private sectors, Kgariya Attorneys undertook a deliberate strategic pivot away from generalized legal provision."
               />
               <div className="mt-6 space-y-5">
                 <Reveal>
