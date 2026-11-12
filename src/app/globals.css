@@ -563,7 +563,10 @@
   .animate-marquee,
   .animate-marquee-slow,
   .animate-light-sweep,
-  .animate-scroll-cue {
+  .animate-scroll-cue,
+  .animate-shimmer,
+  .gold-text-shine,
+  .gradient-ring::before {
     animation: none !important;
   }
 
