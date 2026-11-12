@@ -441,8 +441,14 @@ export function Header() {
                 {/* Practice areas + mega tray */}
                 <div className="relative">
                   <button
-                    onClick={() => setPaHover((v) => !v)}
-                    onMouseEnter={() => setPaHover(true)}
+                    onClick={() => {
+                      setHovered(null);
+                      setPaHover((v) => !v);
+                    }}
+                    onMouseEnter={() => {
+                      setHovered(null);
+                      setPaHover(true);
+                    }}
                     aria-haspopup="true"
                     aria-expanded={paHover}
                     onFocus={() => setPaHover(true)}
@@ -475,9 +481,18 @@ export function Header() {
                   return (
                     <button
                       key={item.route}
-                      onClick={() => navigate(item.route)}
-                      onMouseEnter={() => setHovered(item.route)}
-                      onFocus={() => setHovered(item.route)}
+                      onClick={() => {
+                        setPaHover(false);
+                        navigate(item.route);
+                      }}
+                      onMouseEnter={() => {
+                        setPaHover(false);
+                        setHovered(item.route);
+                      }}
+                      onFocus={() => {
+                        setPaHover(false);
+                        setHovered(item.route);
+                      }}
                       aria-current={active ? "page" : undefined}
                       className={cn(
                         "relative whitespace-nowrap rounded-full px-3 py-2 text-[13px] font-semibold outline-none transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-gold-400/70",
@@ -639,7 +654,9 @@ export function Header() {
                   className="shrink-0 overflow-hidden"
                 >
                   <div className="mt-1.5 space-y-1 pb-1">
-                    {PRACTICE_AREAS.map((p, i) => (
+                    {PRACTICE_AREAS.map((p, i) => {
+                      const activePractice = route === `#/practice/${p.slug}`;
+                      return (
                       <motion.button
                         key={p.slug}
                         initial={reduceMotion ? false : { opacity: 0, x: -14 }}
@@ -651,7 +668,12 @@ export function Header() {
                           navigate(`#/practice/${p.slug}`);
                           setMobileOpen(false);
                         }}
-                        className="group flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-colors hover:bg-white/[0.06]"
+                        className={cn(
+                          "group flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-[background,border-color,transform] duration-300",
+                          activePractice
+                            ? "border-gold-500/25 bg-gold-500/10"
+                            : "border-transparent hover:border-white/10 hover:bg-white/[0.06]"
+                        )}
                       >
                         <span
                           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white"
@@ -669,7 +691,8 @@ export function Header() {
                         </span>
                         <ChevronRight className="ml-auto h-4 w-4 shrink-0 text-gold-400 transition-transform duration-300 group-hover:translate-x-0.5" />
                       </motion.button>
-                    ))}
+                      );
+                    })}
                   </div>
                 </motion.div>
               )}
@@ -693,10 +716,10 @@ export function Header() {
                       setMobileOpen(false);
                     }}
                     className={cn(
-                      "flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-[15px] font-semibold transition-colors",
+                      "flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-[15px] font-semibold transition-[background,border-color,color,transform] duration-300",
                       active
-                        ? "bg-gold-500/15 text-gold-300 ring-1 ring-gold-500/30"
-                        : "text-white/85 hover:bg-white/[0.06] hover:text-white"
+                        ? "border-gold-500/25 bg-gold-500/15 text-gold-200 ring-1 ring-gold-500/25"
+                        : "border-transparent text-white/85 hover:border-white/10 hover:bg-white/[0.06] hover:text-white"
                     )}
                   >
                     <NavIcon
