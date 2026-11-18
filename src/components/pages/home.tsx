@@ -16,7 +16,7 @@ import { LiveTicker } from "@/components/site/live-ticker";
 import { TrustStrip } from "@/components/site/trust-strip";
 import { Counter } from "@/components/site/counter";
 import { Reveal, SectionHeading, Stagger, StaggerItem } from "@/components/site/reveal";
-import { PracticeCard } from "@/components/site/practice-card";
+import { PracticeExplorer } from "@/components/site/practice-explorer";
 import { Logo } from "@/components/site/logo";
 import { Icon } from "@/components/site/icon";
 import { JourneyStepper } from "@/components/site/journey";
@@ -257,13 +257,7 @@ export function HomePage() {
             <CourthouseColumnsArt className="w-full max-w-[260px] opacity-40 sm:max-w-[360px] sm:opacity-45 lg:max-w-[440px] lg:opacity-55" />
           </Reveal>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {PRACTICE_AREAS.map((p, i) => (
-              <div key={p.slug} className="gradient-ring h-full rounded-3xl">
-                <PracticeCard area={p} index={i} />
-              </div>
-            ))}
-          </div>
+          <PracticeExplorer />
         </div>
       </section>
 
