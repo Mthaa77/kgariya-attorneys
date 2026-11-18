@@ -2,13 +2,17 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-// Keep the social image on the live Vercel host until the firm's custom
-// domain is connected during the official handover.
-const socialPreviewImage =
-  "https://kgariya-attorneyzz.vercel.app/opengraph-image?v=20261112-full-logo";
+// Preview links use the stable demo alias for their share image and URL.
+// Production keeps its existing Vercel image host until the firm's official
+// custom-domain handover is completed.
+const isPreviewDeployment = process.env.VERCEL_ENV === "preview";
+const previewOrigin = "https://kgariya-attorneys-demo2.vercel.app";
+const productionOrigin = "https://kgariya-attorneyzz.vercel.app";
+const siteOrigin = isPreviewDeployment ? previewOrigin : productionOrigin;
+const socialPreviewImage = `${siteOrigin}/api/og?v=20261119-practice-explorer`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kgariya-attorneyzz.vercel.app"),
+  metadataBase: new URL(siteOrigin),
   alternates: {
     canonical: "https://www.kgariyainc.co.za",
   },
@@ -44,7 +48,7 @@ export const metadata: Metadata = {
     title: "Kgariya Attorneys",
     description:
       "A South African legal practice offering agricultural finance, banking and finance, commercial litigation and arbitration, mining-adjacent legal services, real estate development and conveyancing, and mergers and acquisitions. Evidence over slogans.",
-    url: "https://www.kgariyainc.co.za",
+    url: isPreviewDeployment ? previewOrigin : "https://www.kgariyainc.co.za",
     siteName: "Kgariya Attorneys",
     images: [
       {
