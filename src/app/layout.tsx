@@ -9,7 +9,7 @@ const isPreviewDeployment = process.env.VERCEL_ENV === "preview";
 const previewOrigin = "https://kgariya-attorneys-demo2.vercel.app";
 const productionOrigin = "https://kgariya-attorneyzz.vercel.app";
 const siteOrigin = isPreviewDeployment ? previewOrigin : productionOrigin;
-const socialPreviewImage = `${siteOrigin}/opengraph-image?v=20261119-practice-explorer`;
+const socialPreviewImage = `${siteOrigin}/api/og?v=20261119-practice-explorer`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin),
