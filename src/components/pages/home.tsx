@@ -7,7 +7,6 @@ import {
   COUNTERS,
   DIRECTOR,
   FEE_MODELS,
-  PRACTICE_AREAS,
   TRUST_PILLARS,
 } from "@/lib/site-data";
 import { ARTICLES } from "@/lib/insights";
