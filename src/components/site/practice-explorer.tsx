@@ -45,7 +45,7 @@ export function PracticeExplorer() {
           aria-label="Choose a practice area"
           className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-1"
         >
-          {PRACTICE_AREAS.map((area, index) => {
+          {PRACTICE_AREAS.map((area) => {
             const active = area.slug === selected.slug;
 
             return (
