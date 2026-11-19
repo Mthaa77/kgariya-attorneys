@@ -69,13 +69,15 @@ const GALLERY = [
   },
 ];
 
+const HOME_EASE = [0.22, 1, 0.36, 1] as const;
+
 const HOME_SCENE_VARIANTS = {
   hidden: { opacity: 0, y: 42, scale: 0.988 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.92, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.92, ease: HOME_EASE },
   },
 };
 
