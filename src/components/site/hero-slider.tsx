@@ -7,6 +7,7 @@ import {
   motion,
   useScroll,
   useTransform,
+  useReducedMotion,
 } from "framer-motion";
 import {
   ArrowRight,
@@ -67,7 +68,7 @@ const CARD_ICONS = ["scale", "briefcase", "landmark"] as const;
 export function HeroSlider() {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(Boolean(reduceMotion));
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
