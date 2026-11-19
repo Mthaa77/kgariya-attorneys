@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import {
   motion,
+  useReducedMotion,
   useMotionTemplate,
   useMotionValue,
   useMotionValueEvent,
@@ -238,7 +239,7 @@ export function WordReveal({
   text,
   className,
   delay = 0,
-  stagger = 0.055,
+  stagger = 0.07,
   accentFrom,
   accentClassName = "gold-text italic",
 }: {
@@ -246,20 +247,20 @@ export function WordReveal({
   className?: string;
   delay?: number;
   stagger?: number;
-  /** index of the first word to render in the accent style */
   accentFrom?: number;
   accentClassName?: string;
 }) {
+  const reduceMotion = useReducedMotion();
   const words = text.split(" ");
   return (
     <span className={cn("inline-block", className)} aria-label={text}>
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom" aria-hidden>
+        <span key={i} className="inline-block overflow-hidden pb-[0.1em] align-bottom" aria-hidden>
           <motion.span
             className={cn("inline-block will-change-transform", accentFrom !== undefined && i >= accentFrom && accentClassName)}
-            initial={{ y: "112%", opacity: 0 }}
-            animate={{ y: "0%", opacity: 1 }}
-            transition={{ duration: 0.75, ease: EASE, delay: delay + i * stagger }}
+            initial={reduceMotion ? false : { y: "128%", opacity: 0, scale: 0.94, filter: "blur(9px)" }}
+            animate={{ y: "0%", opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={reduceMotion ? { duration: 0.01 } : { duration: 0.9, ease: EASE, delay: delay + i * stagger }}
           >
             {w}
             {i < words.length - 1 ? "\u00A0" : ""}
@@ -286,15 +287,37 @@ export function ImageReveal({
   imgClassName?: string;
   delay?: number;
 }) {
+  const reduceMotion = useReducedMotion();
+  const viewport = { once: true, margin: "-88px" };
+
   return (
     <motion.div
       className={cn("relative overflow-hidden", className)}
-      initial={{ clipPath: "inset(12% 8% 12% 8% round 32px)", opacity: 0 }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0% round 32px)", opacity: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 1.1, ease: EASE, delay }}
+      initial={reduceMotion ? false : { clipPath: "inset(10% 7% 10% 7% round 30px)", opacity: 0, y: 24 }}
+      whileInView={{ clipPath: "inset(0% 0% 0% 0% round 30px)", opacity: 1, y: 0 }}
+      viewport={viewport}
+      transition={reduceMotion ? { duration: 0.01 } : { duration: 1.28, ease: EASE, delay }}
+      style={{ willChange: reduceMotion ? undefined : "clip-path, transform, opacity" }}
     >
-      <Image src={src} alt={alt} fill className={cn("object-cover", imgClassName)} sizes="50vw" />
+      <motion.div
+        className="absolute inset-0"
+        initial={reduceMotion ? false : { scale: 1.15, rotate: 0.35 }}
+        whileInView={{ scale: 1, rotate: 0 }}
+        viewport={viewport}
+        transition={reduceMotion ? { duration: 0.01 } : { duration: 1.75, ease: EASE, delay: delay + 0.04 }}
+      >
+        <Image src={src} alt={alt} fill className={cn("object-cover", imgClassName)} sizes="50vw" />
+      </motion.div>
+      {!reduceMotion && (
+        <motion.span
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[28%] -skew-x-[16deg] bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          initial={{ x: "-150%", opacity: 0 }}
+          whileInView={{ x: "440%", opacity: [0, 0.75, 0] }}
+          viewport={viewport}
+          transition={{ duration: 1.15, ease: EASE, delay: delay + 0.18 }}
+        />
+      )}
     </motion.div>
   );
 }

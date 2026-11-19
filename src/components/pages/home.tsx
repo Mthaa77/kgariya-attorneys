@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, ArrowUpRight, BadgeCheck, MapPin } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { navigate } from "@/lib/router";
 import { useSite } from "@/lib/store";
 import {
@@ -68,7 +69,18 @@ const GALLERY = [
   },
 ];
 
+const HOME_SCENE_VARIANTS = {
+  hidden: { opacity: 0, y: 42, scale: 0.988 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.92, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 export function HomePage() {
+  const reduceMotion = useReducedMotion();
   const latest = ARTICLES.slice(0, 3);
   const featured = latest[0];
   const rest = latest.slice(1);
@@ -84,7 +96,7 @@ export function HomePage() {
       <TrustStrip />
 
       {/* ——— Positioning + counters ——— */}
-      <section className="relative overflow-hidden bg-white py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="relative overflow-hidden bg-white py-24 sm:py-28">
         <div className="texture-dots pointer-events-none absolute inset-0 opacity-40" />
         {/* Floating law icons — shield, key & signing pen drifting at the edges */}
         <FloatingLawIcons
@@ -212,13 +224,13 @@ export function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Client pathfinder (interactive onboarding router) ——— */}
       <ClientPathfinder />
 
       {/* ——— Practice areas ——— */}
-      <section id="practice-areas" className="scroll-mt-24 bg-ivory py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} id="practice-areas" className="scroll-mt-24 bg-ivory py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           {/* Full company lockup introduces the practice hierarchy. */}
           <div className="mb-10 grid gap-6 rounded-[2rem] border border-navy-100/90 bg-gradient-to-br from-white via-white to-[#f3f1eb] p-5 shadow-[0_18px_55px_rgba(10,27,51,0.08)] ring-1 ring-white sm:p-7 lg:grid-cols-[190px_minmax(0,1fr)] lg:items-center lg:gap-8">
@@ -258,10 +270,10 @@ export function HomePage() {
 
           <PracticeExplorer />
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Constitution medallion — the foundation beneath the six practices ——— */}
-      <section className="relative overflow-hidden bg-white py-20 sm:py-24">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="relative overflow-hidden bg-white py-20 sm:py-24">
         <div className="texture-dots pointer-events-none absolute inset-0 opacity-30" />
         {/* Floating law icons — courthouse columns & justice seal flanking the codex */}
         <FloatingLawIcons
@@ -288,10 +300,10 @@ export function HomePage() {
             lead="Everything we execute rests on the Constitution of the Republic of South Africa, 1996 — and on the statutes, courts and registries that give it force. That is the standard the courts hold us to, and the standard we hold ourselves to."
           />
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Trust architecture (dark) ——— */}
-      <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0" />
         <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
         {/* Floating law icons — seal & scales at the dark section's edges */}
@@ -435,7 +447,7 @@ export function HomePage() {
             </button>
           </Reveal>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Client matrix (interactive sector explorer) ——— */}
       <SectorMatrix />
@@ -447,7 +459,7 @@ export function HomePage() {
       <Testimonials />
 
       {/* ——— Nationwide mandates — SA jurisdiction map ——— */}
-      <section className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="relative overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0 opacity-70" />
         <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
         {/* Floating law icons — shield & gavel guarding the jurisdiction band */}
@@ -508,10 +520,10 @@ export function HomePage() {
             <SAMandateMap className="mx-auto w-full max-w-[500px]" />
           </Reveal>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Director's welcome ——— */}
-      <section className="bg-white py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="bg-white py-24 sm:py-28">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal>
             <div className="relative">
@@ -614,10 +626,10 @@ export function HomePage() {
             </Reveal>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Engagement journey ——— */}
-      <section id="journey" className="relative scroll-mt-24 overflow-hidden bg-navy-950 py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} id="journey" className="relative scroll-mt-24 overflow-hidden bg-navy-950 py-24 sm:py-28">
         <div className="texture-grid-dark pointer-events-none absolute inset-0 opacity-60" />
         <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-gold-500/10 blur-[130px]" />
         <div className="relative mx-auto max-w-7xl px-6">
@@ -638,10 +650,10 @@ export function HomePage() {
             <JourneyStepper dark />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Fee models ——— */}
-      <section id="fees" className="relative scroll-mt-24 overflow-hidden bg-white py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} id="fees" className="relative scroll-mt-24 overflow-hidden bg-white py-24 sm:py-28">
         {/* Floating law icon — signing pen at the fee section's corner */}
         <FloatingLawIcons
           variant="light"
@@ -701,10 +713,10 @@ export function HomePage() {
             ))}
           </Stagger>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Three questions CTA ——— */}
-      <section className="bg-ivory py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="bg-ivory py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="relative overflow-hidden rounded-[2.5rem] bg-navy-950 px-8 py-14 shadow-luxe-lg sm:px-14 sm:py-16">
             <div className="texture-grid-dark pointer-events-none absolute inset-0" />
@@ -753,10 +765,10 @@ export function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— Latest insights — featured + cards ——— */}
-      <section className="bg-white py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="bg-white py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <SectionHeading
@@ -870,10 +882,10 @@ export function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ——— FAQ ——— */}
-      <section className="bg-ivory py-24 sm:py-28">
+      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="bg-ivory py-24 sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1fr_1.4fr] lg:gap-20">
           <div>
             <SectionHeading
@@ -907,7 +919,7 @@ export function HomePage() {
             <FaqAccordion />
           </Reveal>
         </div>
-      </section>
+      </motion.section>
 
       <BackToTop />
     </div>

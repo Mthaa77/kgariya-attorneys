@@ -89,11 +89,11 @@ export function HeroSlider() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const stackY = useTransform(scrollYProgress, [0, 1], [0, -130]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.13]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -96]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.72], [1, 0]);
+  const stackY = useTransform(scrollYProgress, [0, 1], [0, -168]);
 
   const slide = SLIDES[index];
 
@@ -113,7 +113,7 @@ export function HeroSlider() {
           initial={reduceMotion ? false : { opacity: 0, scale: 1.045 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.015 }}
-          transition={{ duration: reduceMotion ? 0.01 : 1.05, ease: EASE }}
+          transition={{ duration: reduceMotion ? 0.01 : 1.35, ease: EASE }}
         >
           <motion.div style={{ y: reduceMotion ? 0 : bgY, scale: reduceMotion ? 1 : bgScale }} className="absolute inset-0 overflow-hidden">
             <Image
@@ -127,6 +127,7 @@ export function HeroSlider() {
           </motion.div>
           <div className="hero-vignette absolute inset-0" />
           <div className="texture-grid-dark absolute inset-0 opacity-30" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(4,13,27,0.22)_0%,transparent_38%,rgba(4,13,27,0.12)_68%,rgba(4,13,27,0.48)_100%)]" />
           {/* cinematic light sweep per slide */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden>
             <div
@@ -137,7 +138,20 @@ export function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Floating gold accents */}
+      {/* Cinematic depth: slow ambient light and a fine gold frame */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_28%_48%,rgba(198,165,92,0.15),transparent_42%),radial-gradient(ellipse_at_84%_22%,rgba(66,101,137,0.2),transparent_34%)]"
+        animate={reduceMotion ? undefined : { opacity: [0.55, 0.9, 0.55], scale: [1, 1.04, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.span
+        aria-hidden
+        initial={reduceMotion ? false : { scaleY: 0, opacity: 0 }}
+        animate={{ scaleY: 1, opacity: 0.7 }}
+        transition={{ duration: reduceMotion ? 0.01 : 1.35, delay: 0.2, ease: EASE }}
+        className="pointer-events-none absolute left-0 top-[18%] z-[2] hidden h-[48%] w-px origin-top bg-gradient-to-b from-transparent via-gold-300/80 to-transparent sm:block"
+      />
       <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-gold-500/15 blur-[110px]" />
       <div className="pointer-events-none absolute bottom-10 right-10 h-56 w-56 rounded-full bg-gold-400/10 blur-[90px]" />
 
@@ -162,7 +176,7 @@ export function HeroSlider() {
                 initial={reduceMotion ? false : { opacity: 0, y: 12, filter: "blur(5px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, filter: "blur(3px)" }}
-                transition={{ duration: reduceMotion ? 0.01 : 0.52, ease: EASE }}
+                transition={{ duration: reduceMotion ? 0.01 : 0.72, ease: EASE }}
               >
                 <motion.p
                   initial={{ opacity: 0, y: 22 }}
@@ -240,9 +254,10 @@ export function HeroSlider() {
             {COUNTERS.slice(0, 3).map((c, i) => (
               <motion.div
                 key={c.label}
-                initial={{ opacity: 0, x: 46 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.85, delay: 0.85 + i * 0.14, ease: EASE }}
+                initial={reduceMotion ? false : { opacity: 0, x: 64, y: 22, scale: 0.94, rotateY: -12, filter: "blur(8px)" }}
+                animate={{ opacity: 1, x: 0, y: 0, scale: 1, rotateY: 0, filter: "blur(0px)" }}
+                transition={{ duration: reduceMotion ? 0.01 : 1.05, delay: 0.72 + i * 0.17, ease: EASE }}
+                style={{ transformPerspective: 1000 }}
                 className={cn(
                   "animate-floaty w-[320px] rounded-2xl border border-white/12 bg-navy-950/45 p-5 shadow-luxe-lg backdrop-blur-xl transition-colors duration-500 hover:border-gold-500/45",
                   i === 1 && "mr-8",
