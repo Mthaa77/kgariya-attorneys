@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
+
+const WELCOME_EASE = [0.22, 1, 0.36, 1] as const;
 import { Pause, Play } from "lucide-react";
 
 export function WelcomeFilm() {
@@ -57,7 +59,7 @@ export function WelcomeFilm() {
       initial={reduceMotion ? false : { opacity: 0, y: 44, scale: 0.986 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.12 }}
-      transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+      transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, ease: WELCOME_EASE }}
       className="relative overflow-hidden bg-navy-950 py-20 text-white sm:py-28"
       aria-labelledby="welcome-film-title"
     >
@@ -71,7 +73,7 @@ export function WelcomeFilm() {
             initial={reduceMotion ? false : { clipPath: "inset(12% 8% 12% 8% round 30px)", scale: 0.97 }}
             whileInView={{ clipPath: "inset(0% 0% 0% 0% round 30px)", scale: 1 }}
             viewport={{ once: true, margin: "-70px" }}
-            transition={reduceMotion ? { duration: 0.01 } : { duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+            transition={reduceMotion ? { duration: 0.01 } : { duration: 1.35, ease: WELCOME_EASE }}
             className="relative overflow-hidden rounded-[1.7rem] border border-white/15 bg-black shadow-[0_30px_90px_-25px_rgba(198,165,92,0.42)]"
           >
             <video
@@ -122,7 +124,7 @@ export function WelcomeFilm() {
           initial={reduceMotion ? false : { opacity: 0, x: 34, filter: "blur(7px)" }}
           whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-70px" }}
-          transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, delay: 0.18, ease: WELCOME_EASE }}
           className="max-w-xl"
         >
           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-gold-300">
