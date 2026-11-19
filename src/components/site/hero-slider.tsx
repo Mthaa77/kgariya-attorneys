@@ -65,6 +65,7 @@ const DURATION = 7000;
 const CARD_ICONS = ["scale", "briefcase", "landmark"] as const;
 
 export function HeroSlider() {
+  const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -108,12 +109,12 @@ export function HeroSlider() {
         <motion.div
           key={index}
           className="absolute inset-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 1.045 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 1.015 }}
+          transition={{ duration: reduceMotion ? 0.01 : 1.05, ease: EASE }}
         >
-          <motion.div style={{ y: bgY, scale: bgScale }} className="absolute inset-0 overflow-hidden">
+          <motion.div style={{ y: reduceMotion ? 0 : bgY, scale: reduceMotion ? 1 : bgScale }} className="absolute inset-0 overflow-hidden">
             <Image
               src={slide.image}
               alt=""
@@ -157,10 +158,10 @@ export function HeroSlider() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 12, filter: "blur(5px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6, filter: "blur(3px)" }}
+                transition={{ duration: reduceMotion ? 0.01 : 0.52, ease: EASE }}
               >
                 <motion.p
                   initial={{ opacity: 0, y: 22 }}

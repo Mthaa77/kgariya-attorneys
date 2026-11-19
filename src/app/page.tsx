@@ -14,6 +14,7 @@ import { CookieConsent } from "@/components/site/cookie-consent";
 import { PreviewBanner } from "@/components/site/preview-banner";
 import { FloatingContact } from "@/components/site/floating-contact";
 import { HomePage } from "@/components/pages/home";
+import { PageTransition } from "@/components/site/page-transition";
 
 /*
  * Route-level code splitting: only the home page ships in the initial bundle.
@@ -115,15 +116,16 @@ export default function Site() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
+      <PageTransition />
       <main className="flex-1">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={route.split("?")[0]}
-            initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.996 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -10, scale: 0.998 }}
-            transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: "50% 0%" }}
+            initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.993, filter: "blur(5px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12, scale: 0.997, filter: "blur(3px)" }}
+            transition={reduceMotion ? { duration: 0.01 } : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: "50% 0%", willChange: "transform, opacity, filter" }}
           >
             <PageContent route={route} />
           </motion.div>

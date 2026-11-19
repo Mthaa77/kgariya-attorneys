@@ -148,13 +148,19 @@ function PracticeMenu({ onNavigate }: { onNavigate?: () => void }) {
   };
 
   return (
-    <div className="w-[min(94vw,940px)] overflow-hidden rounded-[1.75rem] border border-white/10 bg-navy-950/[0.985] text-left shadow-luxe-lg backdrop-blur-2xl">
+    <div className="relative isolate w-[min(94vw,940px)] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[radial-gradient(ellipse_at_top_right,rgba(198,165,92,0.12),transparent_42%),linear-gradient(145deg,rgba(15,37,71,0.99),rgba(6,15,31,0.99))] text-left shadow-luxe-lg ring-1 ring-white/[0.035] backdrop-blur-2xl">
       {/* gold hairline sweep on open */}
       <motion.span
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 0.8, ease: EASE, delay: 0.08 }}
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px origin-left bg-gradient-to-r from-transparent via-gold-400/80 to-transparent"
+      />
+      <motion.span
+        initial={{ x: "-120%", opacity: 0 }}
+        animate={{ x: "220%", opacity: [0, 0.34, 0] }}
+        transition={{ duration: 1.25, ease: "easeInOut", delay: 0.12 }}
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 -skew-x-12 bg-gradient-to-r from-transparent via-gold-200/[0.12] to-transparent"
       />
 
       <div className="grid lg:grid-cols-[1.02fr_1.12fr]">
@@ -547,10 +553,11 @@ export function Header() {
               <AnimatePresence initial={false}>
                 {paHover && (
                   <motion.div
-                    initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.975, filter: "blur(7px)" }}
-                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 9, scale: 0.99, filter: "blur(4px)" }}
-                    transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, ease: EASE }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.965, rotateX: -7, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, filter: "blur(0px)" }}
+                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.99, rotateX: 2, filter: "blur(4px)" }}
+                    transition={reduceMotion ? { duration: 0.01 } : { type: "spring", stiffness: 285, damping: 29, mass: 0.78 }}
+                    style={{ transformPerspective: 1200, transformOrigin: "top center", willChange: "transform, opacity, filter" }}
                     className="absolute left-2 top-full z-50 origin-top sm:left-4"
                   >
                     <PracticeMenu />
@@ -567,20 +574,33 @@ export function Header() {
         <SheetContent
           side="right"
           aria-describedby={undefined}
-          className="w-full max-w-[400px] gap-0 overflow-y-auto border-white/10 bg-navy-950 p-0 sm:max-w-[430px] [&>button]:right-4 [&>button]:top-4 [&>button]:z-30 [&>button]:rounded-full [&>button]:bg-navy-950/70 [&>button]:p-1.5 [&>button]:text-white [&>button]:opacity-100 [&>button]:backdrop-blur-md"
+          className="w-full max-w-[400px] gap-0 overflow-y-auto rounded-l-[2rem] border-white/10 bg-navy-950 p-0 shadow-[-24px_0_80px_rgba(0,0,0,0.32)] ring-1 ring-white/10 sm:max-w-[430px] [&>button]:right-4 [&>button]:top-4 [&>button]:z-30 [&>button]:rounded-full [&>button]:border [&>button]:border-white/15 [&>button]:bg-navy-950/75 [&>button]:p-2 [&>button]:text-white [&>button]:opacity-100 [&>button]:backdrop-blur-xl"
         >
           <SheetTitle className="sr-only">Site menu — Kgariya Attorneys</SheetTitle>
           {/* image header band */}
-          <div className="relative h-44 shrink-0 overflow-hidden">
-            <Image
-              src="/images/sa-team-corridor.png"
-              alt="Kgariya counsel and attorney walking through the firm's offices"
-              fill
-              sizes="(max-width: 640px) 100vw, 430px"
-              className="object-cover object-top"
-              priority
-            />
+          <div className="relative h-48 shrink-0 overflow-hidden">
+            <motion.div
+              initial={reduceMotion ? false : { scale: 1.08 }}
+              animate={{ scale: 1 }}
+              transition={reduceMotion ? { duration: 0.01 } : { duration: 1.15, ease: EASE }}
+              className="absolute inset-0"
+            >
+              <Image
+                src="/images/sa-team-corridor.png"
+                alt="Kgariya counsel and attorney walking through the firm's offices"
+                fill
+                sizes="(max-width: 640px) 100vw, 430px"
+                className="object-cover object-top"
+                priority
+              />
+            </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/35 to-navy-950/10" />
+            <motion.span
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={reduceMotion ? { duration: 0.01 } : { duration: 0.9, delay: 0.08, ease: EASE }}
+              className="absolute inset-x-5 bottom-0 z-10 h-px origin-left bg-gradient-to-r from-transparent via-gold-300/80 to-transparent"
+            />
             <div className="absolute left-5 top-5 flex items-center gap-2.5 rounded-full border border-white/15 bg-navy-950/60 py-1.5 pl-1.5 pr-4 shadow-luxe backdrop-blur-xl">
               <Logo dark navbar className="!h-10 !w-10 border-white/25" />
               <span className="flex flex-col leading-none">
@@ -647,10 +667,10 @@ export function Header() {
             <AnimatePresence initial={false}>
               {paOpen && (
                 <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.38, ease: EASE }}
+                  initial={{ height: 0, opacity: 0, y: -8, filter: "blur(4px)" }}
+                  animate={{ height: "auto", opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ height: 0, opacity: 0, y: -5, filter: "blur(3px)" }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.42, ease: EASE }}
                   className="shrink-0 overflow-hidden"
                 >
                   <div className="mt-1.5 space-y-1 pb-1">
@@ -659,11 +679,11 @@ export function Header() {
                       return (
                       <motion.button
                         key={p.slug}
-                        initial={reduceMotion ? false : { opacity: 0, x: -14 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={reduceMotion ? false : { opacity: 0, x: -16, y: 6, scale: 0.985, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
                         whileHover={reduceMotion ? undefined : { x: 3 }}
                         whileTap={reduceMotion ? undefined : { scale: 0.99 }}
-                        transition={reduceMotion ? { duration: 0.01 } : { duration: 0.34, delay: i * 0.035, ease: EASE }}
+                        transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, delay: i * 0.035, ease: EASE }}
                         onClick={() => {
                           navigate(`#/practice/${p.slug}`);
                           setMobileOpen(false);
@@ -706,11 +726,11 @@ export function Header() {
                 return (
                   <motion.button
                     key={item.route}
-                    initial={reduceMotion ? false : { opacity: 0, x: -14 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={reduceMotion ? false : { opacity: 0, x: -16, y: 6, scale: 0.985, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
                     whileHover={reduceMotion ? undefined : { x: 3 }}
                     whileTap={reduceMotion ? undefined : { scale: 0.99 }}
-                    transition={reduceMotion ? { duration: 0.01 } : { duration: 0.34, delay: 0.045 + i * 0.035, ease: EASE }}
+                    transition={reduceMotion ? { duration: 0.01 } : { duration: 0.42, delay: 0.045 + i * 0.035, ease: EASE }}
                     onClick={() => {
                       navigate(item.route);
                       setMobileOpen(false);
