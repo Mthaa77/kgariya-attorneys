@@ -257,13 +257,12 @@ export function HeroSlider() {
                 initial={reduceMotion ? false : { opacity: 0, x: 64, y: 22, scale: 0.94, rotateY: -12, filter: "blur(8px)" }}
                 animate={{ opacity: 1, x: 0, y: 0, scale: 1, rotateY: 0, filter: "blur(0px)" }}
                 transition={{ duration: reduceMotion ? 0.01 : 1.05, delay: 0.72 + i * 0.17, ease: EASE }}
-                style={{ transformPerspective: 1000 }}
                 className={cn(
                   "animate-floaty w-[320px] rounded-2xl border border-white/12 bg-navy-950/45 p-5 shadow-luxe-lg backdrop-blur-xl transition-colors duration-500 hover:border-gold-500/45",
                   i === 1 && "mr-8",
                   i === 2 && "mr-2"
                 )}
-                style={{ animationDelay: `${i * 1.4}s` }}
+                style={{ transformPerspective: 1000, animationDelay: `${i * 1.4}s` }}
               >
                 <div className="flex items-center gap-4">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-gold-500/30 bg-gold-500/15 text-gold-300">
