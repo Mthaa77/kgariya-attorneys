@@ -1,18 +1,22 @@
 "use client";
 
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: EASE, delay: i * 0.08 },
-  }),
+  hidden: { opacity: 0, y: 34, scale: 0.975, rotateX: 5, filter: "blur(7px)" },
+  show: {
+    opacity: 1, y: 0, scale: 1, rotateX: 0, filter: "blur(0px)",
+    transition: { duration: 0.86, ease: EASE },
+  },
+};
+
+const reducedFade: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.01 } },
 };
 
 export function Reveal({
@@ -27,15 +31,18 @@ export function Reveal({
   as?: "div" | "section" | "span";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "-64px" });
+  const reduceMotion = useReducedMotion();
   const Comp = motion[as] as typeof motion.div;
+
   return (
     <Comp
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: EASE, delay }}
+      initial={reduceMotion ? false : { opacity: 0, y: 32, scale: 0.982, filter: "blur(7px)" }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : {}}
+      transition={reduceMotion ? { duration: 0.01 } : { duration: 0.92, ease: EASE, delay }}
+      style={{ perspective: 1000, willChange: reduceMotion ? undefined : "transform, opacity, filter" }}
     >
       {children}
     </Comp>
@@ -45,24 +52,32 @@ export function Reveal({
 export function Stagger({
   children,
   className,
-  gap = 0.08,
+  gap = 0.11,
 }: {
   children: ReactNode;
   className?: string;
   gap?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, margin: "-48px" });
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       ref={ref}
       className={className}
-      initial="hidden"
-      animate={inView ? "show" : "hidden"}
+      initial={reduceMotion ? false : "hidden"}
+      animate={reduceMotion ? "show" : inView ? "show" : "hidden"}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: gap } },
+        show: {
+          transition: {
+            delayChildren: 0.08,
+            staggerChildren: reduceMotion ? 0 : gap,
+          },
+        },
       }}
+      style={{ perspective: 1100 }}
     >
       {children}
     </motion.div>
@@ -76,8 +91,13 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
   return (
-    <motion.div className={className} variants={fadeUp}>
+    <motion.div
+      className={className}
+      variants={reduceMotion ? reducedFade : fadeUp}
+      style={{ transformOrigin: "center bottom" }}
+    >
       {children}
     </motion.div>
   );

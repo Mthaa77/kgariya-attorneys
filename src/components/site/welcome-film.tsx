@@ -2,11 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
+
+const WELCOME_EASE = [0.22, 1, 0.36, 1] as const;
 import { Pause, Play } from "lucide-react";
 
 export function WelcomeFilm() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -51,7 +55,11 @@ export function WelcomeFilm() {
   };
 
   return (
-    <section
+    <motion.section
+      initial={reduceMotion ? false : { opacity: 0, y: 44, scale: 0.986 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, ease: WELCOME_EASE }}
       className="relative overflow-hidden bg-navy-950 py-20 text-white sm:py-28"
       aria-labelledby="welcome-film-title"
     >
@@ -61,7 +69,13 @@ export function WelcomeFilm() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
         <div className="relative">
           <div className="absolute -inset-3 rounded-[2rem] border border-gold-400/30" />
-          <div className="relative overflow-hidden rounded-[1.7rem] border border-white/15 bg-black shadow-[0_30px_90px_-25px_rgba(198,165,92,0.42)]">
+          <motion.div
+            initial={reduceMotion ? false : { clipPath: "inset(12% 8% 12% 8% round 30px)", scale: 0.97 }}
+            whileInView={{ clipPath: "inset(0% 0% 0% 0% round 30px)", scale: 1 }}
+            viewport={{ once: true, margin: "-70px" }}
+            transition={reduceMotion ? { duration: 0.01 } : { duration: 1.35, ease: WELCOME_EASE }}
+            className="relative overflow-hidden rounded-[1.7rem] border border-white/15 bg-black shadow-[0_30px_90px_-25px_rgba(198,165,92,0.42)]"
+          >
             <video
               ref={videoRef}
               id="kgariya-welcome-film"
@@ -91,7 +105,7 @@ export function WelcomeFilm() {
             <div className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-navy-950/55 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-gold-200 backdrop-blur-md">
               Kgariya Attorneys
             </div>
-          </div>
+          </motion.div>
 
           <div className="absolute -bottom-7 -right-4 hidden w-40 rotate-3 overflow-hidden rounded-2xl border-4 border-white bg-[#f5f4ef] shadow-luxe-lg sm:block lg:-right-8">
             <Image
@@ -106,7 +120,13 @@ export function WelcomeFilm() {
           </div>
         </div>
 
-        <div className="max-w-xl">
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, x: 34, filter: "blur(7px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-70px" }}
+          transition={reduceMotion ? { duration: 0.01 } : { duration: 1.05, delay: 0.18, ease: WELCOME_EASE }}
+          className="max-w-xl"
+        >
           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-gold-300">
             A considered welcome
           </p>
@@ -138,8 +158,8 @@ export function WelcomeFilm() {
           <p className="sr-only" aria-live="polite">
             Welcome film {isPlaying ? "playing" : "paused"}.
           </p>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
