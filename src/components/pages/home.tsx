@@ -33,7 +33,6 @@ import {
   SAFlagChip,
 } from "@/components/site/sa-legal";
 import {
-  ConstitutionCodexArt,
   ContractSigningArt,
   CourthouseColumnsArt,
   GavelStrikeArt,
@@ -228,6 +227,43 @@ export function HomePage() {
         </div>
       </motion.section>
 
+      {/* ——— Institutional brand artwork ——— */}
+      <motion.section
+        initial={reduceMotion ? false : "hidden"}
+        whileInView={reduceMotion ? undefined : "visible"}
+        viewport={{ once: true, amount: 0.12 }}
+        variants={HOME_SCENE_VARIANTS}
+        className="bg-white px-6 pb-12 pt-2 sm:pb-16"
+        aria-label="Kgariya Attorneys institutional identity"
+      >
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <div className="group relative overflow-hidden rounded-[2rem] border border-gold-500/30 bg-[#f4f0e8] shadow-luxe-lg">
+              <div className="relative aspect-[16/9] overflow-hidden">
+                <Image
+                  src="/images/kgariya-institutional-signature.webp"
+                  alt="Kgariya Attorneys institutional artwork featuring the firm's emblem, scales of justice, courthouse architecture and Pretoria civic landmarks"
+                  fill
+                  sizes="(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 48px), calc(100vw - 32px)"
+                  quality={86}
+                  className="object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/25 via-transparent to-white/5" />
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-gold-500/20 bg-[#fbfaf6] px-5 py-4 sm:px-8">
+                <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-gold-700">
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+                  Institutional identity
+                </span>
+                <p className="font-display text-sm font-medium text-navy-900 sm:text-base">
+                  A Pretoria practice with a South African perspective.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </motion.section>
+
       {/* ——— Client pathfinder (interactive onboarding router) ——— */}
       <ClientPathfinder />
 
@@ -274,33 +310,57 @@ export function HomePage() {
         </div>
       </motion.section>
 
-      {/* ——— Constitution medallion — the foundation beneath the six practices ——— */}
-      <motion.section initial={reduceMotion ? false : "hidden"} whileInView={reduceMotion ? undefined : "visible"} viewport={{ once: true, amount: 0.06 }} variants={HOME_SCENE_VARIANTS} className="relative overflow-hidden bg-white py-20 sm:py-24">
-        <div className="texture-dots pointer-events-none absolute inset-0 opacity-30" />
-        {/* Floating law icons — courthouse columns & justice seal flanking the codex */}
-        <FloatingLawIcons
-          variant="light"
-          items={[
-            { g: "columns", className: "left-3 top-3 sm:left-5 sm:top-5", delay: 0.15 },
-            { g: "seal", className: "bottom-3 right-3 sm:bottom-5 sm:right-5", delay: 0.45 },
-          ]}
-        />
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold-200/25 blur-[130px]" />
-        <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <Reveal>
-            <ConstitutionCodexArt className="mx-auto w-full max-w-[560px]" />
+      {/* ——— Constitutional foundation ——— */}
+      <motion.section
+        initial={reduceMotion ? false : "hidden"}
+        whileInView={reduceMotion ? undefined : "visible"}
+        viewport={{ once: true, amount: 0.08 }}
+        variants={HOME_SCENE_VARIANTS}
+        className="relative overflow-hidden bg-[#f7f5ef] py-20 sm:py-24"
+      >
+        <div className="texture-dots pointer-events-none absolute inset-0 opacity-25" />
+        <div className="pointer-events-none absolute -left-24 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-gold-200/35 blur-[110px]" />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[0.86fr_1.14fr] lg:gap-16">
+          <div className="max-w-xl">
+            <SectionHeading
+              eyebrow="The foundation"
+              title={
+                <>
+                  Six practices, one{" "}
+                  <span className="gold-text italic">supreme law</span>.
+                </>
+              }
+              lead="Everything we execute rests on the Constitution of the Republic of South Africa, 1996 — and on the statutes, courts and registries that give it force. That is the standard the courts hold us to, and the standard we hold ourselves to."
+            />
+            <Reveal delay={0.12}>
+              <div className="mt-7 flex flex-wrap gap-2">
+                <span className="rounded-full border border-gold-500/35 bg-white/80 px-3.5 py-2 text-[11px] font-semibold text-navy-900 shadow-sm">
+                  Constitution of South Africa · 1996
+                </span>
+                <span className="rounded-full border border-navy-100 bg-white/70 px-3.5 py-2 text-[11px] font-semibold text-navy-700">
+                  Statutes · Courts · Registries
+                </span>
+              </div>
+            </Reveal>
+          </div>
+          <Reveal className="relative">
+            <div className="absolute -inset-3 rounded-[2.1rem] border border-gold-500/30" />
+            <div className="group relative aspect-[16/9] overflow-hidden rounded-[1.8rem] border border-white/80 bg-[#eee9dd] shadow-luxe-lg">
+              <Image
+                src="/images/kgariya-constitutional-foundation.webp"
+                alt="Marble and gold Kgariya Attorneys artwork with a sculpted balance scale, the firm's emblem, courthouse architecture and South African civic landmarks"
+                fill
+                sizes="(min-width: 1280px) 730px, (min-width: 1024px) 55vw, calc(100vw - 48px)"
+                quality={86}
+                className="object-cover object-center transition-transform duration-[1600ms] ease-out group-hover:scale-[1.025]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-navy-950/10 via-transparent to-white/10" />
+            </div>
+            <div className="absolute -bottom-5 left-5 inline-flex items-center gap-2 rounded-full border border-gold-500/25 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-gold-700 shadow-luxe backdrop-blur-md sm:left-8">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold-500" />
+              Rule of law · Republic of South Africa
+            </div>
           </Reveal>
-          <SectionHeading
-            align="center"
-            eyebrow="The foundation"
-            title={
-              <>
-                Six practices, one{" "}
-                <span className="gold-text italic">supreme law</span>.
-              </>
-            }
-            lead="Everything we execute rests on the Constitution of the Republic of South Africa, 1996 — and on the statutes, courts and registries that give it force. That is the standard the courts hold us to, and the standard we hold ourselves to."
-          />
         </div>
       </motion.section>
 
